@@ -2,9 +2,6 @@ package com.github.freeygo.engine;
 
 public interface DuelContext {
 
-    String MAX_ROUND = ""; // 最大对局数
-
-
     /**
      * 决斗环境上下文中的属性名为{@code name}的属性。
      *

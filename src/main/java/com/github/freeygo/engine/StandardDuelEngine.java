@@ -1,7 +1,11 @@
 package com.github.freeygo.engine;
 
+import org.luaj.vm2.Globals;
+import org.luaj.vm2.lib.jse.JsePlatform;
+
 public class StandardDuelEngine implements DuelEngine {
 
+    public static final String LUA_GLOBALS = "__LUA_GLOBALS__";
 
     private DuelContext context;
 
@@ -30,6 +34,19 @@ public class StandardDuelEngine implements DuelEngine {
 
     @Override
     public Object send(String script, DuelContext context) {
-        return null;
+        try {
+            Globals luaGlobals = context.getAttribute(LUA_GLOBALS);
+            if (luaGlobals == null) {
+                luaGlobals = JsePlatform.standardGlobals();
+            }
+            return luaGlobals.load(script);
+        } catch (Throwable t) {
+            throw new RuntimeException(t);
+        }
+    }
+
+    protected String globalContext() {
+        return new StringBuilder()
+                .toString();
     }
 }
