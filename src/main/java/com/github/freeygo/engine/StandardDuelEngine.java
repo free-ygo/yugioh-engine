@@ -35,15 +35,16 @@ public class StandardDuelEngine implements DuelEngine {
     @Override
     public Object send(String script, DuelContext context) {
         try {
-            Globals luaGlobals = context.getAttribute(LUA_GLOBALS);
-            if (luaGlobals == null) {
-                luaGlobals = JsePlatform.standardGlobals();
+            Globals globals = context.getAttribute(LUA_GLOBALS);
+            if (globals == null) {
+                globals = JsePlatform.standardGlobals();
             }
-            return luaGlobals.load(script);
+            return globals.load(script);
         } catch (Throwable t) {
             throw new RuntimeException(t);
         }
     }
+
 
     protected String globalContext() {
         return new StringBuilder()

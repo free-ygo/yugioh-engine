@@ -1,10 +1,10 @@
 package com.github.freeygo.engine;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class StandardDuelEngineTest {
 
@@ -35,5 +35,13 @@ class StandardDuelEngineTest {
     @Test
     void send2() {
         assertDoesNotThrow(() -> engine.send("script", new StandardDuelContext()));
+    }
+
+    @Test
+    void play() {
+        engine.send("发动效果 ", context);
+        Duel duel = new StandardDuel();
+        Duelist duelistA = new StandardDuelist();
+        duel.setDuelistPair(new DuelistPair());
     }
 }
