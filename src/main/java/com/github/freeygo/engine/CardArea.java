@@ -11,6 +11,8 @@ public interface CardArea {
 
     void push(Card card);
 
+    void pushAll(List<Card> cards);
+
     Card pop();
 
     Card peek();
