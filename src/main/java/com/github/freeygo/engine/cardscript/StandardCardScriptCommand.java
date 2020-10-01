@@ -1,5 +1,6 @@
 package com.github.freeygo.engine.cardscript;
 
+import com.github.freeygo.engine.Card;
 import com.github.freeygo.engine.DuelContext;
 
 public class StandardCardScriptCommand implements CardScriptCommand {
@@ -13,11 +14,16 @@ public class StandardCardScriptCommand implements CardScriptCommand {
 
     @Override
     public void call() {
-//        CallEvent e = new CallEven;
-        // 通知监听器
-//        System.out.println("准备召唤");
-//        eventManager.send(e);
-//        System.out.println("执行召唤");
+        CallEvent e = new CallEvent(new Card());
+//         通知监听器
+        System.out.println("准备召唤");
+        eventManager.send(e);
+        System.out.println("执行召唤");
+    }
+
+    @Override
+    public void initEffect() {
+
     }
 
 

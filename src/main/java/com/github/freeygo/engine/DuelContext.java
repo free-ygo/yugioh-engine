@@ -20,5 +20,4 @@ public interface DuelContext {
      */
     void setAttribute(String name, Object value);
 
-
 }

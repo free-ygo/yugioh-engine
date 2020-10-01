@@ -29,6 +29,11 @@ public class StandardCardArea implements CardArea {
     }
 
     @Override
+    public void pushAll(List<Card> cards) {
+
+    }
+
+    @Override
     public Card pop() {
         return null;
     }
