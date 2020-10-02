@@ -2,31 +2,31 @@ package com.github.freeygo.engine;
 
 public class DuelistPair {
 
-    private Duelist duelistA;
-    private Duelist duelistB;
+    private Duelist firstDuelist;
+    private Duelist secondDuelist;
 
     public DuelistPair() {
     }
 
-    public DuelistPair(Duelist duelistA, Duelist duelistB) {
-        this.duelistA = duelistA;
-        this.duelistB = duelistB;
+    public DuelistPair(Duelist firstDuelist, Duelist secondDuelist) {
+        this.firstDuelist = firstDuelist;
+        this.secondDuelist = secondDuelist;
     }
 
-    public Duelist getDuelistA() {
-        return duelistA;
+    public Duelist getFirstDuelist() {
+        return firstDuelist;
     }
 
-    public void setDuelistA(Duelist duelist) {
-        this.duelistA = duelist;
+    public void setFirstDuelist(Duelist duelist) {
+        this.firstDuelist = duelist;
     }
 
-    public Duelist getDuelistB() {
-        return duelistB;
+    public Duelist getSecondDuelist() {
+        return secondDuelist;
     }
 
-    public void setDuelistB(Duelist duelist) {
-        duelistB = duelist;
+    public void setSecondDuelist(Duelist duelist) {
+        secondDuelist = duelist;
     }
 
 

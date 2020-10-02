@@ -4,6 +4,7 @@ public class StandardDuel implements Duel {
 
     private DuelContext context;
     private DuelistPair duelistPair;
+    private DuelDisk duelDisk;
 
     @Override
     public DuelContext getContext() {
@@ -19,4 +20,19 @@ public class StandardDuel implements Duel {
     public void setDuelistPair(DuelistPair duelistPair) {
         this.duelistPair = duelistPair;
     }
+
+    @Override
+    public DuelistPair getDuelistPair() {
+        return duelistPair;
+    }
+//
+//    @Override
+//    public DuelDisk getDuelDisk() {
+//        return duelDisk;
+//    }
+//
+//    @Override
+//    public void setDuelDisk(DuelDisk duelDisk) {
+//        this.duelDisk = duelDisk;
+//    }
 }

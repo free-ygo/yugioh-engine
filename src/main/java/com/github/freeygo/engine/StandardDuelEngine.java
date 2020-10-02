@@ -45,6 +45,24 @@ public class StandardDuelEngine implements DuelEngine {
         }
     }
 
+    @Override
+    public void start(Duel duel) {
+        DuelistPair pair = duel.getDuelistPair();
+        Duelist a = pair.getFirstDuelist();
+        Duelist b = pair.getSecondDuelist();
+        DuelDisk aDisk = a.getDuelDisk();
+        DuelDisk bDisk = b.getDuelDisk();
+        // 回合开始
+        int initCards = 5;
+        for (int i = 0; i < initCards; i++) {
+            aDisk.getHandArea().push(aDisk.getDeckArea().pop());
+        }
+
+        for (int i = 0; i < initCards; i++) {
+            bDisk.getHandArea().push(aDisk.getDeckArea().pop());
+        }
+    }
+
 
     protected String globalContext() {
         return new StringBuilder()

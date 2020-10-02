@@ -75,4 +75,15 @@ public interface DuelDisk {
      */
     CardArea getBanishArea();
 
+    /**
+     * Hand area.
+     * The area where place hand cards.
+     *
+     * @return {@link CardArea}
+     */
+    CardArea getHandArea();
+
+
+    void draw(int n);
+
 }

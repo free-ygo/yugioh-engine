@@ -5,10 +5,10 @@ import java.util.Map;
 
 public class StandardDuelContext implements DuelContext {
 
-    private Map<String, Object> attributes;
+    private final Map<String, Object> attributes;
 
     public StandardDuelContext() {
-        attributes = new HashMap<String, Object>();
+        attributes = new HashMap<>();
     }
 
 

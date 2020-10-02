@@ -37,4 +37,5 @@ public interface DuelEngine {
     Object send(String script, DuelContext context);
 
 
+    void start(Duel duel);
 }

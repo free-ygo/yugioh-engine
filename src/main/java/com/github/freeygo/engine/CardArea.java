@@ -15,9 +15,9 @@ public interface CardArea {
 
     Card pop();
 
+
     Card peek();
 
-    Card peek(int n);
 
     void add(Card card);
 
@@ -31,7 +31,7 @@ public interface CardArea {
      * If position i is beyond the range of the size of {@link CardArea} , it
      * throws an exception.
      *
-     * @param i     The position where the card list insert.
+     * @param i     from 0 to {@link #size()}
      * @param cards card list
      */
     void addAll(int i, List<Card> cards);
@@ -47,4 +47,6 @@ public interface CardArea {
      * @return The number of cards in the card area
      */
     int size();
+
+
 }

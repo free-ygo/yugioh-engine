@@ -1,24 +1,22 @@
 package com.github.freeygo.engine.cardscript;
 
 import com.github.freeygo.engine.Card;
-import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.DuelDisk;
 
+/**
+ * @author 戴志勇
+ */
 public class StandardCardScriptCommand implements CardScriptCommand {
 
     private final EventManager eventManager;
-    private DuelContext context;
 
-    public StandardCardScriptCommand() {
-        eventManager = new StandardEventManager();
+    public StandardCardScriptCommand(EventManager eventManager) {
+        this.eventManager = eventManager;
     }
 
     @Override
     public void call() {
-        CallEvent e = new CallEvent(new Card());
-//         通知监听器
-        System.out.println("准备召唤");
-        eventManager.send(e);
-        System.out.println("执行召唤");
+
     }
 
     @Override
@@ -26,8 +24,23 @@ public class StandardCardScriptCommand implements CardScriptCommand {
 
     }
 
+    @Override
+    public void draw(DuelDisk duelDisk, int n) {
+        if (duelDisk.getHandArea().size() < n) { // 卡组卡片不足
+            eventManager.push(new StandardEvent(duelDisk, Event.DECK_NO_CARD), (EventResponse e) -> {
+                if (e.getStatus() == EventResponse.IGNORE) {
+                }
+            });
+        }
+    }
 
-    public EventManager getEventManager() {
-        return eventManager;
+    @Override
+    public void normalSummon(Card card) {
+
+    }
+
+    @Override
+    public void specialSummon(Card card) {
+
     }
 }

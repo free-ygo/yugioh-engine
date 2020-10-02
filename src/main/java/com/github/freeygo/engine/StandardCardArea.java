@@ -1,16 +1,19 @@
 package com.github.freeygo.engine;
 
-import java.util.ArrayDeque;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class StandardCardArea implements CardArea {
 
-    private final ArrayDeque<Card> cards;
+    private final ArrayList<Card> cards;
 
     public StandardCardArea() {
-        cards = new ArrayDeque<>();
+        cards = new ArrayList<>();
     }
 
     @Override
@@ -30,51 +33,55 @@ public class StandardCardArea implements CardArea {
 
     @Override
     public void pushAll(List<Card> cards) {
-
+        this.cards.addAll(cards);
     }
 
     @Override
     public Card pop() {
-        return null;
+        if ((cards.size() - 1) < 0) return null;
+        return cards.remove(cards.size() - 1);
     }
+
 
     @Override
     public Card peek() {
-        return null;
+        if ((cards.size() - 1) < 0) return null;
+        return cards.get(cards.size() - 1);
     }
 
-    @Override
-    public Card peek(int n) {
-        return null;
-    }
+//    @Override
+//    public List<Card> peek(int n) {
+//        if (cards.isEmpty()) return null;
+//        return cards.subList(Math.max(cards.size() - n, 0), cards.size());
+//    }
 
     @Override
     public void add(Card card) {
-
+        cards.add(card);
     }
 
     @Override
     public void add(int i, Card card) {
-
+        cards.add(i, card);
     }
 
     @Override
     public void addAll(List<Card> card) {
-
+        cards.addAll(card);
     }
 
     @Override
     public void addAll(int i, List<Card> cards) {
-
+        cards.addAll(i, cards);
     }
 
     @Override
     public void shuffle() {
-
+        Collections.shuffle(cards, new Random(System.currentTimeMillis()));
     }
 
     @Override
     public int size() {
-        return 0;
+        return cards.size();
     }
 }

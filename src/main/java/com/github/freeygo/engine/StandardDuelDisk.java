@@ -10,6 +10,7 @@ public class StandardDuelDisk implements DuelDisk {
     private final CardArea extraDeckArea;
     private final CardArea graveArea;
     private final CardArea banishArea;
+    private final CardArea handArea;
 
     public StandardDuelDisk() {
         this.magicTrapArea = new StandardCardArea();
@@ -20,45 +21,60 @@ public class StandardDuelDisk implements DuelDisk {
         this.extraDeckArea = new StandardCardArea();
         this.graveArea = new StandardCardArea();
         this.banishArea = new StandardCardArea();
+        this.handArea = new StandardCardArea();
     }
 
     @Override
     public CardArea getMagicTrapArea() {
-        return null;
+        return magicTrapArea;
     }
 
     @Override
     public CardArea getMonsterArea() {
-        return null;
+        return monsterArea;
     }
 
     @Override
     public CardArea getExtraCallArea() {
-        return null;
+        return extraCallArea;
     }
 
     @Override
     public CardArea getFieldArea() {
-        return null;
+        return fieldArea;
     }
 
     @Override
     public CardArea getDeckArea() {
-        return null;
+        return deckArea;
     }
 
     @Override
     public CardArea getExtraDeckArea() {
-        return null;
+        return extraDeckArea;
     }
 
     @Override
     public CardArea getGraveArea() {
-        return null;
+        return graveArea;
     }
 
     @Override
     public CardArea getBanishArea() {
-        return null;
+        return banishArea;
     }
+
+    @Override
+    public CardArea getHandArea() {
+        return handArea;
+    }
+
+    @Override
+    public void draw(int n) {
+        for (int i = 0; i < n; i++) {
+            getHandArea().push(getDeckArea().pop());
+        }
+    }
+
+
 }

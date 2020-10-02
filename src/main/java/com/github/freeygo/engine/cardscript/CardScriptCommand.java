@@ -1,6 +1,9 @@
 package com.github.freeygo.engine.cardscript;
 
 
+import com.github.freeygo.engine.Card;
+import com.github.freeygo.engine.DuelDisk;
+
 /**
  * 获得对手
  */
@@ -21,4 +24,12 @@ public interface CardScriptCommand {
     1.7. 效果生效时间
     2. 效果发动处理
     */
+
+    void draw(DuelDisk duelDisk, int n);
+
+    void normalSummon(Card card);
+
+    void specialSummon(Card card);
+
+
 }
