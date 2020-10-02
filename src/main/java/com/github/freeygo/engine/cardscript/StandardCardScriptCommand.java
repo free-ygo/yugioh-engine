@@ -2,6 +2,8 @@ package com.github.freeygo.engine.cardscript;
 
 import com.github.freeygo.engine.Card;
 import com.github.freeygo.engine.DuelDisk;
+import com.github.freeygo.engine.event.EventManager;
+import com.github.freeygo.engine.event.EventType;
 
 /**
  * @author 戴志勇
@@ -27,10 +29,7 @@ public class StandardCardScriptCommand implements CardScriptCommand {
     @Override
     public void draw(DuelDisk duelDisk, int n) {
         if (duelDisk.getHandArea().size() < n) { // 卡组卡片不足
-            eventManager.push(new StandardEvent(duelDisk, Event.DECK_NO_CARD), (EventResponse e) -> {
-                if (e.getStatus() == EventResponse.IGNORE) {
-                }
-            });
+            eventManager.send(EventType.DECK_NO_CARD, duelDisk);
         }
     }
 

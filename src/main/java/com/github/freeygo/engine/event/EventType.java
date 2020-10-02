@@ -1,102 +1,101 @@
-package com.github.freeygo.engine.cardscript;
+package com.github.freeygo.engine.event;
 
-public interface Event {
-
+/**
+ * @author 戴志勇
+ */
+public enum EventType {
     /**
      * 激活效果事件
      */
-    int ACTIVATE_EFFECT = 1000;
+    ACTIVATE_EFFECT,
     /**
      * 激活魔法卡事件
      */
-    int ACTIVATE_MAGIC_EFFECT = 1001;
+    ACTIVATE_MAGIC_EFFECT,
     /**
      * 激活陷阱卡事件
      */
-    int ACTIVATE_TRAP_EFFECT = 1002;
+    ACTIVATE_TRAP_EFFECT,
     /**
      * 激活怪兽效果事件
      */
-    int ACTIVATE_MONSTER_EFFECT = 1003;
+    ACTIVATE_MONSTER_EFFECT,
     /**
      * 召唤事件
      */
-    int SUMMON = 1100;
+    SUMMON,
     /**
      * 通常召唤
      */
-    int NORMAL_SUMMON = 1101;
+    NORMAL_SUMMON,
     /**
      * 特殊召唤
      */
-    int SPECIAL_SUMMON = 1102;
+    SPECIAL_SUMMON,
     /**
      * 融合召唤
      */
-    int FUSION_SUMMON = 1103;
+    FUSION_SUMMON,
     /**
      * 仪式召唤
      */
-    int CEREMONY_SUMMON = 1104;
+    CEREMONY_SUMMON,
     /**
      * 抽卡事件
      */
-    int DRAW_CARD = 1200;
+    DRAW_CARD,
     /**
      * 通常抽卡事件
      */
-    int NORMAL_DRAW = 1201;
+    NORMAL_DRAW,
     /**
      * 效果抽卡事件
      */
-    int EFFECT_DRAW = 1202;
+    EFFECT_DRAW,
     /**
      * 阶段过渡事件
      */
-    int PHRASE_TRANSITION = 1300;
+    PHRASE_TRANSITION,
     /**
      * 抽卡阶段
      */
-    int DRAW_PHRASE = 1301;
+    DRAW_PHRASE,
     /**
      * 准备阶段
      */
-    int PREPARATION_PHRASE = 1302;
+    PREPARATION_PHRASE,
     /**
      * 主要阶段1
      */
-    int MAIN_PHRASE_1 = 1303;
+    MAIN_PHRASE_1,
     /**
      * 战斗阶段
      */
-    int BATTLE_PHRASE = 1304;
+    BATTLE_PHRASE,
     /**
      * 战斗阶段——开始步骤
      */
-    int BATTLE_START = 1305;
+    BATTLE_START,
     /**
      * 战斗阶段——攻击步骤
      */
-    int BATTLE_FIGHT = 1306;
+    BATTLE_FIGHT,
     /**
      * 战斗阶段——伤害步骤
      */
-    int BATTLE_DAMAGE = 1307;
+    BATTLE_DAMAGE,
     /**
      * 主要阶段2
      */
-    int MAIN_PHRASE_2 = 1308;
+    MAIN_PHRASE_2,
     /**
      * 结束阶段
      */
-    int END_PHRASE = 1309;
+    END_PHRASE,
     /**
      * 卡组卡片不够
      */
-    int DECK_NO_CARD = 1401;
+    DECK_NO_CARD,
 
 
-    Object getTarget();
-
-    int getEventType();
 }

@@ -1,4 +1,6 @@
-package com.github.freeygo.engine.cardscript;
+package com.github.freeygo.engine.event;
+
+import com.github.freeygo.engine.cardscript.Effective;
 
 import java.util.List;
 import java.util.Map;
