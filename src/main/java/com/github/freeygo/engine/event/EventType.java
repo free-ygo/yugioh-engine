@@ -104,5 +104,5 @@ public enum EventType {
      * 卡组卡片不够
      */
     DECK_NO_CARD,
-    MOVE_CARD,
+    MOVE_CARD, ROUND_CHANGE,
 }

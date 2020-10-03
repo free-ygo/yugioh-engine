@@ -1,41 +1,43 @@
 package com.github.freeygo.engine.event;
 
+import com.github.freeygo.engine.Card;
 import com.github.freeygo.engine.DuelDisk;
+
+import java.util.List;
 
 /**
  * @author 戴志勇
  */
 public class DrawCardEvent extends Event {
+    private List<Card> cards;
+    private Integer count;
+    private DuelDisk duelDisk;
+
     public DrawCardEvent(Object target) {
         super(target);
     }
 
-    @Override
-    public Object getTarget() {
-        return null;
+    public List<Card> getCards() {
+        return cards;
     }
 
-    @Override
-    public EventType getEventType() {
-        return null;
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 
-    @Override
-    public <T> EventAction<? super T> getDefaultAction() {
-        return null;
-    }
-
-    @Override
-    protected <T> void setDefaultAction(EventAction<? extends T> action) {
-
-    }
-
-    @Override
-    public void preventDefaultAction() {
-
+    public DuelDisk getDuelDisk() {
+        return duelDisk;
     }
 
     public void setDuelDisk(DuelDisk duelDisk) {
+        this.duelDisk = duelDisk;
+    }
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

@@ -1,6 +1,8 @@
 package com.github.freeygo.engine.cardscript;
 
 import com.github.freeygo.engine.MonsterCard;
+import com.github.freeygo.engine.RoundRange;
+import com.github.freeygo.engine.StageRange;
 
 import java.util.function.Predicate;
 

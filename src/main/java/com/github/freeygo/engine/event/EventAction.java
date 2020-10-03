@@ -7,5 +7,5 @@ package com.github.freeygo.engine.event;
  */
 public interface EventAction<T> {
 
-     T action();
+     T action(Event event);
 }
