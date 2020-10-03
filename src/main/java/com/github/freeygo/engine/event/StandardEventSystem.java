@@ -22,25 +22,24 @@ public class StandardEventSystem implements EventSystem {
     }
 
     @Override
-    public void send(Event event) {
-        EventSubject subject = getSubject(event);
-        subject.notice(event, null);
+    public <T> T send(Event event) {
+        EventSubject<T> subject = getSubject(event);
+        return subject.notice(event);
     }
 
     @Override
     public <T> CompletableFuture<T> sendAsync(Event event, EventAction<T> action) {
-        return CompletableFuture.supplyAsync(() -> getSubject(event).notice(event, action));
+        return CompletableFuture.supplyAsync(() -> (T) getSubject(event).notice(event));
     }
 
     @Override
     public <T> T send(Event event, EventAction<T> action) {
-        return getSubject(event).notice(event, action);
+        return (T) getSubject(event).notice(event);
     }
 
     @Override
-    public void sendAsync(Event event) {
-        CompletableFuture.runAsync(() -> getSubject(event).notice(event, null));
-//        sendAsync(event, null);
+    public <T> CompletableFuture<? super T> sendAsync(Event event) {
+        return CompletableFuture.supplyAsync(() -> (T) getSubject(event).notice(event));
     }
 
     private EventSubject getSubject(Event event) {

@@ -3,12 +3,12 @@ package com.github.freeygo.engine.event;
 /**
  * @author 戴志勇
  */
-public interface EventSubject {
+public interface EventSubject<T> {
 
     /**
      * 通知一个事件
      *
      * @param event 事件
      */
-    <T> T notice(Event event, EventAction<? extends T> action);
+    T notice(Event event);
 }

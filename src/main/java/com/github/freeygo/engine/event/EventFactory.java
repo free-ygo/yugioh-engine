@@ -6,6 +6,8 @@ import com.github.freeygo.engine.DuelDisk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * @author 戴志勇
  */
@@ -26,10 +28,36 @@ public class EventFactory {
         return new DrawCardEventBuilder();
     }
 
+    public static RoundEventBuilder round() {
+        return new RoundEventBuilder();
+    }
+
+    public static class RoundEventBuilder extends EventBuilder<RoundEvent> {
+
+        public RoundEventBuilder() {
+
+        }
+
+        @Override
+        public <E> CompletableFuture<E> sendAsync(EventSystem eventSystem) {
+            return null;
+        }
+
+        @Override
+        public <E> E send(EventSystem eventSystem) {
+            return null;
+        }
+
+        @Override
+        public RoundEvent build() {
+            return null;
+        }
+    }
 
     public static class DrawCardEventBuilder extends EventBuilder<DrawCardEvent> {
 
         private DuelDisk duelDisk;
+        private Object target;
 
         public DrawCardEventBuilder() {
             defaultAction(() -> {
@@ -43,17 +71,33 @@ public class EventFactory {
         }
 
 
+        public DrawCardEventBuilder target(Object target) {
+            this.target = target;
+            return this;
+        }
+
+        @Override
+        public <E> CompletableFuture<E> sendAsync(EventSystem eventSystem) {
+            return null;
+        }
+
+        @Override
+        public <E> E send(EventSystem eventSystem) {
+            return eventSystem.send(build());
+        }
+
         @Override
         public DrawCardEvent build() {
-            DrawCardEvent result = new DrawCardEvent();
+            DrawCardEvent result = new DrawCardEvent(target);
             result.setDefaultAction(getDefaultAction());
             result.setDuelDisk(duelDisk);
             return result;
         }
     }
 
-    public static class MoveCardEventBuilder {
+    public static class MoveCardEventBuilder extends EventBuilder<MoveCardEvent> {
         private EventType eventType;
+
         /**
          * 事件源
          */
@@ -65,7 +109,7 @@ public class EventFactory {
         private CardArea sourceArea;
         private CardArea targetArea;
         private Card card;
-        private EventAction<?> defaultAction;
+        private final EventAction<?> defaultAction;
 
         public MoveCardEventBuilder() {
             defaultAction = () -> {
@@ -90,12 +134,10 @@ public class EventFactory {
             return this;
         }
 
-
         public MoveCardEventBuilder eventType(EventType eventType) {
             this.eventType = eventType;
             return this;
         }
-
 
         public MoveCardEventBuilder count(int count) {
             this.count = count;
@@ -112,19 +154,23 @@ public class EventFactory {
             return this;
         }
 
-        public <T> MoveCardEventBuilder defaultAction(EventAction<? extends T> action) {
-            this.defaultAction = action;
-            return this;
-        }
-
         public MoveCardEventBuilder card(Card card) {
             this.card = card;
             return this;
         }
 
+        @Override
+        public <E> CompletableFuture<? super E> sendAsync(EventSystem eventSystem) {
+            return eventSystem.sendAsync(build());
+        }
+
+        @Override
+        public <E> E send(EventSystem eventSystem) {
+            return eventSystem.send(build());
+        }
 
         public MoveCardEvent build() {
-            MoveCardEvent result = new MoveCardEvent(eventType);
+            MoveCardEvent result = new MoveCardEvent(target);
             result.setTarget(target);
             result.setCount(count);
             result.setCard(card);
@@ -145,6 +191,11 @@ public class EventFactory {
         protected <E> EventAction<? super E> getDefaultAction() {
             return defaultAction;
         }
+
+        public abstract <E> CompletableFuture<? super E> sendAsync(EventSystem eventSystem);
+
+        public abstract <E> E send(EventSystem eventSystem);
+
 
         public abstract T build();
     }

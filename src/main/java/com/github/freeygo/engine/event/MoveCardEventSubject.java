@@ -1,33 +1,35 @@
 package com.github.freeygo.engine.event;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 戴志勇
  */
-public class MoveCardEventSubject implements EventSubject {
+public class MoveCardEventSubject<T> implements EventSubject<T> {
 
-    private List<EventHandler> eventHandlers;
+    private final Map<EventType, List<EventHandler>> eventHandlers;
 
-//    private EventManager eventManager;
 
     public MoveCardEventSubject(EventSystem eventSystem) {
-//        this.eventManager = eventManager;
-        // 抽卡不够事件
-//        eventManager.register(EventType.DECK_NO_CARD, this);
-        // 注册抽卡事件
-        eventSystem.register(EventType.DRAW_START, this);
+        eventSystem.register(EventType.MOVE_CARD, this);
+        eventHandlers = new HashMap<>();
     }
 
 
     @Override
-    public <T> T notice(Event event, EventAction<? extends T> action) {
-        if (event.getEventType() == EventType.DRAW_START) {
-            MoveCardEvent e = (MoveCardEvent) event.getTarget();
-            event.preventDefaultAction();
-            return action.action();
+    public T notice(Event event) {
+        T t;
+        for (EventHandler eventHandler : getEventHandlers(event)) {
+            t = eventHandler.handle(event);
+            if (t != null) return t;
         }
-        throw new RuntimeException();
-//        eventHandlers.forEach(e -> e.handle(event, callback));
+        return null;
+    }
+
+    private List<EventHandler> getEventHandlers(Event event) {
+        return eventHandlers.getOrDefault(event.getEventType(), new ArrayList<>());
     }
 }

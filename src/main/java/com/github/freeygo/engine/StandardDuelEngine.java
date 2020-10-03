@@ -1,7 +1,13 @@
 package com.github.freeygo.engine;
 
+import com.github.freeygo.engine.event.EventFactory;
+import com.github.freeygo.engine.event.EventSystem;
+import com.github.freeygo.engine.event.MoveCardEventSubject;
+import com.github.freeygo.engine.event.StandardEventSystem;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
+
+import java.util.concurrent.CompletableFuture;
 
 public class StandardDuelEngine implements DuelEngine {
 
@@ -47,20 +53,15 @@ public class StandardDuelEngine implements DuelEngine {
 
     @Override
     public void start(Duel duel) {
-        DuelistPair pair = duel.getDuelistPair();
-        Duelist a = pair.getFirstDuelist();
-        Duelist b = pair.getSecondDuelist();
-        DuelDisk aDisk = a.getDuelDisk();
-        DuelDisk bDisk = b.getDuelDisk();
-        // 回合开始
-        int initCards = 5;
-        for (int i = 0; i < initCards; i++) {
-            aDisk.getHandArea().push(aDisk.getDeckArea().pop());
-        }
+        EventSystem eventSystem = new StandardEventSystem();
+        new MoveCardEventSubject<CompletableFuture>(eventSystem);
+        DuelDisk a = new StandardDuelDisk();
+        DuelDisk b = new StandardDuelDisk();
+        EventFactory.drawCard().duelDisk(a).send(eventSystem);
+        EventFactory.drawCard().duelDisk(b).send(eventSystem);
+        EventFactory.round();
 
-        for (int i = 0; i < initCards; i++) {
-            bDisk.getHandArea().push(aDisk.getDeckArea().pop());
-        }
+
     }
 
 

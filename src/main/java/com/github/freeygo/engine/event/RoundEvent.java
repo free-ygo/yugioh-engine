@@ -3,30 +3,21 @@ package com.github.freeygo.engine.event;
 /**
  * @author 戴志勇
  */
-public class SummonEvent extends Event {
-
-    private Object target;
-    private EventType eventType;
+public class RoundEvent extends Event {
 
 
-    public SummonEvent(Object target, EventType eventType) {
-        this.target = target;
-        this.eventType = eventType;
+    public RoundEvent(Object target) {
+        super(target);
     }
-
 
     @Override
     public Object getTarget() {
-        return target;
-    }
-
-    public void setTarget(Object target) {
-        this.target = target;
+        return null;
     }
 
     @Override
     public EventType getEventType() {
-        return eventType;
+        return null;
     }
 
     @Override
@@ -42,9 +33,5 @@ public class SummonEvent extends Event {
     @Override
     public void preventDefaultAction() {
 
-    }
-
-    public void setEventType(EventType eventType) {
-        this.eventType = eventType;
     }
 }

@@ -8,50 +8,19 @@ import com.github.freeygo.engine.CardArea;
  */
 public class MoveCardEvent extends Event {
 
-    private final EventType eventType;
-    private Object target;
     private int count;
     private CardArea sourceArea;
     private CardArea targetArea;
     private Card card;
-    private EventAction defaultAction;
-    private boolean doDefaultAction;
 
-    public MoveCardEvent(EventType eventType) {
-        this.eventType = eventType;
-        this.doDefaultAction = true;
+
+    public MoveCardEvent(Object target) {
+        super(target);
     }
 
-    @Override
-    public Object getTarget() {
-        return target;
-    }
-
-    public void setTarget(Object target) {
-        this.target = target;
-    }
-
-    @Override
-    public EventType getEventType() {
-        return eventType;
-    }
-
-    @Override
-    public <T> EventAction<? super T> getDefaultAction() {
-        return defaultAction;
-    }
-
-    public void setDefaultAction(EventAction defaultAction) {
-        this.defaultAction = defaultAction;
-    }
 
     public int getCount() {
         return count;
-    }
-
-    @Override
-    public void preventDefaultAction() {
-        this.doDefaultAction = false;
     }
 
     public void setCount(int count) {

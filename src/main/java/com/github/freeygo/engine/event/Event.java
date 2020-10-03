@@ -95,17 +95,44 @@ public abstract class Event {
 //     */
 //    int DECK_NO_CARD = 1401;
 
+    private EventType eventType;
+    private Object target;
+    private EventAction defaultAction;
+    private boolean doDefaultAction;
 
-    public abstract Object getTarget();
+    public Event(Object target) {
+        this.target = target;
+        this.doDefaultAction = true;
+    }
 
-    public abstract EventType getEventType();
+    public Object getTarget() {
+        return target;
+    }
 
-    public abstract <T> EventAction<? super T> getDefaultAction();
+    protected void setTarget(Object target) {
+        this.target = target;
+    }
 
-    protected abstract <T> void setDefaultAction(EventAction<? extends T> action);
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    protected void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
+
+    public <T> EventAction<? super T> getDefaultAction() {
+        return defaultAction;
+    }
+
+    protected <T> void setDefaultAction(EventAction<? extends T> action) {
+        this.defaultAction = action;
+    }
 
     /**
      * 阻止默认行为
      */
-    public abstract void preventDefaultAction();
+    public void preventDefaultAction() {
+        this.doDefaultAction = false;
+    }
 }

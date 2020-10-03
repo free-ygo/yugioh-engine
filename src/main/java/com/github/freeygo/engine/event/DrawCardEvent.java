@@ -6,6 +6,10 @@ import com.github.freeygo.engine.DuelDisk;
  * @author 戴志勇
  */
 public class DrawCardEvent extends Event {
+    public DrawCardEvent(Object target) {
+        super(target);
+    }
+
     @Override
     public Object getTarget() {
         return null;

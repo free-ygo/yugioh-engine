@@ -5,5 +5,5 @@ package com.github.freeygo.engine.event;
  */
 public interface EventHandler {
 
-    Object handle(Event event, EventAction callback);
+    <T> T handle(Event event);
 }

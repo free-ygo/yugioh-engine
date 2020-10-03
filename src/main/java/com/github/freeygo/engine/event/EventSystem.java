@@ -6,11 +6,11 @@ public interface EventSystem {
 
     void register(EventType eventType, EventSubject subject);
 
-    void send(Event event);
+    <T> T send(Event event);
 
     <T> T send(Event event, EventAction<T> action);
 
-    void sendAsync(Event event);
+    <T> CompletableFuture<? super T> sendAsync(Event event);
 
     <T> CompletableFuture<T> sendAsync(Event event, EventAction<T> action);
 }
