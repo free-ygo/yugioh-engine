@@ -10,5 +10,5 @@ public interface EventSubject {
      *
      * @param event 事件
      */
-    void notice(Event event);
+    <T> T notice(Event event, EventAction<? extends T> action);
 }

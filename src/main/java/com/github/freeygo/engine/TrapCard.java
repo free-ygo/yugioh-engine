@@ -6,8 +6,8 @@ package com.github.freeygo.engine;
 public interface TrapCard extends Card {
 
     @Override
-    default CardType getCategory() {
-        return CardType.TRAP;
+    default Category getCategory() {
+        return Category.TRAP;
     }
 
     enum TrapType {

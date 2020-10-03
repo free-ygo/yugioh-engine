@@ -6,8 +6,8 @@ package com.github.freeygo.engine;
 public interface MagicCard extends Card {
 
     @Override
-    default CardType getCategory() {
-        return CardType.MAGIC;
+    default Category getCategory() {
+        return Category.MAGIC;
     }
 
     MagicType getMagicType();

@@ -99,4 +99,13 @@ public abstract class Event {
     public abstract Object getTarget();
 
     public abstract EventType getEventType();
+
+    public abstract <T> EventAction<? super T> getDefaultAction();
+
+    protected abstract <T> void setDefaultAction(EventAction<? extends T> action);
+
+    /**
+     * 阻止默认行为
+     */
+    public abstract void preventDefaultAction();
 }

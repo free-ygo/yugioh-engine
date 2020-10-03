@@ -9,6 +9,8 @@ public interface CardArea {
 
 //    boolean isSingle();
 
+    boolean isAvailable();
+
     void push(Card card);
 
     void pushAll(List<Card> cards);
@@ -24,6 +26,10 @@ public interface CardArea {
     void add(int i, Card card);
 
     void addAll(List<Card> card);
+
+    void removeAll(List<Card> cards);
+
+    void remove(Card card);
 
     /**
      * Put a list of cards into position i.
@@ -49,4 +55,12 @@ public interface CardArea {
     int size();
 
 
+    /**
+     * Return the duel disk of card area.
+     *
+     * @return The {@link DuelDisk } of card area
+     */
+    DuelDisk getDuelDisk();
+
+//    void setDuelDisk(DuelDisk dueldisk);
 }

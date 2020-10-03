@@ -17,12 +17,17 @@ public interface Card {
 //    int COUNTER_MAGIC = 1107;
 
     //    void setType(int type);
-    int UNCOVER_ATTACK = 1201;
-    int COVER_DEFENSE = 1202;
-    int COVER_UP = 1203;
+//    int UNCOVER_ATTACK = 1201;
+//    int COVER_DEFENSE = 1202;
+//    int COVER_UP = 1203;
 
+    int getFieldStatus();
 
-    CardType getCategory();
+    void setFieldStatus(int status);
+
+    Category getCategory();
+
+    void setCategory(Category category);
 
     Effective getEffective();
 
@@ -36,13 +41,39 @@ public interface Card {
 
     void setEffects(List<Effective> effects);
 
+    CardArea getCardArea();
+
+    void setCardArea(CardArea cardArea);
+
+    void moveTo(CardArea cardArea);
+
 //    EffectSpeed getEffectSpeed();
 //
 //    void setEffectSpeed(EffectSpeed speed);
 
 
-    enum CardType {
+    enum Category {
         MONSTER, MAGIC, TRAP
     }
+
+    enum FieldStatus {
+        /**
+         * 正面攻击形状态
+         */
+        UNCOVER_ATTACK,
+        /**
+         * 正面防守表示
+         */
+        UNCOVER_DEFENSE,
+        /**
+         * 背面守备状态
+         */
+        COVER_DEFENSE,
+        /**
+         * 盖伏
+         */
+        COVER_UP
+    }
+
 
 }

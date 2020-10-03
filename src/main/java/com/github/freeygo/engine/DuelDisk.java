@@ -1,5 +1,7 @@
 package com.github.freeygo.engine;
 
+import java.util.List;
+
 /**
  * An duel disk.
  *
@@ -84,6 +86,25 @@ public interface DuelDisk {
     CardArea getHandArea();
 
 
-    void draw(int n);
+    /**
+     * 从卡组抽n张卡牌到手牌中
+     *
+     * @return 抽取的卡片
+     */
+    List<Card> draw(int n);
+
+    void putGrave(Card card);
+
+    void putBanish(Card card);
+
+    void putExtraDeck(Card card);
+
+    void putDeck(Card card);
+
+    void putExtraSummon(Card card);
+
+    void putField(int position, Card card);
+
+    void putHand(Card card);
 
 }

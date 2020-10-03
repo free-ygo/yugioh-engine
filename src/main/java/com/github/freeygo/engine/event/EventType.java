@@ -41,9 +41,17 @@ public enum EventType {
      */
     CEREMONY_SUMMON,
     /**
-     * 抽卡事件
+     * 抽卡开始事件
      */
-    DRAW_CARD,
+    DRAW_START,
+    /**
+     * 抽卡结束
+     */
+    DRAW_END,
+    /**
+     * 卡片数量不足
+     */
+    CARD_NOT_ENOUGH,
     /**
      * 通常抽卡事件
      */

@@ -11,14 +11,21 @@ import java.util.stream.Collectors;
 public class StandardCardArea implements CardArea {
 
     private final ArrayList<Card> cards;
+    private final DuelDisk duelDisk;
 
-    public StandardCardArea() {
+    public StandardCardArea(DuelDisk duelDisk) {
         cards = new ArrayList<>();
+        this.duelDisk = duelDisk;
     }
 
     @Override
     public List<Card> search(Predicate<Card> condition) {
         return cards.stream().filter(condition).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isAvailable() {
+        return false;
     }
 
 //    @Override
@@ -71,6 +78,16 @@ public class StandardCardArea implements CardArea {
     }
 
     @Override
+    public void removeAll(List<Card> cards) {
+        this.cards.removeAll(cards);
+    }
+
+    @Override
+    public void remove(Card card) {
+        this.cards.remove(card);
+    }
+
+    @Override
     public void addAll(int i, List<Card> cards) {
         cards.addAll(i, cards);
     }
@@ -84,4 +101,10 @@ public class StandardCardArea implements CardArea {
     public int size() {
         return cards.size();
     }
+
+    @Override
+    public DuelDisk getDuelDisk() {
+        return duelDisk;
+    }
+
 }

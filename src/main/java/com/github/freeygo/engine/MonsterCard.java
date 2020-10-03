@@ -6,8 +6,8 @@ package com.github.freeygo.engine;
 public interface MonsterCard extends Card {
 
     @Override
-    default CardType getCategory() {
-        return CardType.MONSTER;
+    default Category getCategory() {
+        return Category.MONSTER;
     }
 
     String getDescription();

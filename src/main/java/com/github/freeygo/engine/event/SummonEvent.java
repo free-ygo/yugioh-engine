@@ -29,6 +29,21 @@ public class SummonEvent extends Event {
         return eventType;
     }
 
+    @Override
+    public <T> EventAction<? super T> getDefaultAction() {
+        return null;
+    }
+
+    @Override
+    protected <T> void setDefaultAction(EventAction<? extends T> action) {
+
+    }
+
+    @Override
+    public void preventDefaultAction() {
+
+    }
+
     public void setEventType(EventType eventType) {
         this.eventType = eventType;
     }

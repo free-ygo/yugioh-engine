@@ -1,5 +1,9 @@
 package com.github.freeygo.engine;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class StandardDuelDisk implements DuelDisk {
 
     private final CardArea magicTrapArea;
@@ -13,15 +17,15 @@ public class StandardDuelDisk implements DuelDisk {
     private final CardArea handArea;
 
     public StandardDuelDisk() {
-        this.magicTrapArea = new StandardCardArea();
-        this.monsterArea = new StandardCardArea();
-        this.extraCallArea = new StandardCardArea();
-        this.fieldArea = new StandardCardArea();
-        this.deckArea = new StandardCardArea();
-        this.extraDeckArea = new StandardCardArea();
-        this.graveArea = new StandardCardArea();
-        this.banishArea = new StandardCardArea();
-        this.handArea = new StandardCardArea();
+        this.magicTrapArea = new StandardCardArea(this);
+        this.monsterArea = new StandardCardArea(this);
+        this.extraCallArea = new StandardCardArea(this);
+        this.fieldArea = new StandardCardArea(this);
+        this.deckArea = new StandardCardArea(this);
+        this.extraDeckArea = new StandardCardArea(this);
+        this.graveArea = new StandardCardArea(this);
+        this.banishArea = new StandardCardArea(this);
+        this.handArea = new StandardCardArea(this);
     }
 
     @Override
@@ -70,10 +74,48 @@ public class StandardDuelDisk implements DuelDisk {
     }
 
     @Override
-    public void draw(int n) {
+    public List<Card> draw(int n) {
+        List<Card> cards = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
-            getHandArea().push(getDeckArea().pop());
+            cards.add(getDeckArea().pop());
+            getHandArea().push(cards.get(i));
         }
+        return cards;
+    }
+
+    @Override
+    public void putGrave(Card card) {
+
+    }
+
+    @Override
+    public void putBanish(Card card) {
+
+    }
+
+    @Override
+    public void putExtraDeck(Card card) {
+
+    }
+
+    @Override
+    public void putDeck(Card card) {
+
+    }
+
+    @Override
+    public void putExtraSummon(Card card) {
+
+    }
+
+    @Override
+    public void putField(int position, Card card) {
+
+    }
+
+    @Override
+    public void putHand(Card card) {
+
     }
 
 
