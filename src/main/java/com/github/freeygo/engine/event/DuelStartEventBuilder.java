@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2020 free-ygo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.github.freeygo.engine.event;
 
 import com.github.freeygo.engine.DuelContext;
@@ -15,7 +31,7 @@ public class DuelStartEventBuilder extends EventBuilder<DuelStartEvent> {
     private DuelContext context;
 
     public DuelStartEventBuilder() {
-        defaultAction((e) -> {
+        setDefaultAction((e) -> {
             logger.info("A duel start");
             return EventFactory.duelStart()
                     .context(context)
@@ -40,7 +56,7 @@ public class DuelStartEventBuilder extends EventBuilder<DuelStartEvent> {
 
     @Override
     public DuelStartEvent build() {
-        DuelStartEvent result = new DuelStartEvent(context);
+        DuelStartEvent result = new DuelStartEvent(getTarget());
         result.setDuelContext(context);
         result.setEventType(EventType.DUEL_START);
         return result;

@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2020 free-ygo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.github.freeygo.engine.event;
 
 import com.github.freeygo.engine.Card;
@@ -13,12 +29,6 @@ import java.util.concurrent.CompletableFuture;
 public class MoveCardEventBuilder extends EventBuilder<MoveCardEvent> {
 
     private static final Logger logger = LoggerFactory.getLogger(MoveCardEventBuilder.class);
-    private final EventAction<?> defaultAction;
-    private EventType eventType;
-    /**
-     * 事件源
-     */
-    private Object target;
     /**
      * 卡片数量
      */
@@ -28,22 +38,12 @@ public class MoveCardEventBuilder extends EventBuilder<MoveCardEvent> {
     private Card card;
 
     public MoveCardEventBuilder() {
-        defaultAction = (e) -> {
+        setDefaultAction((e) -> {
             logger.info("Move card {} from {} to {}", card, card.getCardArea(), targetArea);
             card.moveTo(targetArea);
             logger.info("Move card is finished");
             return card;
-        };
-    }
-
-    public MoveCardEventBuilder target(Object target) {
-        this.target = target;
-        return this;
-    }
-
-    public MoveCardEventBuilder eventType(EventType eventType) {
-        this.eventType = eventType;
-        return this;
+        });
     }
 
     public MoveCardEventBuilder count(int count) {
@@ -77,11 +77,12 @@ public class MoveCardEventBuilder extends EventBuilder<MoveCardEvent> {
     }
 
     public MoveCardEvent build() {
-        MoveCardEvent result = new MoveCardEvent(target);
-        result.setTarget(target);
+        MoveCardEvent result = new MoveCardEvent(getTarget());
+        result.setDefaultAction(getDefaultAction());
         result.setCount(count);
         result.setCard(card);
-        result.setDefaultAction(defaultAction);
+        result.setSourceArea(sourceArea);
+        result.setTargetArea(targetArea);
         return result;
     }
 

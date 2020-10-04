@@ -16,15 +16,14 @@
 
 package com.github.freeygo.engine;
 
-public interface Duel {
+import com.github.freeygo.engine.event.EventSystem;
 
-    DuelContext getContext();
+/**
+ * @author Zhi yong Dai
+ */
+public interface DuelEngineContext {
 
-    void setContext(DuelContext context);
+//    void setEventSystem(EventSystem eventSystem);
 
-    void setDuelistPair(DuelistPair duelistPair);
-
-    DuelistPair getDuelistPair();
-
-    void setCurrentRound(Round round);
+    EventSystem getEventSystem();
 }

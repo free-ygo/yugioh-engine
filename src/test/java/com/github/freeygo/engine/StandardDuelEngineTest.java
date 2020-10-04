@@ -16,41 +16,53 @@
 
 package com.github.freeygo.engine;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Zhi yong Dai
  */
 class StandardDuelEngineTest {
-    @BeforeAll
-    static void beforeAll() {
 
-    }
-
-    @AfterAll
-    static void afterAll() {
-
-    }
+    private DuelEngine duelEngine;
+    private DuelEngineContext engineContext;
 
     @BeforeEach
     void setUp() {
-    }
+        engineContext = new StandardDuelEngineContext();
+        duelEngine = new StandardDuelEngine();
 
-    @AfterEach
-    void tearDown() {
+        Duelist first = new StandardDuelist();
+        Duelist second = new StandardDuelist();
+
+        DuelistPair pair = new DuelistPair();
+        pair.setFirstDuelist(first);
+        pair.setSecondDuelist(second);
+
+        StandardDuel duel = new StandardDuel();
+        duel.setContext(new StandardDuelContext());
+        duel.setCurrentRound(new StandardRound(1));
+
+        duelEngine.start(duel);
     }
 
 
     @Test
     void setContext() {
+        duelEngine.setEngineContext(engineContext);
     }
 
     @Test
     void getContext() {
+        duelEngine.setEngineContext(engineContext);
+        assertThat(duelEngine).isNotNull();
     }
 
     @Test
     void send() {
+
     }
 
     @Test
@@ -63,5 +75,13 @@ class StandardDuelEngineTest {
 
     @Test
     void globalContext() {
+    }
+
+    @Test
+    void sendCommand() {
+        CommandArgument args = new CommandArgument();
+        args.setDestinationArea(CommandArgument.MONSTER_AREA);
+        args.setLocation(1);
+        duelEngine.send(args);
     }
 }

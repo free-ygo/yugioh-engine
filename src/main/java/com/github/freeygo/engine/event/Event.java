@@ -1,6 +1,22 @@
+/*
+ * Copyright (c) 2020 free-ygo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.github.freeygo.engine.event;
 
-import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.Duel;
 
 public abstract class Event {
 
@@ -98,54 +114,52 @@ public abstract class Event {
 //    int DECK_NO_CARD = 1401;
 
     private EventType eventType;
-    private Object target;
+    private final Duel target;
     private EventAction defaultAction;
     private boolean doDefaultAction;
-    private DuelContext duelContext;
+    private Duel duel;
 
-    public Event(Object target) {
+    public Event(Duel target) {
         this.target = target;
         this.doDefaultAction = true;
     }
 
-    public Object getTarget() {
+    public Duel getTarget() {
         return target;
-    }
-
-    protected void setTarget(Object target) {
-        this.target = target;
     }
 
     public EventType getEventType() {
         return eventType;
     }
 
-    protected void setEventType(EventType eventType) {
-        this.eventType = eventType;
-    }
-
     public <T> EventAction<? super T> getDefaultAction() {
         return defaultAction;
+    }
+
+    /**
+     * 阻止默认行为
+     */
+    public void preventDefault() {
+        setDoDefaultAction(false);
+    }
+
+//    public Duel getDuel() {
+//        return duel;
+//    }
+
+    protected void setDoDefaultAction(boolean doDefaultAction) {
+        this.doDefaultAction = doDefaultAction;
+    }
+
+    protected void setEventType(EventType eventType) {
+        this.eventType = eventType;
     }
 
     protected <T> void setDefaultAction(EventAction<? extends T> action) {
         this.defaultAction = action;
     }
 
-    /**
-     * 阻止默认行为
-     */
-    public void preventDefaultAction() {
-        this.doDefaultAction = false;
-    }
-
-    public DuelContext getDuelContext() {
-        return duelContext;
-    }
-
-    protected void setDuelContext(DuelContext duelContext) {
-        this.duelContext = duelContext;
-    }
-
-
+//    protected void setDuel(Duel duel) {
+//        this.duel = duel;
+//    }
 }
