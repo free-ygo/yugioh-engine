@@ -8,49 +8,12 @@ import com.github.freeygo.engine.CardArea;
  */
 public class NormalSummonEvent extends Event {
 
-    private Object target;
-    private final EventType eventType;
-    private EventAction eventAction;
-    private boolean doDefaultAction;
     private Card card;
-    private CardArea cardArea;
+    private CardArea location;
 
 
     public NormalSummonEvent(Object target) {
         super(target);
-        this.target = target;
-        this.eventType = EventType.NORMAL_SUMMON;
-        this.doDefaultAction = true;
-    }
-
-
-    @Override
-    public Object getTarget() {
-        return target;
-    }
-
-    public void setTarget(Object target) {
-        this.target = target;
-    }
-
-    @Override
-    public EventType getEventType() {
-        return eventType;
-    }
-
-    @Override
-    public <T> EventAction<? super T> getDefaultAction() {
-        return eventAction;
-    }
-
-    @Override
-    protected <T> void setDefaultAction(EventAction<? extends T> action) {
-        this.eventAction = eventAction;
-    }
-
-    @Override
-    public void preventDefaultAction() {
-        this.doDefaultAction = false;
     }
 
     public Card getCard() {
@@ -61,11 +24,11 @@ public class NormalSummonEvent extends Event {
         this.card = card;
     }
 
-    public void setArea(CardArea cardArea) {
-        this.cardArea = cardArea;
+    public CardArea getLocation() {
+        return location;
     }
 
-    public CardArea getCardArea() {
-        return cardArea;
+    public void setLocation(CardArea location) {
+        this.location = location;
     }
 }

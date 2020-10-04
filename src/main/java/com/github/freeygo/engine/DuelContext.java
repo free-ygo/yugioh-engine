@@ -1,5 +1,7 @@
 package com.github.freeygo.engine;
 
+import com.github.freeygo.engine.event.EventSystem;
+
 public interface DuelContext {
 
     /**
@@ -20,4 +22,9 @@ public interface DuelContext {
      */
     void setAttribute(String name, Object value);
 
+    DuelistPair getDuelistPair();
+
+    EventSystem getEventSystem();
+
+    Round nextRound();
 }

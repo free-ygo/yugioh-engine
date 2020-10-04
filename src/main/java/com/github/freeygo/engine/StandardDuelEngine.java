@@ -2,7 +2,7 @@ package com.github.freeygo.engine;
 
 import com.github.freeygo.engine.event.EventFactory;
 import com.github.freeygo.engine.event.EventSystem;
-import com.github.freeygo.engine.event.MoveCardEventSubject;
+import com.github.freeygo.engine.event.StandardEventSubject;
 import com.github.freeygo.engine.event.StandardEventSystem;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
@@ -54,12 +54,12 @@ public class StandardDuelEngine implements DuelEngine {
     @Override
     public void start(Duel duel) {
         EventSystem eventSystem = new StandardEventSystem();
-        new MoveCardEventSubject<CompletableFuture>(eventSystem);
+        new StandardEventSubject<CompletableFuture>(eventSystem);
         DuelDisk a = new StandardDuelDisk();
         DuelDisk b = new StandardDuelDisk();
         EventFactory.drawCard().duelDisk(a).send(eventSystem);
         EventFactory.drawCard().duelDisk(b).send(eventSystem);
-        EventFactory.round();
+        EventFactory.roundChange();
 
 
     }

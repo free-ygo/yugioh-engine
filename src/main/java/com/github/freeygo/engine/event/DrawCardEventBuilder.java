@@ -68,7 +68,7 @@ public class DrawCardEventBuilder extends EventBuilder<DrawCardEvent> {
     @Override
     public DrawCardEvent build() {
         DrawCardEvent result = new DrawCardEvent(target);
-        result.setDefaultAction(getDefaultAction());
+        result.setDefaultAction(defaultAction());
         result.setDuelDisk(duelDisk);
         result.setCount(count);
         result.setCards(cards);

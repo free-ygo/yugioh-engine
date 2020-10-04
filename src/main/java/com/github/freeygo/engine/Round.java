@@ -3,10 +3,6 @@ package com.github.freeygo.engine;
 /**
  * @author 戴志勇
  */
-
-/**
- * 回合
- */
 public interface Round extends Comparable<Round> {
     /**
      * 获得回合数
@@ -66,6 +62,4 @@ public interface Round extends Comparable<Round> {
 
 
     }
-
-
 }

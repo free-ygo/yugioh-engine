@@ -3,10 +3,7 @@ package com.github.freeygo.engine;
 /**
  * @author 戴志勇
  */
-public     /**
- * 回合范围
- */
-class RoundRange {
+public class RoundRange {
     /**
      * 回合开始
      */

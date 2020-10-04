@@ -1,5 +1,7 @@
 package com.github.freeygo.engine.event;
 
+import com.github.freeygo.engine.DuelContext;
+
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -7,6 +9,7 @@ import java.util.concurrent.CompletableFuture;
  */
 public abstract class EventBuilder<T> {
     private EventAction defaultAction;
+    private DuelContext context;
 
     @SuppressWarnings("unchecked")
     public <R, U extends EventBuilder<T>> U defaultAction(EventAction<? extends R> action) {
@@ -14,7 +17,7 @@ public abstract class EventBuilder<T> {
         return (U) this;
     }
 
-    protected <E> EventAction<? super E> getDefaultAction() {
+    protected <E> EventAction<? super E> defaultAction() {
         return defaultAction;
     }
 
@@ -24,4 +27,11 @@ public abstract class EventBuilder<T> {
 
     public abstract T build();
 
+    public void duelContext(DuelContext context) {
+        this.context = context;
+    }
+
+    protected DuelContext duelContext() {
+        return context;
+    }
 }

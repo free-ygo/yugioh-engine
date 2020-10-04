@@ -11,7 +11,7 @@ public class EventFactory {
     private static final Logger log = LoggerFactory.getLogger(EventFactory.class);
     private static EventSystem eventSystem;
 
-    public static void setEventManager(EventSystem eventSystem) {
+    public static void setEventSystem(EventSystem eventSystem) {
         EventFactory.eventSystem = eventSystem;
     }
 
@@ -23,9 +23,11 @@ public class EventFactory {
         return new DrawCardEventBuilder();
     }
 
-    public static RoundEventBuilder round() {
-        return new RoundEventBuilder();
+    public static RoundChangeEventBuilder roundChange() {
+        return new RoundChangeEventBuilder();
     }
 
-
+    public static DuelStartEventBuilder duelStart() {
+        return new DuelStartEventBuilder();
+    }
 }

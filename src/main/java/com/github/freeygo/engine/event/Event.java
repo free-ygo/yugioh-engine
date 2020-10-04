@@ -1,5 +1,7 @@
 package com.github.freeygo.engine.event;
 
+import com.github.freeygo.engine.DuelContext;
+
 public abstract class Event {
 
 //    /**
@@ -99,6 +101,7 @@ public abstract class Event {
     private Object target;
     private EventAction defaultAction;
     private boolean doDefaultAction;
+    private DuelContext duelContext;
 
     public Event(Object target) {
         this.target = target;
@@ -135,4 +138,14 @@ public abstract class Event {
     public void preventDefaultAction() {
         this.doDefaultAction = false;
     }
+
+    public DuelContext getDuelContext() {
+        return duelContext;
+    }
+
+    protected void setDuelContext(DuelContext duelContext) {
+        this.duelContext = duelContext;
+    }
+
+
 }
