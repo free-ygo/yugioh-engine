@@ -39,6 +39,7 @@ public abstract class AbstractCard implements Card {
     private String name;
     private Collection<String> tags;
     private String id;
+    private MagicType magicType;
 
     public AbstractCard() {
     }
@@ -190,5 +191,15 @@ public abstract class AbstractCard implements Card {
     @Override
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public MagicType getMagicType() {
+        return magicType;
+    }
+
+    @Override
+    public void setMagicType(MagicType type) {
+        this.magicType = type;
     }
 }

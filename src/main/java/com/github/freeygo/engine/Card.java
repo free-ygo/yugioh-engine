@@ -110,6 +110,14 @@ public interface Card {
 
     void setTags(Collection<String> tags);
 
+    MagicType getMagicType();
+
+    void setMagicType(MagicType type);
+
+    enum MagicType {
+        EQUIP, FIELD, FAST, RITUAL, CONTINUOUS, NORMAL
+    }
+
 
     enum Race {
         SPELLCASTER, DRAGON, ZOMBIE, WARRIOR, BEAST_WARRIOR, BEAST, WINGED_BEAST,
