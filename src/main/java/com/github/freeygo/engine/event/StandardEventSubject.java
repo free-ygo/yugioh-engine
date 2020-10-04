@@ -16,6 +16,9 @@
 
 package com.github.freeygo.engine.event;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,13 +29,14 @@ import java.util.Map;
  */
 public class StandardEventSubject<T> implements EventSubject<T> {
 
+    private static final Logger logger = LoggerFactory.getLogger(StandardEventSubject.class);
     private final Map<EventType, List<EventHandler>> eventHandlers;
 
 
     public StandardEventSubject(EventSystem eventSystem) {
         eventSystem.register(EventType.MOVE_CARD, this);
-        eventSystem.register(EventType.NORMAL_SUMMON, this);
-        eventSystem.register(EventType.DRAW_CARD, this);
+        eventSystem.register(EventType.DUEL, this);
+//        eventSystem.register(EventType.DRAW_CARD, this);
 //        eventSystem.register(EventType.ROUND_CHANGE, this);
 //        eventSystem.register(EventType.DUEL_START, this);
         eventHandlers = new HashMap<>();
@@ -41,12 +45,21 @@ public class StandardEventSubject<T> implements EventSubject<T> {
 
     @Override
     public T notice(Event event) {
+        logger.debug("Notice event handlers");
+        boolean found = false;
         T t;
         for (EventHandler<T> eventHandler : getEventHandlers(event)) {
             if (eventHandler != null) {
+                found = true;
                 t = eventHandler.handle(event);
                 if (t != null) return t;
             }
+        }
+        if (!event.isPreventDefault()) {
+            return (T) event.getDefaultAction();
+        }
+        if (!found) {
+            logger.warn("Event handler not found");
         }
         return null;
     }

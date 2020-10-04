@@ -65,8 +65,6 @@ public class StandardDuelEngine implements DuelEngine {
 
     @Override
     public Object send(CommandArgument argument) {
-//        EventSystem eventSystem = new StandardEventSystem();
-
         if (argument.getCommandType() != CommandArgument.NORMAL_SUMMON) {
             throw new RuntimeException("command type is not equals normal summon");
         }

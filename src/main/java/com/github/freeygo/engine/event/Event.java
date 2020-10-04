@@ -143,6 +143,10 @@ public abstract class Event {
         setDoDefaultAction(false);
     }
 
+    public boolean isPreventDefault() {
+        return !doDefaultAction;
+    }
+
 //    public Duel getDuel() {
 //        return duel;
 //    }
