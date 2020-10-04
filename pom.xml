@@ -13,19 +13,20 @@
         <luaj.version>3.0.1</luaj.version>
         <log4j.version>2.13.3</log4j.version>
         <slf4j.version>1.7.30</slf4j.version>
+        <assertj.version>3.11.1</assertj.version>
+        <mockito.version>3.5.13</mockito.version>
     </properties>
 
     <dependencies>
-        <!-- Junit 5 Start -->
+        <!-- Junit 5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit5.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- Junit 5 End -->
 
-        <!-- LuaJ Dependency Start -->
+        <!-- LuaJ -->
         <dependency>
             <groupId>org.luaj</groupId>
             <artifactId>luaj-jse</artifactId>
@@ -45,9 +46,8 @@
                 <!--                </exclusion>-->
             </exclusions>
         </dependency>
-        <!-- LuaJ Dependency End -->
 
-        <!-- Logger Dependency Start -->
+        <!-- Logger SLF4J -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -63,6 +63,8 @@
             <artifactId>jul-to-slf4j</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+
+        <!-- Log4J -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -79,7 +81,22 @@
             <version>${log4j.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- Logger Dependency End  -->
+
+        <!-- AssertJ -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <!-- use 2.9.1 for Java 7 projects -->
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+        </dependency>
     </dependencies>
 
 
