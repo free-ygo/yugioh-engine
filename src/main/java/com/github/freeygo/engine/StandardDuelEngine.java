@@ -17,8 +17,6 @@
 package com.github.freeygo.engine;
 
 import com.github.freeygo.engine.event.*;
-import org.luaj.vm2.Globals;
-import org.luaj.vm2.lib.jse.JsePlatform;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -52,15 +50,7 @@ public class StandardDuelEngine implements DuelEngine {
 
     @Override
     public Object send(String script, DuelContext context) {
-        try {
-            Globals globals = context.getAttribute(LUA_GLOBALS);
-            if (globals == null) {
-                globals = JsePlatform.standardGlobals();
-            }
-            return globals.load(script);
-        } catch (Throwable t) {
-            throw new RuntimeException(t);
-        }
+        throw new RuntimeException("Unsupported operation");
     }
 
     @Override

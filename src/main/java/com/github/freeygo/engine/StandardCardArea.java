@@ -24,9 +24,16 @@ import java.util.Random;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class StandardCardArea implements CardArea {
+/**
+ * This class implements an unlimited area. In other words, This area can accept
+ * any number of cards. When you use {@link StandardCardArea#push(Card)},
+ * {@link StandardCardArea#pushAll(List)}, {@link StandardCardArea#add(Card)},
+ * {@link StandardCardArea#addAll(List)} etc. addition methods will always return
+ * true.
+ */
+public class StandardCardArea extends AbstractCardArea {
 
-    private final ArrayList<Card> cards;
+    private final List<Card> cards;
     private final DuelDisk duelDisk;
     private boolean available;
 
@@ -51,13 +58,15 @@ public class StandardCardArea implements CardArea {
 
 
     @Override
-    public void push(Card card) {
+    public boolean push(Card card) {
         cards.add(card);
+        return true;
     }
 
     @Override
-    public void pushAll(List<Card> cards) {
+    public boolean pushAll(List<Card> cards) {
         this.cards.addAll(cards);
+        return true;
     }
 
     @Override
@@ -80,8 +89,9 @@ public class StandardCardArea implements CardArea {
 //    }
 
     @Override
-    public void add(Card card) {
+    public boolean add(Card card) {
         cards.add(card);
+        return true;
     }
 
     @Override
@@ -119,9 +129,5 @@ public class StandardCardArea implements CardArea {
         return cards.size();
     }
 
-    @Override
-    public DuelDisk getDuelDisk() {
-        return duelDisk;
-    }
 
 }

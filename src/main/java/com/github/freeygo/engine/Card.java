@@ -33,12 +33,13 @@ public interface Card {
 //    int CONTINUOUS_MAGIC = 1106;
 //    int COUNTER_MAGIC = 1107;
 
+
+    String getRuntimeId();
+
+    void setRuntimeId(String id);
+
     String getId();
 
-    //    void setType(int type);
-//    int UNCOVER_ATTACK = 1201;
-//    int COVER_DEFENSE = 1202;
-//    int COVER_UP = 1203;
     void setId(String id);
 
     String getName();
