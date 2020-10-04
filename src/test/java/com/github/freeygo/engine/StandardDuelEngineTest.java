@@ -16,8 +16,12 @@
 
 package com.github.freeygo.engine;
 
+import com.github.freeygo.engine.event.EventSystem;
+import com.github.freeygo.engine.event.StandardEventSystem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,24 +32,47 @@ class StandardDuelEngineTest {
 
     private DuelEngine duelEngine;
     private DuelEngineContext engineContext;
+    private Card card;
+    private Duel duel;
+
 
     @BeforeEach
     void setUp() {
+        card = new StandardCard();
+        card.setName("童话动物·小兔子");
+        card.setTags(Arrays.asList("童话动物"));
+        card.setCategory(Card.Category.MONSTER);
+        card.setAttack(0);
+        card.setDefense(2100);
+        card.setLevel(2);
+        card.setAttribute(Card.Attribute.EARTH);
+        card.setRace(Card.Race.BEAST);
+
         engineContext = new StandardDuelEngineContext();
         duelEngine = new StandardDuelEngine();
 
+        EventSystem eventSystem = new StandardEventSystem();
+        duelEngine.setEventSystem(eventSystem);
+
+        DuelDisk firstDisk = new StandardDuelDisk();
         Duelist first = new StandardDuelist();
+        first.setDuelDisk(firstDisk);
+
+        DuelDisk secondDisk = new StandardDuelDisk();
         Duelist second = new StandardDuelist();
+        second.setDuelDisk(secondDisk);
 
         DuelistPair pair = new DuelistPair();
         pair.setFirstDuelist(first);
         pair.setSecondDuelist(second);
 
-        StandardDuel duel = new StandardDuel();
+
+        duel = new StandardDuel();
+        duel.setDuelistPair(pair);
         duel.setContext(new StandardDuelContext());
         duel.setCurrentRound(new StandardRound(1));
 
-        duelEngine.start(duel);
+//        duelEngine.start(duel);
     }
 
 
@@ -79,9 +106,15 @@ class StandardDuelEngineTest {
 
     @Test
     void sendCommand() {
+        assertThat(duel).isNotNull();
+
         CommandArgument args = new CommandArgument();
+        args.setCommandType(CommandArgument.NORMAL_SUMMON);
         args.setDestinationArea(CommandArgument.MONSTER_AREA);
+        args.setCard(card);
         args.setLocation(1);
+        args.setDuelist(CommandArgument.FIRST);
+        duelEngine.start(duel);
         duelEngine.send(args);
     }
 }

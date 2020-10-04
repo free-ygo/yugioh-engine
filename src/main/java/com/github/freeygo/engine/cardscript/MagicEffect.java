@@ -14,19 +14,10 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.event;
-
-import com.github.freeygo.engine.cardscript.Effect;
-
-import java.util.List;
-import java.util.Map;
+package com.github.freeygo.engine.cardscript;
 
 /**
  * @author 戴志勇
  */
-public interface EffectRegister {
-
-    void registerEffect(Event e, Effect effect);
-
-    Map<Event, List<Effect>> getEffects(Event e);
+public abstract class MagicEffect implements Effect {
 }

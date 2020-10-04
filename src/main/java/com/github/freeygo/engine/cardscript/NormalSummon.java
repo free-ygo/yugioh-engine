@@ -1,6 +1,22 @@
+/*
+ * Copyright (c) 2020 free-ygo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.github.freeygo.engine.cardscript;
 
-import com.github.freeygo.engine.MonsterCard;
+import com.github.freeygo.engine.Card;
 import com.github.freeygo.engine.RoundRange;
 import com.github.freeygo.engine.StageRange;
 
@@ -9,20 +25,20 @@ import java.util.function.Predicate;
 /**
  * @author 戴志勇
  */
-public class NormalSummon<T, R> extends AbstractMonsterEffective<T, R> {
+public class NormalSummon<R> extends AbstractMonsterEffect<R> {
     private RoundRange roundRange;
 
     private StageRange stageRange;
 
     private ActionScript script;
 
-    private Predicate<T> condition;
+    private Predicate<Card> condition;
 
     private EffectStatus status;
 
-    private T target;
+    private Card target;
 
-    private MonsterCard source;
+    private Card source;
 
     private EffectType effectType;
 
@@ -30,27 +46,27 @@ public class NormalSummon<T, R> extends AbstractMonsterEffective<T, R> {
 
 
     @Override
-    public boolean isTarget(T t) {
-        return t instanceof MonsterCard;
+    public boolean isTarget(Card t) {
+        return t != null && t.getCategory() == Card.Category.MONSTER;
     }
 
     @Override
-    public boolean isAvailable(T t) {
+    public boolean isAvailable(Card t) {
         return isTarget(t) && condition != null && condition.test((t));
     }
 
     @Override
-    public R execute(T t) {
+    public R execute(Card t) {
         return isAvailable(t) ? script.action() : null;
     }
 
     @Override
-    public Predicate<T> getCondition() {
+    public Predicate<Card> getCondition() {
         return condition;
     }
 
     @Override
-    public void setCondition(Predicate<T> condition) {
+    public void setCondition(Predicate<Card> condition) {
         this.condition = condition;
     }
 
@@ -90,22 +106,22 @@ public class NormalSummon<T, R> extends AbstractMonsterEffective<T, R> {
     }
 
     @Override
-    public MonsterCard getSource() {
+    public Card getSource() {
         return source;
     }
 
     @Override
-    public void setSource(MonsterCard source) {
+    public void setSource(Card source) {
         this.source = source;
     }
 
     @Override
-    public T getTarget() {
+    public Card getTarget() {
         return target;
     }
 
     @Override
-    public void setTarget(T target) {
+    public void setTarget(Card target) {
         this.target = target;
     }
 

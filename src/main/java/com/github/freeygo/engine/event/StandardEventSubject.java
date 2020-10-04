@@ -30,9 +30,9 @@ public class StandardEventSubject<T> implements EventSubject<T> {
 
 
     public StandardEventSubject(EventSystem eventSystem) {
-//        eventSystem.register(EventType.MOVE_CARD, this);
+        eventSystem.register(EventType.MOVE_CARD, this);
         eventSystem.register(EventType.NORMAL_SUMMON, this);
-//        eventSystem.register(EventType.DRAW_CARD, this);
+        eventSystem.register(EventType.DRAW_CARD, this);
 //        eventSystem.register(EventType.ROUND_CHANGE, this);
 //        eventSystem.register(EventType.DUEL_START, this);
         eventHandlers = new HashMap<>();
@@ -57,10 +57,10 @@ public class StandardEventSubject<T> implements EventSubject<T> {
     }
 
     private List<EventHandler> getEventHandlers(Event event) {
-        return eventHandlers.getOrDefault(event.getEventType(), new ArrayList<>());
+        return eventHandlers.computeIfAbsent(event.getEventType(), (e) -> new ArrayList<>());
     }
 
     private List<EventHandler> getEventHandlers(EventType eventType) {
-        return eventHandlers.getOrDefault(eventType, new ArrayList<>());
+        return eventHandlers.computeIfAbsent(eventType, (e) -> new ArrayList<>());
     }
 }

@@ -28,5 +28,5 @@ public interface EventSubject<T> {
      */
     T notice(Event event);
 
-    void addHandler(EventType e, EventHandler handler) throws RuntimeException;
+    void addHandler(EventType e, EventHandler<T> handler) throws RuntimeException;
 }

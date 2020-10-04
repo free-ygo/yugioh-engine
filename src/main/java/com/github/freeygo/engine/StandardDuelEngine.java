@@ -65,7 +65,7 @@ public class StandardDuelEngine implements DuelEngine {
 
     @Override
     public Object send(CommandArgument argument) {
-        EventSystem eventSystem = new StandardEventSystem();
+//        EventSystem eventSystem = new StandardEventSystem();
 
         if (argument.getCommandType() != CommandArgument.NORMAL_SUMMON) {
             throw new RuntimeException("command type is not equals normal summon");
@@ -91,11 +91,13 @@ public class StandardDuelEngine implements DuelEngine {
     public void start(Duel duel) {
         this.duel = duel;
         EventSubject subject = new StandardEventSubject<CompletableFuture>(eventSystem);
-        subject.addHandler(EventType.NORMAL_SUMMON, (e) -> {
+        subject.addHandler(EventType.MOVE_CARD, (e) -> {
             if (e instanceof MoveCardEvent) {
                 System.out.println("Put card " + ((MoveCardEvent) e).getCard() + " into " + ((MoveCardEvent) e).getTargetArea());
+            } else {
+                throw new RuntimeException("The event is not MoveCardEvent");
             }
-            throw new RuntimeException("Normal event is not MoveCardEvent");
+            return null;
         });
 //        DuelDisk a = new StandardDuelDisk();
 //        DuelDisk b = new StandardDuelDisk();
@@ -113,14 +115,17 @@ public class StandardDuelEngine implements DuelEngine {
     }
 
     private CardArea getTarget(CommandArgument arg) {
-        if (arg.getDestinationArea() == CommandArgument.MONSTER_AREA) {
+        if (arg.getCommandType() == CommandArgument.NORMAL_SUMMON) {
             if (arg.getDuelist() == CommandArgument.FIRST) {
+                return duel.getDuelistPair()
+                        .getFirstDuelist()
+                        .getDuelDisk()
+                        .getMonsterArea();
+            } else if (arg.getDuelist() == CommandArgument.SECOND) {
                 return duel.getDuelistPair().getFirstDuelist().getDuelDisk().getMonsterArea();
             }
-            if (arg.getDuelist() == CommandArgument.SECOND) {
-                return duel.getDuelistPair().getFirstDuelist().getDuelDisk().getMonsterArea();
-            }
+            throw new RuntimeException("Unknown duelist");
         }
-        throw new RuntimeException("Unknow command type");
+        throw new RuntimeException("Unknown command type");
     }
 }

@@ -79,6 +79,7 @@ public class MoveCardEventBuilder extends EventBuilder<MoveCardEvent> {
     public MoveCardEvent build() {
         MoveCardEvent result = new MoveCardEvent(getTarget());
         result.setDefaultAction(getDefaultAction());
+        result.setEventType(EventType.MOVE_CARD);
         result.setCount(count);
         result.setCard(card);
         result.setSourceArea(sourceArea);
