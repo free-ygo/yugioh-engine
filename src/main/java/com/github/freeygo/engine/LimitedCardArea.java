@@ -17,29 +17,29 @@
 package com.github.freeygo.engine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @author Zhi yong Dai
  */
 public class LimitedCardArea extends AbstractCardArea {
-    //    private CardArea[] cards;
-    private final Card[] cards;
-    private int position;
-    private DuelDisk duelDisk;
+    private final List<Card> cards;
+    private final int limit;
 
     public LimitedCardArea(int capacity) {
         if (capacity < 1) {
             throw new IllegalArgumentException("Capacity cannot less than zero");
         }
-        this.cards = new Card[capacity];
-//        cards = Arrays.asList(new Card[capacity]);
+        this.limit = capacity;
+        this.cards = new ArrayList<>(limit);
     }
 
     @Override
     public List<Card> search(Predicate<Card> condition) {
-        throw new RuntimeException("Unsupported operation");
+        return cards.stream().filter(condition).collect(Collectors.toList());
     }
 
 
@@ -51,11 +51,7 @@ public class LimitedCardArea extends AbstractCardArea {
      */
     @Override
     public boolean push(Card card) {
-        if (position < cards.length) {
-            cards[position++] = card;
-            return true;
-        }
-        return false;
+        return add(card);
     }
 
     /**
@@ -64,165 +60,75 @@ public class LimitedCardArea extends AbstractCardArea {
      */
     @Override
     public boolean pushAll(List<Card> cards) {
-        if (cards.size() <= this.cards.length - position) {
-            System.arraycopy(cards.toArray(new Card[0]), 0, this.cards, position, cards.size());
-            position += cards.size();
-            return true;
-        }
-        return false;
+        return addAll(cards);
     }
 
     @Override
     public Card pop() {
-        if (position - 1 > -1) {
-            return this.cards[--position];
+        if (!cards.isEmpty()) {
+            return cards.remove(cards.size() - 1);
         }
         return null;
     }
 
     @Override
     public Card peek() {
-        int pos = isEmptyLast();
-        if (pos > -1) return cards[pos];
-        return null;
+        if (cards.isEmpty()) {
+            return null;
+        }
+        return cards.get(cards.size() - 1);
     }
 
     @Override
     public boolean add(Card card) {
-
+        return add(cards.size() + 1, card);
     }
 
     @Override
     public boolean add(int i, Card card) {
-        List<Integer> index = elementIndexes();
-        if (index.size() == cards.length || index.size() + 1 < i) {
+        if (isFullAfterAdd(1)) {
             return false;
-        } else if (index.get(i) > i) {
-            compact(index.get(i) - 1);
-            cards[i] = card;
-        } else if (index.get(i) < i) {
-            cards[i] = card;
-        } else {
-            cards[i + 1] = cards[i];
-            cards[i] = card;
         }
+        cards.add(i, card);
+        return true;
     }
 
     @Override
-    public boolean addAll(List<Card> card) {
-        if (card.size() >)
+    public boolean addAll(List<Card> cards) {
+        return addAll(this.cards.size() + 1, cards);
     }
 
     @Override
-    public void removeAll(List<Card> cards) {
-
+    public boolean removeAll(List<Card> cards) {
+        return this.cards.remove(cards);
     }
 
     @Override
-    public void remove(Card card) {
-
+    public boolean remove(Card card) {
+        return cards.remove(card);
     }
 
     @Override
-    public void addAll(int i, List<Card> cards) {
-
+    public boolean addAll(int i, List<Card> cards) {
+        if (isFullAfterAdd(cards.size())) {
+            return false;
+        }
+        this.cards.addAll(cards);
+        return true;
     }
 
     @Override
     public void shuffle() {
-
+        Collections.shuffle(cards);
     }
 
     @Override
     public int size() {
-//        return Arrays.stream(cards).filter(Objects::nonNull).;
-        int size = 0;
-        for (Card card : cards) {
-            if (card != null) size += 1;
-        }
-        return size;
-    }
-
-    @Override
-    public DuelDisk getDuelDisk() {
-        return duelDisk;
-    }
-
-    /**
-     * -1 if is empty else last object position
-     */
-    private int isEmptyLast() {
-        for (int i = cards.length; i > 0; i--) {
-            if (cards[i] != null) return i;
-        }
-        return -1;
-    }
-
-    /**
-     * -1 if is empty else first object position
-     */
-    private int isEmptyFirst() {
-//        return Arrays.stream(cards).allMatch(Objects::isNull);
-        for (int i = 0; i < cards.length; i++) {
-            if (cards[i] != null) return i;
-        }
-        return -1;
-    }
-
-    /**
-     * -1 if is full else first null position
-     */
-    private int isFullFirst() {
-//        return Arrays.stream(cards).allMatch(Objects::nonNull);
-        for (int i = 0; i < cards.length; i++) {
-            if (cards[i] == null) return i;
-        }
-        return -1;
-    }
-
-    /**
-     * -1 if is full else last null position
-     */
-    private int isFullLast() {
-        for (int i = cards.length; i > 0; i--) {
-            if (cards[i] == null) return i;
-        }
-        return -1;
-    }
-
-    /**
-     * return null if is empty else removed object
-     */
-    private Card remove(int i) {
-        if (i > -1 && i < cards.length && cards[i] != null) {
-            Card c = cards[i];
-            cards[i] = null;
-            return c;
-        }
-        return null;
-    }
-
-    /**
-     * compact length elements.
-     */
-    private void compact(int length) {
-        int len = Math.min(length, cards.length);
-        for (int i = 0, j = i + 1; i < len && j < len; j++) {
-            if (cards[i] == null && cards[j] != null) {
-                cards[i++] = cards[j];
-                cards[j] = null;
-            }
-        }
+        return cards.size();
     }
 
 
-    private List<Integer> elementIndexes() {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < cards.length; i++) {
-            if (cards[i] != null) {
-                list.add(i);
-            }
-        }
-        return list;
+    public boolean isFullAfterAdd(int size) {
+        return size + cards.size() > limit;
     }
 }

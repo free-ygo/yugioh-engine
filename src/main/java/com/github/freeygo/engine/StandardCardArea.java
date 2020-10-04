@@ -34,12 +34,10 @@ import java.util.stream.Collectors;
 public class StandardCardArea extends AbstractCardArea {
 
     private final List<Card> cards;
-    private final DuelDisk duelDisk;
     private boolean available;
 
     public StandardCardArea(DuelDisk duelDisk) {
         cards = new ArrayList<>();
-        this.duelDisk = duelDisk;
     }
 
     @Override
@@ -95,28 +93,31 @@ public class StandardCardArea extends AbstractCardArea {
     }
 
     @Override
-    public void add(int i, Card card) {
+    public boolean add(int i, Card card) {
         cards.add(i, card);
+        return true;
     }
 
     @Override
-    public void addAll(List<Card> card) {
-        cards.addAll(card);
+    public boolean addAll(List<Card> cards) {
+        this.cards.addAll(cards);
+        return true;
     }
 
     @Override
-    public void removeAll(List<Card> cards) {
-        this.cards.removeAll(cards);
+    public boolean removeAll(List<Card> cards) {
+        return this.cards.removeAll(cards);
     }
 
     @Override
-    public void remove(Card card) {
-        this.cards.remove(card);
+    public boolean remove(Card card) {
+        return this.cards.remove(card);
     }
 
     @Override
-    public void addAll(int i, List<Card> cards) {
-        cards.addAll(i, cards);
+    public boolean addAll(int i, List<Card> cards) {
+        this.cards.addAll(i, cards);
+        return true;
     }
 
     @Override

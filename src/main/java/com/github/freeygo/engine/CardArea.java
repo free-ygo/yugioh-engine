@@ -82,7 +82,7 @@ public interface CardArea {
 
     boolean removeAll(List<Card> cards);
 
-    Card remove(Card card);
+    boolean remove(Card card);
 
     /**
      * Put a list of cards into position i.
