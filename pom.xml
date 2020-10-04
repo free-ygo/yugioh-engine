@@ -9,20 +9,27 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-
+        <junit5.version>RELEASE</junit5.version>
+        <luaj.version>3.0.1</luaj.version>
+        <log4j.version>2.13.3</log4j.version>
+        <slf4j.version>1.7.30</slf4j.version>
     </properties>
 
     <dependencies>
+        <!-- Junit 5 Start -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <version>${junit5.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- Junit 5 End -->
+
+        <!-- LuaJ Dependency Start -->
         <dependency>
             <groupId>org.luaj</groupId>
             <artifactId>luaj-jse</artifactId>
-            <version>3.0.1</version>
+            <version>${luaj.version}</version>
             <exclusions>
                 <!--                <exclusion>-->
                 <!--                    <groupId>org.slf4j</groupId>-->
@@ -38,41 +45,41 @@
                 <!--                </exclusion>-->
             </exclusions>
         </dependency>
+        <!-- LuaJ Dependency End -->
 
+        <!-- Logger Dependency Start -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.30</version>
+            <version>${slf4j.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.30</version>
+            <version>${slf4j.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
-            <version>1.7.30</version>
+            <version>${slf4j.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.13.3</version>
+            <version>${log4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.13.3</version>
+            <version>${log4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.13.3</version>
+            <version>${log4j.version}</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- Logger Dependency End  -->
     </dependencies>
 
 
