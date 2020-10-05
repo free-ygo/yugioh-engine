@@ -156,7 +156,9 @@ public interface Card {
          * 盖伏
          */
         COVER_UP,
-        /** outside */
+        /**
+         * outside：场外
+         */
         OUTSIDE
     }
 }

@@ -17,6 +17,7 @@
 package com.github.freeygo.engine;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -25,6 +26,9 @@ import java.util.function.Predicate;
  */
 public interface CardArea {
 
+    /**
+     * Search cards by special condition
+     */
     List<Card> search(Predicate<Card> condition);
 
     /**
@@ -33,9 +37,9 @@ public interface CardArea {
      *
      * @return true if available, false if unavailable
      */
-    boolean isAvailable();
+    boolean isAvailable(int index);
 
-    void setAvailable(boolean available);
+    void setAvailable(int index, boolean available);
 
     /**
      * Put a card into a card area. If the card area is full that returns an
@@ -69,6 +73,33 @@ public interface CardArea {
     Card peek();
 
     /**
+     * Peek a number of {@code count} cards, if cards of area is less than
+     * {@code count} that return the remains cards.
+     *
+     * @param count Card count
+     * @return a list of {@link Card}
+     */
+    List<Card> peek(int count);
+
+    /**
+     * Peek card from {@code startInclude} to {@code endExclude}.
+     *
+     * @param startInclude Begin from 0
+     * @param endExclude   Less or equal size of area
+     * @return a list of {@link Card}
+     */
+    List<Card> peek(int startInclude, int endExclude);
+
+    /**
+     * Peek card from {@code startInclude} to {@code endInclude}.
+     *
+     * @param startInclude Begin from 0
+     * @param endInclude   Less or equal size of area
+     * @return a list of {@link Card}
+     */
+    List<Card> peekClose(int startInclude, int endInclude);
+
+    /**
      * Add a card into an area. If area is full, will return false else true.
      *
      * @param card card to add
@@ -76,13 +107,24 @@ public interface CardArea {
      **/
     boolean add(Card card);
 
+    /**
+     * Add a card into {@code i} position of area. If area is full, will return
+     * false else return true.
+     *
+     * @param i    from 0 to @{{@link #cardSize()}
+     * @param card card to add
+     * @return true if success, false if fail
+     */
     boolean add(int i, Card card);
 
-    boolean addAll(List<Card> card);
-
-    boolean removeAll(List<Card> cards);
-
-    boolean remove(Card card);
+    /**
+     * Add a card into area. If area cannot accept {@code cards} return false
+     * else return true.
+     *
+     * @param cards card to add
+     * @return true if success, false if fail
+     */
+    boolean addAll(List<Card> cards);
 
     /**
      * Put a list of cards into position i.
@@ -90,20 +132,54 @@ public interface CardArea {
      * If position i is beyond the range of the size of {@link CardArea} , it
      * throws an exception.
      *
-     * @param i     from 0 to {@link #size()}
+     * @param i     from 0 to {@link #cardSize()}
      * @param cards card list
      */
     boolean addAll(int i, List<Card> cards);
 
     /**
-     * Shuffle the cards group.
+     * Remove all {@link Card} that {@code cards} contains. If
+     * boolean removeAll(List<Card> cards);
+     * <p>
+     * /**
+     * Remove a card from position {@code index}, if the position is not null
+     * return the removed card or return null.
+     *
+     * @param index card index
+     * @return null if index is null else the removed card.
      */
-    void shuffle();
+    Card remove(int index);
 
     /**
-     * Return the number of cards in the card area.
+     * Remove the card
      *
-     * @return The number of cards in the card area
+     * @param card the removed card
+     * @return true if success, false if fail.
+     */
+    boolean remove(Card card);
+
+    /**
+     * Put the card in position index;
+     *
+     * @param index from 0 to {@link #cardSize()}(exclude)
+     * @param card  card to put
+     * @return true if success, false if fail.
+     */
+    boolean set(int index, Card card);
+
+//    /**
+//     * Shuffle the cards area.
+//     * true if success, false if fail.
+//     */
+//    void shuffle();
+
+    /**
+     * Return the size of area. In some cases, the size of the  card area is
+     * equal to the number of cards, but this is not absolute.
+     * <p>
+     * <em>Notice</em>: This is not the number of cards.
+     *
+     * @return the size of area.
      */
     int size();
 
@@ -116,12 +192,31 @@ public interface CardArea {
 
     void setDuelDisk(DuelDisk duelDisk);
 
-//    /**
-//     * Return the child areas. If there is no areas, it will return an
-//     * empty list.
-//     * .
-//     */
-//    List<CardArea> getChildArea();
+    /**
+     * Return all cards whose position is not {@code null}. The return value is
+     * a modifiable list.
+     *
+     * @return all cards whose position is not null.
+     */
+    List<Card> getCards();
 
+    /**
+     * Returns the position index of all cards with non empty area.
+     *
+     * @return Return a map that key is index and value is card.
+     */
+    Map<Integer, Card> getPositions();
 
+    /**
+     * Get position of card
+     */
+    int getPosition(Card card);
+
+    /**
+     * Return size of all cards whose position is not {@code null}.
+     *
+     * @return size of cards
+     * @see {@link #getCards()}
+     */
+    int cardSize();
 }

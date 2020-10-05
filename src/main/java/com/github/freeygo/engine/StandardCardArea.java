@@ -110,9 +110,15 @@ public class StandardCardArea extends AbstractCardArea {
     }
 
     @Override
+    public Card remove(int index) {
+        return cards.remove(index);
+    }
+
+    @Override
     public boolean remove(Card card) {
         return this.cards.remove(card);
     }
+
 
     @Override
     public boolean addAll(int i, List<Card> cards) {
@@ -128,6 +134,11 @@ public class StandardCardArea extends AbstractCardArea {
     @Override
     public int size() {
         return cards.size();
+    }
+
+    @Override
+    public List<Card> getCards() {
+        return cards;
     }
 
 

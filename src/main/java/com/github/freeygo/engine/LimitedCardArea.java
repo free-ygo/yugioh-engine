@@ -104,6 +104,11 @@ public class LimitedCardArea extends AbstractCardArea {
     }
 
     @Override
+    public Card remove(int index) {
+        return cards.remove(index);
+    }
+
+    @Override
     public boolean remove(Card card) {
         return cards.remove(card);
     }
@@ -125,6 +130,11 @@ public class LimitedCardArea extends AbstractCardArea {
     @Override
     public int size() {
         return cards.size();
+    }
+
+    @Override
+    public List<Card> getCards() {
+        return cards;
     }
 
 

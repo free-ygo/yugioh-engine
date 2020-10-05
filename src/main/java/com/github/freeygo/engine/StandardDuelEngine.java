@@ -17,8 +17,13 @@
 package com.github.freeygo.engine;
 
 import com.github.freeygo.engine.event.*;
+import com.github.freeygo.engine.util.ViewUtils;
 
 import java.util.concurrent.CompletableFuture;
+
+import static com.github.freeygo.engine.util.ConsoleUtils.println;
+import static com.github.freeygo.engine.util.ConsoleUtils.readLine;
+
 
 public class StandardDuelEngine implements DuelEngine {
 
@@ -79,14 +84,43 @@ public class StandardDuelEngine implements DuelEngine {
     public void start(Duel duel) {
         this.duel = duel;
         EventSubject subject = new StandardEventSubject<CompletableFuture>(eventSystem);
-        subject.addHandler(EventType.MOVE_CARD, (e) -> {
-            if (e instanceof MoveCardEvent) {
-                System.out.println("Put card " + ((MoveCardEvent) e).getCard() + " into " + ((MoveCardEvent) e).getTargetArea());
+        subject.addHandler(EventType.DUEL, (e) -> {
+            e.preventDefault(); // 阻止默认行为
+            if (e instanceof DuelEvent) {
+                e.getDefaultAction().action(e);
+                println(
+                        "P1:" + e.getTarget().getDuelistPair()
+                                .getFirstDuelist().getDuelDisk().getHandArea().getCards()
+                );
+                println(
+                        "P2:" + e.getTarget().getDuelistPair()
+                                .getFirstDuelist().getDuelDisk().getHandArea().getCards()
+                );
+                println();
+                println("P1回合：");
+                String line;
+                do {
+                    ViewUtils.commandMenu();
+                    line = readLine();
+                } while (ViewUtils.inputCorrect(line));
+
+                String[] commands = ViewUtils.resolve(line);
+                if (commands[0].equals("s")) {
+                    e.getTarget().getDuelistPair()
+                            .getFirstDuelist()
+                            .getDuelDisk()
+                            .getHandArea()
+                            .search(c -> c.getId().equals(commands[1]))
+                            .forEach(c -> c.moveTo(c.getCardArea().getDuelDisk().getMonsterArea()));
+                }
             } else {
                 throw new RuntimeException("The event is not MoveCardEvent");
             }
             return null;
         });
+//        subject.addHandler(EventType., (e) -> {
+//
+//        });
 //        DuelDisk a = new StandardDuelDisk();
 //        DuelDisk b = new StandardDuelDisk();
 //        EventFactory.drawCard().duelDisk(a).send(eventSystem);

@@ -31,6 +31,7 @@
         <slf4j.version>1.7.30</slf4j.version>
         <assertj.version>3.11.1</assertj.version>
         <mockito.version>3.5.13</mockito.version>
+        <groovy.version>3.0.6</groovy.version>
     </properties>
 
     <dependencies>
@@ -113,6 +114,13 @@
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Groovy -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>${groovy.version}</version>
         </dependency>
     </dependencies>
 

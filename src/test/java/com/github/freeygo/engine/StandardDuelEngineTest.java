@@ -22,6 +22,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,21 +36,31 @@ class StandardDuelEngineTest {
 
     private DuelEngine duelEngine;
     private DuelEngineContext engineContext;
-    private Card card;
     private Duel duel;
 
 
     @BeforeEach
     void setUp() {
-        card = new StandardCard();
-        card.setName("童话动物·小兔子");
-        card.setTags(Arrays.asList("童话动物"));
-        card.setCategory(Card.Category.MONSTER);
-        card.setAttack(0);
-        card.setDefense(2100);
-        card.setLevel(2);
-        card.setAttribute(Card.Attribute.EARTH);
-        card.setRace(Card.Race.BEAST);
+        Function<Integer, Card> supplier = (i) -> {
+            Card card = new StandardCard();
+            card.setRuntimeId("" + i);
+            card.setName("童话动物·小兔子");
+            card.setTags(Arrays.asList("童话动物"));
+            card.setCategory(Card.Category.MONSTER);
+            card.setAttack(0);
+            card.setDefense(2100);
+            card.setLevel(2);
+            card.setAttribute(Card.Attribute.EARTH);
+            card.setRace(Card.Race.BEAST);
+            return card;
+        };
+
+        List<Card> cards1 = IntStream.rangeClosed(1, 40)
+                .mapToObj(i -> supplier.apply(i))
+                .collect(Collectors.toList());
+        List<Card> cards2 = IntStream.rangeClosed(41, 80)
+                .mapToObj(i -> supplier.apply(i))
+                .collect(Collectors.toList());
 
         engineContext = new StandardDuelEngineContext();
         duelEngine = new StandardDuelEngine();
@@ -55,10 +69,14 @@ class StandardDuelEngineTest {
         duelEngine.setEventSystem(eventSystem);
 
         DuelDisk firstDisk = new StandardDuelDisk();
+        firstDisk.getDeckArea().addAll(cards1);
+
         Duelist first = new StandardDuelist();
         first.setDuelDisk(firstDisk);
 
         DuelDisk secondDisk = new StandardDuelDisk();
+        secondDisk.getDeckArea().addAll(cards2);
+
         Duelist second = new StandardDuelist();
         second.setDuelDisk(secondDisk);
 
@@ -72,7 +90,6 @@ class StandardDuelEngineTest {
         duel.setContext(new StandardDuelContext());
         duel.setCurrentRound(new StandardRound(1));
 
-//        duelEngine.start(duel);
     }
 
 
@@ -108,13 +125,13 @@ class StandardDuelEngineTest {
     void sendCommand() {
         assertThat(duel).isNotNull();
 
-        CommandArgument args = new CommandArgument();
-        args.setCommandType(CommandArgument.NORMAL_SUMMON);
-        args.setDestinationArea(CommandArgument.MONSTER_AREA);
-        args.setCard(card);
-        args.setLocation(1);
-        args.setDuelist(CommandArgument.FIRST);
+//        CommandArgument args = new CommandArgument();
+//        args.setCommandType(CommandArgument.NORMAL_SUMMON);
+//        args.setDestinationArea(CommandArgument.MONSTER_AREA);
+//        args.setCard(card);
+//        args.setLocation(1);
+//        args.setDuelist(CommandArgument.FIRST);
         duelEngine.start(duel);
-        duelEngine.send(args);
+//        duelEngine.send(args);
     }
 }

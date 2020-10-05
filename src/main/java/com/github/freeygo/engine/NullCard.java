@@ -22,195 +22,173 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * A null card object.
+ *
  * @author Zhi yong Dai
  */
-public abstract class AbstractCard implements Card {
-    private String runtimeId;
-    private FieldStatus fieldStatus;
-    private Category category;
-    private List<Effect> effects;
-    private CardArea cardArea;
-    private Integer level;
-    private Integer attack;
-    private Integer defense;
-    private String description;
-    private Race race;
-    private Type type;
-    private Attribute attribute;
-    private String name;
-    private Collection<String> tags;
-    private String id;
-    private MagicType magicType;
-
-    public AbstractCard() {
+public final class NullCard implements Card {
+    @Override
+    public String getRuntimeId() {
+        return null;
     }
 
     @Override
-    public Collection<String> getTags() {
-        return tags;
-    }
+    public void setRuntimeId(String id) {
 
-    @Override
-    public void setTags(Collection<String> tags) {
-        this.tags = tags;
-    }
-
-    @Override
-    public FieldStatus getFieldStatus() {
-        return fieldStatus;
-    }
-
-    @Override
-    public void setFieldStatus(FieldStatus status) {
-        this.fieldStatus = status;
-    }
-
-    @Override
-    public Category getCategory() {
-        return category;
-    }
-
-    @Override
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    @Override
-    public List<Effect> getEffects() {
-        return effects;
-    }
-
-    @Override
-    public void setEffects(List<Effect> effects) {
-        this.effects = effects;
-    }
-
-    @Override
-    public CardArea getCardArea() {
-        return cardArea;
-    }
-
-    @Override
-    public void setCardArea(CardArea cardArea) {
-        this.cardArea = cardArea;
-    }
-
-
-    @Override
-    public void moveTo(CardArea cardArea) {
-        if (this.cardArea != null) {
-            this.cardArea.remove(this);
-        }
-        cardArea.push(this);
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public Integer getLevel() {
-        return level;
-    }
-
-    @Override
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    @Override
-    public Integer getAttack() {
-        return attack;
-    }
-
-    @Override
-    public void setAttack(Integer attack) {
-        this.attack = attack;
-    }
-
-    @Override
-    public Integer getDefense() {
-        return defense;
-    }
-
-    @Override
-    public void setDefense(Integer defense) {
-        this.defense = defense;
-    }
-
-    @Override
-    public Race getRace() {
-        return race;
-    }
-
-    @Override
-    public void setRace(Race race) {
-        this.race = race;
-    }
-
-    @Override
-    public Type getType() {
-        return type;
-    }
-
-    @Override
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    @Override
-    public Attribute getAttribute() {
-        return attribute;
-    }
-
-    @Override
-    public void setAttribute(Attribute attribute) {
-        this.attribute = attribute;
     }
 
     @Override
     public String getId() {
-        return id;
+        return null;
     }
 
     @Override
     public void setId(String id) {
-        this.id = id;
+
     }
 
     @Override
     public String getName() {
-        return name;
+        return null;
     }
 
     @Override
     public void setName(String name) {
-        this.name = name;
+
+    }
+
+    @Override
+    public FieldStatus getFieldStatus() {
+        return null;
+    }
+
+    @Override
+    public void setFieldStatus(FieldStatus status) {
+
+    }
+
+    @Override
+    public Category getCategory() {
+        return null;
+    }
+
+    @Override
+    public void setCategory(Category category) {
+
+    }
+
+    @Override
+    public List<Effect> getEffects() {
+        return null;
+    }
+
+    @Override
+    public void setEffects(List<Effect> effects) {
+
+    }
+
+    @Override
+    public CardArea getCardArea() {
+        return null;
+    }
+
+    @Override
+    public void setCardArea(CardArea cardArea) {
+
+    }
+
+    @Override
+    public void moveTo(CardArea cardArea) {
+
+    }
+
+    @Override
+    public String getDescription() {
+        return null;
+    }
+
+    @Override
+    public void setDescription(String description) {
+
+    }
+
+    @Override
+    public Integer getLevel() {
+        return null;
+    }
+
+    @Override
+    public void setLevel(Integer level) {
+
+    }
+
+    @Override
+    public Integer getAttack() {
+        return null;
+    }
+
+    @Override
+    public void setAttack(Integer attack) {
+
+    }
+
+    @Override
+    public Integer getDefense() {
+        return null;
+    }
+
+    @Override
+    public void setDefense(Integer defense) {
+
+    }
+
+    @Override
+    public Race getRace() {
+        return null;
+    }
+
+    @Override
+    public void setRace(Race race) {
+
+    }
+
+    @Override
+    public Type getType() {
+        return null;
+    }
+
+    @Override
+    public void setType(Type type) {
+
+    }
+
+    @Override
+    public Attribute getAttribute() {
+        return null;
+    }
+
+    @Override
+    public void setAttribute(Attribute attribute) {
+
+    }
+
+    @Override
+    public Collection<String> getTags() {
+        return null;
+    }
+
+    @Override
+    public void setTags(Collection<String> tags) {
+
     }
 
     @Override
     public MagicType getMagicType() {
-        return magicType;
+        return null;
     }
 
     @Override
     public void setMagicType(MagicType type) {
-        this.magicType = type;
-    }
 
-    @Override
-    public String getRuntimeId() {
-        return runtimeId;
-    }
-
-    @Override
-    public void setRuntimeId(String runtimeId) {
-        this.runtimeId = runtimeId;
     }
 }
