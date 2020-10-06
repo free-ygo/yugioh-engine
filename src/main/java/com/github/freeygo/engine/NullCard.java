@@ -88,17 +88,17 @@ public final class NullCard implements Card {
     }
 
     @Override
-    public CardArea getCardArea() {
+    public CardGrid getCardArea() {
         return null;
     }
 
     @Override
-    public void setCardArea(CardArea cardArea) {
+    public void setCardArea(CardGrid cardGrid) {
 
     }
 
     @Override
-    public void moveTo(CardArea cardArea) {
+    public void moveTo(CardGrid cardGrid) {
 
     }
 

@@ -17,7 +17,7 @@
 package com.github.freeygo.engine.event;
 
 import com.github.freeygo.engine.Card;
-import com.github.freeygo.engine.CardArea;
+import com.github.freeygo.engine.CardGrid;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -27,7 +27,7 @@ import java.util.concurrent.CompletableFuture;
 public class NormalSummonEventBuilder extends EventBuilder<NormalSummonEvent> {
 
     private Card card;
-    private CardArea location;
+    private CardGrid location;
 
     @Override
     public <E> CompletableFuture<? super E> sendAsync(EventSystem eventSystem) {
@@ -44,7 +44,7 @@ public class NormalSummonEventBuilder extends EventBuilder<NormalSummonEvent> {
         return this;
     }
 
-    public NormalSummonEventBuilder location(CardArea location) {
+    public NormalSummonEventBuilder location(CardGrid location) {
         this.location = location;
         return this;
     }

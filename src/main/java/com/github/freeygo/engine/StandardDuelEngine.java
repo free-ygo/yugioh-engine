@@ -136,7 +136,7 @@ public class StandardDuelEngine implements DuelEngine {
                 .toString();
     }
 
-    private CardArea getTarget(CommandArgument arg) {
+    private CardGrid getTarget(CommandArgument arg) {
         if (arg.getCommandType() == CommandArgument.NORMAL_SUMMON) {
             if (arg.getDuelist() == CommandArgument.FIRST) {
                 return duel.getDuelistPair()

@@ -73,11 +73,11 @@ public interface Card {
 
     void setEffects(List<Effect> effects);
 
-    CardArea getCardArea();
+    CardGrid getCardArea();
 
-    void setCardArea(CardArea cardArea);
+    void setCardArea(CardGrid cardGrid);
 
-    void moveTo(CardArea cardArea);
+    void moveTo(CardGrid cardGrid);
 
     String getDescription();
 

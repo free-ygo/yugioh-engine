@@ -17,206 +17,56 @@
 package com.github.freeygo.engine;
 
 import java.util.List;
-import java.util.Map;
-import java.util.function.Predicate;
 
 /**
- * This class define an area for cards. Each area is a list of cards or a list
- * of card area.
+ * @author Zhi yong Dai
  */
-public interface CardArea {
+public interface CardArea<T extends CardGrid> {
 
     /**
-     * Search cards by special condition
-     */
-    List<Card> search(Predicate<Card> condition);
-
-    /**
-     * Determine the card area is an available area. If return false that area
-     * is available else not available.
+     * 返回原来是设置的{@link CardGrid}列表。
      *
-     * @return true if available, false if unavailable
+     * @return cardGrids
      */
-    boolean isAvailable(int index);
-
-    void setAvailable(int index, boolean available);
+    List<T> getCardGrids();
 
     /**
-     * Put a card into a card area. If the card area is full that returns an
-     * {@link IndexOutOfBoundsException}. If success, return true, else return
-     * false.
+     * 设置一个CardGrid列表。
+     * 如果参数{@code cardGrids}是空，会抛出{@link IllegalArgumentException}异常，
+     * 如果参数{@code cardGrids}包含{@code null}元素，会抛出{@link RuntimeException}
      *
-     * @return true if success, false if fail.
+     * @param cardGrids {@link CardGrid}列表
      */
-    boolean push(Card card);
+    void setCardGrids(List<T> cardGrids);
 
     /**
-     * Put a list of cards into a card area. If remain available area is less
-     * than the size of {@code cards}, will do nothing and return false.
+     * 返回一个{@link CardGrid}实现类
      *
-     * @param cards list of card to add
-     * @return true if success, false if fail
+     * @param index 指定的 CardGrid 索引
+     * @return {@link CardGrid}
      */
-    boolean pushAll(List<Card> cards);
-
-    /**
-     * Retrieve a card from the area and remove the card from the area.
-     */
-    Card pop();
-
-    /**
-     * Retrieve a card from area, but not be removed. If area is empty, will
-     * return null.
-     *
-     * @return null if area is empty.
-     */
-    Card peek();
-
-    /**
-     * Peek a number of {@code count} cards, if cards of area is less than
-     * {@code count} that return the remains cards.
-     *
-     * @param count Card count
-     * @return a list of {@link Card}
-     */
-    List<Card> peek(int count);
-
-    /**
-     * Peek card from {@code startInclude} to {@code endExclude}.
-     *
-     * @param startInclude Begin from 0
-     * @param endExclude   Less or equal size of area
-     * @return a list of {@link Card}
-     */
-    List<Card> peek(int startInclude, int endExclude);
-
-    /**
-     * Peek card from {@code startInclude} to {@code endInclude}.
-     *
-     * @param startInclude Begin from 0
-     * @param endInclude   Less or equal size of area
-     * @return a list of {@link Card}
-     */
-    List<Card> peekClose(int startInclude, int endInclude);
-
-    /**
-     * Add a card into an area. If area is full, will return false else true.
-     *
-     * @param card card to add
-     * @return true if success, false if fail
-     **/
-    boolean add(Card card);
-
-    /**
-     * Add a card into {@code i} position of area. If area is full, will return
-     * false else return true.
-     *
-     * @param i    from 0 to @{{@link #cardSize()}
-     * @param card card to add
-     * @return true if success, false if fail
-     */
-    boolean add(int i, Card card);
-
-    /**
-     * Add a card into area. If area cannot accept {@code cards} return false
-     * else return true.
-     *
-     * @param cards card to add
-     * @return true if success, false if fail
-     */
-    boolean addAll(List<Card> cards);
-
-    /**
-     * Put a list of cards into position i.
-     * <p>
-     * If position i is beyond the range of the size of {@link CardArea} , it
-     * throws an exception.
-     *
-     * @param i     from 0 to {@link #cardSize()}
-     * @param cards card list
-     */
-    boolean addAll(int i, List<Card> cards);
-
-    /**
-     * Remove all {@link Card} that {@code cards} contains. If
-     * boolean removeAll(List<Card> cards);
-     * <p>
-     * /**
-     * Remove a card from position {@code index}, if the position is not null
-     * return the removed card or return null.
-     *
-     * @param index card index
-     * @return null if index is null else the removed card.
-     */
-    Card remove(int index);
-
-    /**
-     * Remove the card
-     *
-     * @param card the removed card
-     * @return true if success, false if fail.
-     */
-    boolean remove(Card card);
-
-    /**
-     * Put the card in position index;
-     *
-     * @param index from 0 to {@link #cardSize()}(exclude)
-     * @param card  card to put
-     * @return true if success, false if fail.
-     */
-    boolean set(int index, Card card);
+    T getCardGrid(int index);
 
 //    /**
-//     * Shuffle the cards area.
-//     * true if success, false if fail.
+//     * Card Area 是否可用
+//     * @return true if available, false if unavailable
 //     */
-//    void shuffle();
+//    boolean isAvailable();
 
-    /**
-     * Return the size of area. In some cases, the size of the  card area is
-     * equal to the number of cards, but this is not absolute.
-     * <p>
-     * <em>Notice</em>: This is not the number of cards.
-     *
-     * @return the size of area.
-     */
-    int size();
+//    /**
+//     * set available
+//     * @param available true is available, false is unavailable
+//     */
+//    void setAvailable(boolean available);
 
-    /**
-     * Return the duel disk of card area.
-     *
-     * @return The {@link DuelDisk } of card area
-     */
-    DuelDisk getDuelDisk();
+//    /**
+//     *
+//     * @param index
+//     * @return
+//     */
+//    boolean isAvailable(int index);
 
-    void setDuelDisk(DuelDisk duelDisk);
 
-    /**
-     * Return all cards whose position is not {@code null}. The return value is
-     * a modifiable list.
-     *
-     * @return all cards whose position is not null.
-     */
-    List<Card> getCards();
+//    void setAvailable(int index, boolean available);
 
-    /**
-     * Returns the position index of all cards with non empty area.
-     *
-     * @return Return a map that key is index and value is card.
-     */
-    Map<Integer, Card> getPositions();
-
-    /**
-     * Get position of card
-     */
-    int getPosition(Card card);
-
-    /**
-     * Return size of all cards whose position is not {@code null}.
-     *
-     * @return size of cards
-     * @see {@link #getCards()}
-     */
-    int cardSize();
 }

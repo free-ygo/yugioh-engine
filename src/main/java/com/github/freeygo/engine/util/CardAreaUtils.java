@@ -16,7 +16,7 @@
 
 package com.github.freeygo.engine.util;
 
-import com.github.freeygo.engine.CardArea;
+import com.github.freeygo.engine.CardGrid;
 
 /**
  * @author Zhi yong Dai
@@ -26,9 +26,9 @@ public final class CardAreaUtils {
     /**
      * shuffle card area.
      *
-     * @param cardArea
+     * @param cardGrid
      */
-    public static void shuffle(CardArea cardArea) {
+    public static void shuffle(CardGrid cardGrid) {
         throw new RuntimeException("Not implementation operation");
     }
 }

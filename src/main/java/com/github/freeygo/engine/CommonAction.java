@@ -33,9 +33,9 @@ public interface CommonAction {
      * 召唤怪兽卡到指定区域。
      *
      * @param card     怪兽卡
-     * @param cardArea
+     * @param cardGrid
      */
-    void summon(Card card, CardArea cardArea);
+    void summon(Card card, CardGrid cardGrid);
 
 //    void
 }

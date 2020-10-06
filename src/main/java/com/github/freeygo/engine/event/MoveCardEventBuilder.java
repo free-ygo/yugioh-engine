@@ -17,7 +17,7 @@
 package com.github.freeygo.engine.event;
 
 import com.github.freeygo.engine.Card;
-import com.github.freeygo.engine.CardArea;
+import com.github.freeygo.engine.CardGrid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,8 +33,8 @@ public class MoveCardEventBuilder extends EventBuilder<MoveCardEvent> {
      * 卡片数量
      */
     private int count;
-    private CardArea sourceArea;
-    private CardArea targetArea;
+    private CardGrid sourceArea;
+    private CardGrid targetArea;
     private Card card;
 
     public MoveCardEventBuilder() {
@@ -51,12 +51,12 @@ public class MoveCardEventBuilder extends EventBuilder<MoveCardEvent> {
         return this;
     }
 
-    public MoveCardEventBuilder sourceArea(CardArea sourceArea) {
+    public MoveCardEventBuilder sourceArea(CardGrid sourceArea) {
         this.sourceArea = sourceArea;
         return this;
     }
 
-    public MoveCardEventBuilder targetArea(CardArea targetArea) {
+    public MoveCardEventBuilder targetArea(CardGrid targetArea) {
         this.targetArea = targetArea;
         return this;
     }

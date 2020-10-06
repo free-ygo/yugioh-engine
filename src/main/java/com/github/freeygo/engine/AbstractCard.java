@@ -29,7 +29,7 @@ public abstract class AbstractCard implements Card {
     private FieldStatus fieldStatus;
     private Category category;
     private List<Effect> effects;
-    private CardArea cardArea;
+    private CardGrid cardGrid;
     private Integer level;
     private Integer attack;
     private Integer defense;
@@ -86,22 +86,22 @@ public abstract class AbstractCard implements Card {
     }
 
     @Override
-    public CardArea getCardArea() {
-        return cardArea;
+    public CardGrid getCardArea() {
+        return cardGrid;
     }
 
     @Override
-    public void setCardArea(CardArea cardArea) {
-        this.cardArea = cardArea;
+    public void setCardArea(CardGrid cardGrid) {
+        this.cardGrid = cardGrid;
     }
 
 
     @Override
-    public void moveTo(CardArea cardArea) {
-        if (this.cardArea != null) {
-            this.cardArea.remove(this);
+    public void moveTo(CardGrid cardGrid) {
+        if (this.cardGrid != null) {
+            this.cardGrid.remove(this);
         }
-        cardArea.push(this);
+        cardGrid.push(this);
     }
 
     @Override

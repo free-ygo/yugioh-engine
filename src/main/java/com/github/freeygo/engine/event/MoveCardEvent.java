@@ -17,7 +17,7 @@
 package com.github.freeygo.engine.event;
 
 import com.github.freeygo.engine.Card;
-import com.github.freeygo.engine.CardArea;
+import com.github.freeygo.engine.CardGrid;
 import com.github.freeygo.engine.Duel;
 
 /**
@@ -26,8 +26,8 @@ import com.github.freeygo.engine.Duel;
 public class MoveCardEvent extends Event {
 
     private int count;
-    private CardArea sourceArea;
-    private CardArea targetArea;
+    private CardGrid sourceArea;
+    private CardGrid targetArea;
     private Card card;
 
 
@@ -44,19 +44,19 @@ public class MoveCardEvent extends Event {
         this.count = count;
     }
 
-    public CardArea getSourceArea() {
+    public CardGrid getSourceArea() {
         return sourceArea;
     }
 
-    public void setSourceArea(CardArea sourceArea) {
+    public void setSourceArea(CardGrid sourceArea) {
         this.sourceArea = sourceArea;
     }
 
-    public CardArea getTargetArea() {
+    public CardGrid getTargetArea() {
         return targetArea;
     }
 
-    public void setTargetArea(CardArea targetArea) {
+    public void setTargetArea(CardGrid targetArea) {
         this.targetArea = targetArea;
     }
 

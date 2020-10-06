@@ -22,6 +22,12 @@ import com.github.freeygo.engine.StageRange;
 import java.util.function.Predicate;
 
 /**
+ * 效果就是：当满足什么样的条件时，可以触发某些动作。所以脚本书写者必须注册某些关键的东西，例如：
+ * 有以下几种可能的触发情形：
+ * 主动式触发：在条件满足的情况下，可以由玩家主动触发。
+ * 被动式触发：在条件满足的情况下，可以由系统自动触发。
+ * 主被式触发：主动或者被动触发后，可以由系统自动触发。
+ *
  * @author 戴志勇
  */
 public interface Effect<T, S, R> {

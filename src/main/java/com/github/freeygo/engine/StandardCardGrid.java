@@ -18,25 +18,23 @@ package com.github.freeygo.engine;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
  * This class implements an unlimited area. In other words, This area can accept
- * any number of cards. When you use {@link StandardCardArea#push(Card)},
- * {@link StandardCardArea#pushAll(List)}, {@link StandardCardArea#add(Card)},
- * {@link StandardCardArea#addAll(List)} etc. addition methods will always return
+ * any number of cards. When you use {@link StandardCardGrid#push(Card)},
+ * {@link StandardCardGrid#pushAll(List)}, {@link StandardCardGrid#add(Card)},
+ * {@link StandardCardGrid#addAll(List)} etc. addition methods will always return
  * true.
  */
-public class StandardCardArea extends AbstractCardArea {
+public class StandardCardGrid implements ListCardGrid {
 
     private final List<Card> cards;
-    private boolean available;
 
-    public StandardCardArea(DuelDisk duelDisk) {
+    public StandardCardGrid(DuelDisk duelDisk) {
         cards = new ArrayList<>();
     }
 
@@ -47,13 +45,24 @@ public class StandardCardArea extends AbstractCardArea {
 
     @Override
     public boolean isAvailable() {
-        return available;
+        return false;
     }
 
+    @Override
     public void setAvailable(boolean available) {
-        this.available = available;
+
     }
 
+
+//    @Override
+//    public boolean isAvailable() {
+//        return available;
+//    }
+//
+//    public void setAvailable(boolean available) {
+//        this.available = available;
+//    }
+//
 
     @Override
     public boolean push(Card card) {
@@ -78,6 +87,21 @@ public class StandardCardArea extends AbstractCardArea {
     public Card peek() {
         if ((cards.size() - 1) < 0) return null;
         return cards.get(cards.size() - 1);
+    }
+
+    @Override
+    public List<Card> peek(int count) {
+        return null;
+    }
+
+    @Override
+    public List<Card> peek(int startInclude, int endExclude) {
+        return null;
+    }
+
+    @Override
+    public List<Card> peekClose(int startInclude, int endInclude) {
+        return null;
     }
 
 //    @Override
@@ -119,6 +143,11 @@ public class StandardCardArea extends AbstractCardArea {
         return this.cards.remove(card);
     }
 
+    @Override
+    public boolean set(int index, Card card) {
+        return false;
+    }
+
 
     @Override
     public boolean addAll(int i, List<Card> cards) {
@@ -126,10 +155,10 @@ public class StandardCardArea extends AbstractCardArea {
         return true;
     }
 
-    @Override
-    public void shuffle() {
-        Collections.shuffle(cards, new Random(System.currentTimeMillis()));
-    }
+//    @Override
+//    public void shuffle() {
+//        Collections.shuffle(cards, new Random(System.currentTimeMillis()));
+//    }
 
     @Override
     public int size() {
@@ -137,8 +166,33 @@ public class StandardCardArea extends AbstractCardArea {
     }
 
     @Override
+    public DuelDisk getDuelDisk() {
+        return null;
+    }
+
+    @Override
+    public void setDuelDisk(DuelDisk duelDisk) {
+
+    }
+
+    @Override
     public List<Card> getCards() {
         return cards;
+    }
+
+    @Override
+    public Map<Integer, Card> getPositions() {
+        return null;
+    }
+
+    @Override
+    public int getPosition(Card card) {
+        return 0;
+    }
+
+    @Override
+    public int cardSize() {
+        return 0;
     }
 
 

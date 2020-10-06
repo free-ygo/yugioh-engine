@@ -19,20 +19,20 @@ package com.github.freeygo.engine;
 /**
  * @author Zhi yong Dai
  */
-public abstract class AbstractCardArea implements CardArea {
+public abstract class AbstractCardGrid implements CardGrid {
 
-    private boolean available;
+    //    private boolean available;
     private DuelDisk duelDisk;
 
-    @Override
-    public boolean isAvailable() {
-        return available;
-    }
+//    @Override
+//    public boolean isAvailable(int i) {
+//        return available;
+//    }
 
-    @Override
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
+//    @Override
+//    public void setAvailable(boolean available) {
+//        this.available = available;
+//    }
 
     @Override
     public DuelDisk getDuelDisk() {
