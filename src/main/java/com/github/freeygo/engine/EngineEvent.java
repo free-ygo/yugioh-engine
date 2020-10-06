@@ -16,33 +16,22 @@
 
 package com.github.freeygo.engine;
 
+import java.util.EventObject;
+
 /**
  * @author Zhi yong Dai
  */
-public abstract class AbstractCardGrid implements CardGrid {
+public class EngineEvent extends EventObject {
 
-    //    private boolean available;
-    private DuelDisk duelDisk;
-
-//    @Override
-//    public boolean isAvailable(int i) {
-//        return available;
-//    }
-
-//    @Override
-//    public void setAvailable(boolean available) {
-//        this.available = available;
-//    }
-//
-//    @Override
-//    public DuelDisk getDuelDisk() {
-//        return duelDisk;
-//    }
-//
-//    @Override
-//    public void setDuelDisk(DuelDisk duelDisk) {
-//        this.duelDisk = duelDisk;
-//    }
+    /**
+     * Constructs a prototypical Event.
+     *
+     * @param source the object on which the Event initially occurred
+     * @throws IllegalArgumentException if source is null
+     */
+    public EngineEvent(Object source) {
+        super(source);
+    }
 
 
 }

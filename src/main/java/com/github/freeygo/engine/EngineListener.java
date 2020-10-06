@@ -16,33 +16,15 @@
 
 package com.github.freeygo.engine;
 
+import java.util.EventListener;
+
 /**
  * @author Zhi yong Dai
  */
-public abstract class AbstractCardGrid implements CardGrid {
+public interface EngineListener extends EventListener {
 
-    //    private boolean available;
-    private DuelDisk duelDisk;
-
-//    @Override
-//    public boolean isAvailable(int i) {
-//        return available;
-//    }
-
-//    @Override
-//    public void setAvailable(boolean available) {
-//        this.available = available;
-//    }
-//
-//    @Override
-//    public DuelDisk getDuelDisk() {
-//        return duelDisk;
-//    }
-//
-//    @Override
-//    public void setDuelDisk(DuelDisk duelDisk) {
-//        this.duelDisk = duelDisk;
-//    }
-
-
+    /**
+     * 发生事件时，调用这个发送给监听器
+     */
+    void onEngineEvent(EngineEvent event);
 }
