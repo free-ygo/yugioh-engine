@@ -22,38 +22,78 @@ package com.github.freeygo.engine.beans.event;
 public interface Procedure {
 
     /**
-     * 方法名
+     * Get the name of procedure.
+     *
+     * @return procedure name
      */
     String getProcedureName();
 
+    /**
+     * Set this procedure name. The procedure name can be null
+     *
+     * @param name procedure name
+     */
     void setProcedureName(String name);
 
+    /**
+     * The method will return arguments of {@link Procedure}. The return value
+     * is not null.
+     *
+     * @return Arguments of {@link Procedure}
+     */
     Object[] getArguments();
 
     /**
-     * 调用参数
+     * Set arguments for {@link Procedure}.
+     *
+     * @param arguments arguments for {@link Procedure}
      */
     void setArguments(Object... arguments);
 
+    /**
+     * The caller of {@link Procedure}. This return value can be null.
+     *
+     * @return caller, can be null.
+     */
     Object getCaller();
 
     /**
-     * 调用者
+     * Set the caller of {@link Procedure}. The parameter can be null.
+     *
+     * @param caller the caller of {@link Procedure}
      */
     void setCaller(Object caller);
 
     /**
-     * 执行过程
+     * Call this {@link Procedure}. In fact, The call of procedure delegate to
+     * another real method or procedure. If the {@link #getTargetProcedure()}
+     * is null, it will do nothing and return null, or will return the target
+     * procedure's return value.
+     *
+     * @param returned value of target procedure
+     * @see #getTargetProcedure()
+     * @see #setTargetProcedure(TargetProcedure)
      */
     Object call();
 
+    /**
+     * Return the target {@link Procedure}.
+     *
+     * @return target procedure
+     */
     TargetProcedure getTargetProcedure();
 
     /**
-     * 设置真实调用者，实现类从此实现方法体
+     * Set the target {@link Procedure}. It can be null. If target procedure is
+     * null, {@link Procedure} will do nothing and return {@code null}.
+     *
+     * @param target {@link Procedure}
      */
     void setTargetProcedure(TargetProcedure targetProcedure);
 
+    /**
+     * An interface for target procedure.
+     */
     @FunctionalInterface
     interface TargetProcedure {
         Object performProcedure(Object caller, String method, Object... args);
