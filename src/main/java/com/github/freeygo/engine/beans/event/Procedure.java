@@ -70,7 +70,7 @@ public interface Procedure {
      * is null, it will do nothing and return null, or will return the target
      * procedure's return value.
      *
-     * @param returned value of target procedure
+     * @return return value of target procedure
      * @see #getTargetProcedure()
      * @see #setTargetProcedure(TargetProcedure)
      */
@@ -87,7 +87,7 @@ public interface Procedure {
      * Set the target {@link Procedure}. It can be null. If target procedure is
      * null, {@link Procedure} will do nothing and return {@code null}.
      *
-     * @param target {@link Procedure}
+     * @param targetProcedure {@link Procedure}
      */
     void setTargetProcedure(TargetProcedure targetProcedure);
 
