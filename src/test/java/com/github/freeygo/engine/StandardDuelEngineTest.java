@@ -69,13 +69,13 @@ class StandardDuelEngineTest {
         duelEngine.setEventSystem(eventSystem);
 
         DuelDisk firstDisk = new StandardDuelDisk();
-        firstDisk.getDeckArea().addAll(cards1);
+//        firstDisk.getDeckArea().addAll(cards1);
 
         Duelist first = new StandardDuelist();
         first.setDuelDisk(firstDisk);
 
         DuelDisk secondDisk = new StandardDuelDisk();
-        secondDisk.getDeckArea().addAll(cards2);
+//        secondDisk.getDeckArea().addAll(cards2);
 
         Duelist second = new StandardDuelist();
         second.setDuelDisk(secondDisk);

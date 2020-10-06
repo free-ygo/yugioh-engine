@@ -17,12 +17,8 @@
 package com.github.freeygo.engine;
 
 import com.github.freeygo.engine.event.*;
-import com.github.freeygo.engine.util.ViewUtils;
 
 import java.util.concurrent.CompletableFuture;
-
-import static com.github.freeygo.engine.util.ConsoleUtils.println;
-import static com.github.freeygo.engine.util.ConsoleUtils.readLine;
 
 
 public class StandardDuelEngine implements DuelEngine {
@@ -86,36 +82,36 @@ public class StandardDuelEngine implements DuelEngine {
         EventSubject subject = new StandardEventSubject<CompletableFuture>(eventSystem);
         subject.addHandler(EventType.DUEL, (e) -> {
             e.preventDefault(); // 阻止默认行为
-            if (e instanceof DuelEvent) {
-                e.getDefaultAction().action(e);
-                println(
-                        "P1:" + e.getTarget().getDuelistPair()
-                                .getFirstDuelist().getDuelDisk().getHandArea().getCards()
-                );
-                println(
-                        "P2:" + e.getTarget().getDuelistPair()
-                                .getFirstDuelist().getDuelDisk().getHandArea().getCards()
-                );
-                println();
-                println("P1回合：");
-                String line;
-                do {
-                    ViewUtils.commandMenu();
-                    line = readLine();
-                } while (ViewUtils.inputCorrect(line));
-
-                String[] commands = ViewUtils.resolve(line);
-                if (commands[0].equals("s")) {
-                    e.getTarget().getDuelistPair()
-                            .getFirstDuelist()
-                            .getDuelDisk()
-                            .getHandArea()
-                            .search(c -> c.getId().equals(commands[1]))
-                            .forEach(c -> c.moveTo(c.getCardArea().getDuelDisk().getMonsterArea()));
-                }
-            } else {
-                throw new RuntimeException("The event is not MoveCardEvent");
-            }
+//            if (e instanceof DuelEvent) {
+//                e.getDefaultAction().action(e);
+//                println(
+//                        "P1:" + e.getTarget().getDuelistPair()
+//                                .getFirstDuelist().getDuelDisk().getHandArea().getCards()
+//                );
+//                println(
+//                        "P2:" + e.getTarget().getDuelistPair()
+//                                .getFirstDuelist().getDuelDisk().getHandArea().getCards()
+//                );
+//                println();
+//                println("P1回合：");
+//                String line;
+//                do {
+//                    ViewUtils.commandMenu();
+//                    line = readLine();
+//                } while (ViewUtils.inputCorrect(line));
+//
+//                String[] commands = ViewUtils.resolve(line);
+//                if (commands[0].equals("s")) {
+//                    e.getTarget().getDuelistPair()
+//                            .getFirstDuelist()
+//                            .getDuelDisk()
+//                            .getHandArea()
+//                            .search(c -> c.getId().equals(commands[1]))
+//                            .forEach(c -> c.moveTo(c.getCardArea().getDuelDisk().getMonsterArea()));
+//                }
+//            } else {
+//                throw new RuntimeException("The event is not MoveCardEvent");
+//            }
             return null;
         });
 //        subject.addHandler(EventType., (e) -> {
@@ -137,17 +133,17 @@ public class StandardDuelEngine implements DuelEngine {
     }
 
     private CardGrid getTarget(CommandArgument arg) {
-        if (arg.getCommandType() == CommandArgument.NORMAL_SUMMON) {
-            if (arg.getDuelist() == CommandArgument.FIRST) {
-                return duel.getDuelistPair()
-                        .getFirstDuelist()
-                        .getDuelDisk()
-                        .getMonsterArea();
-            } else if (arg.getDuelist() == CommandArgument.SECOND) {
-                return duel.getDuelistPair().getFirstDuelist().getDuelDisk().getMonsterArea();
-            }
-            throw new RuntimeException("Unknown duelist");
-        }
+//        if (arg.getCommandType() == CommandArgument.NORMAL_SUMMON) {
+//            if (arg.getDuelist() == CommandArgument.FIRST) {
+//                return duel.getDuelistPair()
+//                        .getFirstDuelist()
+//                        .getDuelDisk()
+//                        .getMonsterArea();
+//            } else if (arg.getDuelist() == CommandArgument.SECOND) {
+//                return duel.getDuelistPair().getFirstDuelist().getDuelDisk().getMonsterArea();
+//            }
+//            throw new RuntimeException("Unknown duelist");
+//        }
         throw new RuntimeException("Unknown command type");
     }
 }

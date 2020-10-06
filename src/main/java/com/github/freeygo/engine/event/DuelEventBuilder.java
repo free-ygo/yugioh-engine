@@ -37,11 +37,11 @@ public class DuelEventBuilder extends EventBuilder<DuelEvent> {
             if (e instanceof DuelEvent && ((DuelEvent) e).getStatus() == DuelEvent.Status.START) {
                 logger.info("Duel event start");
                 // 洗切卡组
-                e.getTarget().getDuelistPair().getFirstDuelist().getDuelDisk().getDeckArea().shuffle();
-                e.getTarget().getDuelistPair().getSecondDuelist().getDuelDisk().getDeckArea().shuffle();
-                // 发牌
-                e.getTarget().getDuelistPair().getFirstDuelist().getDuelDisk().draw(5);
-                e.getTarget().getDuelistPair().getSecondDuelist().getDuelDisk().draw(5);
+//                e.getTarget().getDuelistPair().getFirstDuelist().getDuelDisk().getDeckArea().shuffle();
+//                e.getTarget().getDuelistPair().getSecondDuelist().getDuelDisk().getDeckArea().shuffle();
+//                // 发牌
+//                e.getTarget().getDuelistPair().getFirstDuelist().getDuelDisk().draw(5);
+//                e.getTarget().getDuelistPair().getSecondDuelist().getDuelDisk().draw(5);
                 return true;
             }
             if (e instanceof DuelEvent && ((DuelEvent) e).getStatus() == DuelEvent.Status.END) {

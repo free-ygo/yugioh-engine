@@ -19,7 +19,6 @@ package com.github.freeygo.engine;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -43,15 +42,15 @@ public class StandardCardGrid implements ListCardGrid {
         return cards.stream().filter(condition).collect(Collectors.toList());
     }
 
-    @Override
-    public boolean isAvailable() {
-        return false;
-    }
-
-    @Override
-    public void setAvailable(boolean available) {
-
-    }
+//    @Override
+//    public boolean isAvailable() {
+//        return false;
+//    }
+//
+//    @Override
+//    public void setAvailable(boolean available) {
+//
+//    }
 
 
 //    @Override
@@ -143,10 +142,10 @@ public class StandardCardGrid implements ListCardGrid {
         return this.cards.remove(card);
     }
 
-    @Override
-    public boolean set(int index, Card card) {
-        return false;
-    }
+//    @Override
+//    public boolean set(int index, Card card) {
+//        return false;
+//    }
 
 
     @Override
@@ -165,30 +164,30 @@ public class StandardCardGrid implements ListCardGrid {
         return cards.size();
     }
 
-    @Override
-    public DuelDisk getDuelDisk() {
-        return null;
-    }
-
-    @Override
-    public void setDuelDisk(DuelDisk duelDisk) {
-
-    }
+//    @Override
+//    public DuelDisk getDuelDisk() {
+//        return null;
+//    }
+//
+//    @Override
+//    public void setDuelDisk(DuelDisk duelDisk) {
+//
+//    }
 
     @Override
     public List<Card> getCards() {
         return cards;
     }
 
-    @Override
-    public Map<Integer, Card> getPositions() {
-        return null;
-    }
-
-    @Override
-    public int getPosition(Card card) {
-        return 0;
-    }
+//    @Override
+//    public Map<Integer, Card> getPositions() {
+//        return null;
+//    }
+//
+//    @Override
+//    public int getPosition(Card card) {
+//        return 0;
+//    }
 
     @Override
     public int cardSize() {

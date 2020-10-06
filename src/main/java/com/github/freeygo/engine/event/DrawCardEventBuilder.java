@@ -37,16 +37,17 @@ public class DrawCardEventBuilder extends EventBuilder<DrawCardEvent> {
 
     public DrawCardEventBuilder() {
         setDefaultAction((e) -> {
-            logger.info("Prepare drawing deck cards, need: {}, remain: {}",
-                    cards != null ? cards.size() : count,
-                    duelDisk.getDeckArea().size()
-            );
-            if (count != null) {
-                duelDisk.draw(count);
-            } else if (cards != null) {
-                throw new RuntimeException("Operation not supported");
-            }
-            throw new RuntimeException("Card or count cannot be null");
+            return null;
+//            logger.info("Prepare drawing deck cards, need: {}, remain: {}",
+//                    cards != null ? cards.size() : count,
+//                    duelDisk.getDeckArea().size()
+//            );
+//            if (count != null) {
+//                duelDisk.draw(count);
+//            } else if (cards != null) {
+//                throw new RuntimeException("Operation not supported");
+//            }
+//            throw new RuntimeException("Card or count cannot be null");
         });
     }
 
