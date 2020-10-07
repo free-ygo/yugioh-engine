@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.event;
-
-import com.github.freeygo.engine.cardscript.CardEffect;
+package com.github.freeygo.engine;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * @author 戴志勇
+ * @author Zhi yong Dai
  */
-public interface EffectRegister {
+public interface DuelistAccessor {
+    List<Duelist> getDuelists();
 
-    void registerEffect(Event e, CardEffect cardEffect);
-
-    Map<Event, List<CardEffect>> getEffects(Event e);
+    Duelist next();
 }

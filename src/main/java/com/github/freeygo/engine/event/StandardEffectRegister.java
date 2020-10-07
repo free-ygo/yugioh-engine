@@ -16,7 +16,7 @@
 
 package com.github.freeygo.engine.event;
 
-import com.github.freeygo.engine.cardscript.Effect;
+import com.github.freeygo.engine.cardscript.CardEffect;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,23 +27,23 @@ import java.util.Map;
  * @author 戴志勇
  */
 public class StandardEffectRegister implements EffectRegister {
-    private final HashMap<Event, List<Effect>> eventEffects;
+    private final HashMap<Event, List<CardEffect>> eventEffects;
 
     public StandardEffectRegister() {
         eventEffects = new HashMap<>();
     }
 
     @Override
-    public void registerEffect(Event e, Effect effect) {
-        getEffective(e).add(effect);
+    public void registerEffect(Event e, CardEffect cardEffect) {
+        getEffective(e).add(cardEffect);
     }
 
     @Override
-    public Map<Event, List<Effect>> getEffects(Event e) {
+    public Map<Event, List<CardEffect>> getEffects(Event e) {
         return eventEffects;
     }
 
-    private List<Effect> getEffective(Event e) {
+    private List<CardEffect> getEffective(Event e) {
         eventEffects.computeIfAbsent(e, k -> new ArrayList<>());
         return eventEffects.get(e);
     }

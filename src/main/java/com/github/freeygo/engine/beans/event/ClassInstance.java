@@ -16,33 +16,8 @@
 //
 //package com.github.freeygo.engine.beans.event;
 //
-//import com.github.freeygo.engine.beans.event.Procedure.TargetProcedure;
-//
 ///**
 // * @author Zhi yong Dai
 // */
-//public interface Clazz {
-//    <T> void addProperty(String name, T value);
-//
-//    <T> T removeProperty(String name);
-//
-//    <T> void addStaticProperty(String name, T value);
-//
-//    <T> T removeStaticProperty(String name);
-//
-//    <T> T getValue(String name);
-//
-//    void addMethod(String name, TargetProcedure procedure);
-//
-//    TargetProcedure removeMethod(String name);
-//
-//    void addStaticMethod(String name);
-//
-//    TargetProcedure removeStaticMethod(String name, TargetProcedure procedure);
-//
-//    Object call(String name, Object... args);
-//
-//    Clazz newInstance(Object... args);
-//
-//    ClazzInfo getClazzInfo();
+//public class ClassInstance {
 //}

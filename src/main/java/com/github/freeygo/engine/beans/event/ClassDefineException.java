@@ -16,26 +16,26 @@
 
 package com.github.freeygo.engine.beans.event;
 
-import java.util.EventListener;
-
 /**
  * @author Zhi yong Dai
  */
-public interface EventListenerRegistry<T extends EventListener> {
-
-    void register(String listenerGroup, T listener);
-
-    void unregister(String listenerGroup, T listener);
-
-    <E> void push(String listenerGroup, E event);
-
-    interface PropertyChangeListenerRegistry
-            extends EventListenerRegistry<PropertyChangeListener> {
+public class ClassDefineException extends RuntimeException {
+    public ClassDefineException() {
     }
 
-    interface ProcedureCallListenerRegistry
-            extends EventListenerRegistry<ProcedureCallListener> {
+    public ClassDefineException(String message) {
+        super(message);
     }
 
+    public ClassDefineException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
+    public ClassDefineException(Throwable cause) {
+        super(cause);
+    }
+
+    public ClassDefineException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 }

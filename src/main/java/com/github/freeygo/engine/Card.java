@@ -16,12 +16,13 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cardscript.Effect;
+import com.github.freeygo.engine.cardscript.CardEffect;
+import com.github.freeygo.engine.cardscript.EffectTargetObject;
 
 import java.util.Collection;
 import java.util.List;
 
-public interface Card {
+public interface Card extends EffectTargetObject {
 
 //    int NORMAL_MONSTER = 1001;
 //    int EFFECT_MONSTER = 1002;
@@ -69,9 +70,9 @@ public interface Card {
      */
     void setCategory(Category category);
 
-    List<Effect> getEffects();
+    List<CardEffect> getEffects();
 
-    void setEffects(List<Effect> effects);
+    void setEffects(List<CardEffect> cardEffects);
 
     CardGrid getCardArea();
 
@@ -114,6 +115,7 @@ public interface Card {
     MagicType getMagicType();
 
     void setMagicType(MagicType type);
+
 
     enum MagicType {
         EQUIP, FIELD, FAST, RITUAL, CONTINUOUS, NORMAL

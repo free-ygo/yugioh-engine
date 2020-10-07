@@ -18,7 +18,7 @@ package com.github.freeygo.engine;
 
 import com.github.freeygo.engine.beans.event.ChangeableProperty;
 import com.github.freeygo.engine.beans.event.Property;
-import com.github.freeygo.engine.cardscript.Effect;
+import com.github.freeygo.engine.cardscript.CardEffect;
 
 import java.util.Collection;
 import java.util.List;
@@ -84,12 +84,12 @@ public class StandardCard2 implements Card {
     }
 
     @Override
-    public List<Effect> getEffects() {
+    public List<CardEffect> getEffects() {
         return null;
     }
 
     @Override
-    public void setEffects(List<Effect> effects) {
+    public void setEffects(List<CardEffect> cardEffects) {
 
     }
 

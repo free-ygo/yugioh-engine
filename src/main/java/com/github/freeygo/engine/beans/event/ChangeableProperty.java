@@ -16,6 +16,7 @@
 
 package com.github.freeygo.engine.beans.event;
 
+import com.github.freeygo.engine.beans.event.EventListenerRegistry.PropertyChangeListenerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,11 +30,12 @@ public class ChangeableProperty<T> extends AbstractProperty<T> {
     private static final Logger
             logger = LoggerFactory.getLogger(ChangeableProperty.class);
 
-    private PropertyChangeListener listener = (e) -> {
+    private final PropertyChangeListener listener = (e) -> {
         logger.debug("Property {} changed: {} -> {}",
                 e.getPropertyName(), e.getOldValue(), e.getNewValue());
         // do nothing
     };
+    private PropertyChangeListenerRegistry propertyChangeRegistrySupport;
 
     public ChangeableProperty(String propertyName) {
         super(propertyName);
@@ -54,14 +56,26 @@ public class ChangeableProperty<T> extends AbstractProperty<T> {
     }
 
     public void addListener(PropertyChangeListener listener) {
-        if (listener != null) {
-            this.listener = listener;
+        if (listener == null) {
+            return;
         }
+        if (propertyChangeRegistrySupport == null) {
+            propertyChangeRegistrySupport = new PropertyChangeRegistrySupport();
+        }
+        propertyChangeRegistrySupport.register(getPropertyName(), listener);
     }
 
-    void firePropertyChangeEvent(Object oldValue, Object newValue) {
-        if (listener != null) {
-            listener.propertyChange(
+    public void removeListener(PropertyChangeListener listener) {
+        if (listener == null || propertyChangeRegistrySupport == null) {
+            return;
+        }
+        propertyChangeRegistrySupport.unregister(getPropertyName(), listener);
+    }
+
+
+    private void firePropertyChangeEvent(Object oldValue, Object newValue) {
+        if (propertyChangeRegistrySupport != null) {
+            propertyChangeRegistrySupport.push(getPropertyName(),
                     new PropertyChangeEvent(this,
                             getPropertyName(), oldValue, newValue)
             );

@@ -23,11 +23,11 @@ import java.util.EventObject;
  */
 public class PropertyChangeEvent extends EventObject {
 
-    private Object oldValue;
+    private final Object oldValue;
 
-    private Object newValue;
+    private final Object newValue;
 
-    private String propertyName;
+    private final String propertyName;
 
 
     /**
@@ -38,6 +38,9 @@ public class PropertyChangeEvent extends EventObject {
      */
     public PropertyChangeEvent(Object source, String propertyName, Object oldValue, Object newValue) {
         super(source);
+        this.propertyName = propertyName;
+        this.oldValue = oldValue;
+        this.newValue = newValue;
     }
 
     public Object getOldValue() {

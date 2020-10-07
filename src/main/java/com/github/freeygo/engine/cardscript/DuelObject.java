@@ -17,7 +17,19 @@
 package com.github.freeygo.engine.cardscript;
 
 /**
- * @author 戴志勇
+ * All duel objects should extends from this class.
+ *
+ * @author Zhi yong Dai
  */
-public abstract class MagicEffect implements Effect {
+public abstract class DuelObject implements EffectTargetObject {
+
+//    private DuelContext duelContext;
+//
+//    public DuelObject(DuelContext duelContext) {
+//        this.duelContext = duelContext;
+//    }
+//
+//    DuelContext getDuelContext() {
+//        return duelContext;
+//    }
 }

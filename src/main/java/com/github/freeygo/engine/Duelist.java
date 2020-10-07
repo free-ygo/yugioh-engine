@@ -17,11 +17,13 @@
 package com.github.freeygo.engine;
 
 public interface Duelist {
+
+    int getLifePoint();
+
+    void setLifePoint(int lifePoint);
+
     DuelDisk getDuelDisk();
 
     void setDuelDisk(DuelDisk duelDisk);
 
-//    DuelContext getDuelContext();
-//
-//    void setDuelContext(DuelContext context);
 }

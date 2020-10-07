@@ -14,19 +14,32 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.event;
+package com.github.freeygo.engine.cardscript;
 
-import com.github.freeygo.engine.cardscript.CardEffect;
-
-import java.util.List;
-import java.util.Map;
+import java.util.EventObject;
 
 /**
- * @author 戴志勇
+ * @author Zhi yong Dai
  */
-public interface EffectRegister {
+public class CardEffectEvent extends EventObject {
 
-    void registerEffect(Event e, CardEffect cardEffect);
+    private final CardEffect cardEffect;
 
-    Map<Event, List<CardEffect>> getEffects(Event e);
+
+    /**
+     * Constructs a prototypical Event.
+     *
+     * @param source the object on which the Event initially occurred
+     * @throws IllegalArgumentException if source is null
+     */
+    public CardEffectEvent(Object source, CardEffect cardEffect) {
+        super(source);
+        this.cardEffect = cardEffect;
+    }
+
+    public CardEffect getEffect() {
+        return cardEffect;
+    }
+
+
 }

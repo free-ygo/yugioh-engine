@@ -40,7 +40,11 @@ public class AbstractProcedure implements Procedure {
     private Object context;
 
     private AfterCallListener afterCallListener;
+
     private BeforeCallListener beforeCallListener;
+
+    // TODO complete registry
+    private PropertyChangeRegistrySupport propertyChangeRegistrySupport;
 
 
     private TargetProcedure targetProcedure = (context, caller, method, args) -> {

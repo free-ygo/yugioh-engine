@@ -29,7 +29,7 @@ public interface Round extends Comparable<Round> {
      */
     Integer getNumber();
 
-    void setNumber(int number);
+//    void setNumber(int number);
 
     Stage getCurrentStage();
 
@@ -40,6 +40,8 @@ public interface Round extends Comparable<Round> {
     void setNextStage(Stage stage);
 
     void nextStage();
+
+    Duelist getMainDuelist();
 
     /**
      * 是否处于回合之间

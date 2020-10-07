@@ -16,6 +16,7 @@
 
 package com.github.freeygo.engine.beans.event;
 
+import com.github.freeygo.engine.beans.event.EventListenerRegistry.PropertyChangeListenerRegistry;
 import com.github.freeygo.engine.event.EventListener;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ import java.util.Map;
 /**
  * @author Zhi yong Dai
  */
-public class PropertyChangeRegistry {
+public class PropertyChangeRegistrySupport implements PropertyChangeListenerRegistry {
 
     public void addListener(String propertyName, PropertyChangeListener listener) {
 
@@ -40,6 +41,21 @@ public class PropertyChangeRegistry {
 
     public Map<String, PropertyChangeListener> getListeners() {
         return null;
+    }
+
+    @Override
+    public void register(String propertyName, PropertyChangeListener listener) {
+
+    }
+
+    @Override
+    public void unregister(String propertyName, PropertyChangeListener listener) {
+
+    }
+
+    @Override
+    public <E> void push(String listenerGroup, E event) {
+
     }
 
     private static class PropertyChangeEventMap {

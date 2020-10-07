@@ -16,7 +16,7 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cardscript.Effect;
+import com.github.freeygo.engine.cardscript.CardEffect;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +28,7 @@ public abstract class AbstractCard implements Card {
     private String runtimeId;
     private FieldStatus fieldStatus;
     private Category category;
-    private List<Effect> effects;
+    private List<CardEffect> cardEffects;
     private CardGrid cardGrid;
     private Integer level;
     private Integer attack;
@@ -76,13 +76,13 @@ public abstract class AbstractCard implements Card {
     }
 
     @Override
-    public List<Effect> getEffects() {
-        return effects;
+    public List<CardEffect> getEffects() {
+        return cardEffects;
     }
 
     @Override
-    public void setEffects(List<Effect> effects) {
-        this.effects = effects;
+    public void setEffects(List<CardEffect> cardEffects) {
+        this.cardEffects = cardEffects;
     }
 
     @Override

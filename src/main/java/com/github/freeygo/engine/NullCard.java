@@ -16,7 +16,7 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cardscript.Effect;
+import com.github.freeygo.engine.cardscript.CardEffect;
 
 import java.util.Collection;
 import java.util.List;
@@ -78,12 +78,12 @@ public final class NullCard implements Card {
     }
 
     @Override
-    public List<Effect> getEffects() {
+    public List<CardEffect> getEffects() {
         return null;
     }
 
     @Override
-    public void setEffects(List<Effect> effects) {
+    public void setEffects(List<CardEffect> cardEffects) {
 
     }
 

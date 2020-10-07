@@ -16,10 +16,14 @@
 
 package com.github.freeygo.engine.cardscript;
 
+import com.github.freeygo.engine.Duelist;
 import com.github.freeygo.engine.RoundRange;
 import com.github.freeygo.engine.StageRange;
+import com.github.freeygo.engine.cardscript.EffectListener.AfterActiveEffectListener;
 
 import java.util.function.Predicate;
+
+import static com.github.freeygo.engine.cardscript.EffectListener.BeforeActiveEffectListener;
 
 /**
  * 效果就是：当满足什么样的条件时，可以触发某些动作。所以脚本书写者必须注册某些关键的东西，例如：
@@ -30,7 +34,7 @@ import java.util.function.Predicate;
  *
  * @author 戴志勇
  */
-public interface Effect<T, S, R> {
+public interface CardEffect<T extends EffectTargetObject, S, R> {
     /*
     效果有效时间：
     发动回合
@@ -59,14 +63,22 @@ public interface Effect<T, S, R> {
 //     */
 //    Object active(Event event);
 
+    void addAfterActiveEffectListener(AfterActiveEffectListener listener);
 
-    /**
-     * 是效果对象
-     *
-     * @param t
-     * @return
-     */
-    boolean isTarget(T t);
+    void removeAfterActiveEffectListener(AfterActiveEffectListener listener);
+
+    void addBeforeActiveEffectListener(BeforeActiveEffectListener listener);
+
+    void removeBeforeActiveEffectListener(BeforeActiveEffectListener listener);
+
+
+//    /**
+//     * 是效果对象
+//     *
+//     * @param t
+//     * @return
+//     */
+//    boolean isEffectTarget(Predicate<T> t);
 
     /**
      * 是否满足效果发动条件
@@ -74,30 +86,38 @@ public interface Effect<T, S, R> {
      * @param t 效果对象
      * @return true:适用效果对象，false: 不适用效果对象
      */
-    boolean isAvailable(T t);
+    boolean isAvailable(T[] effectTargetObjects);
+
+    void setAvailable(Predicate<T[]> condition);
+
+    boolean isActionable(T[] effectTargetObjects);
+
+    void setActionable(Predicate<T[]> condition);
+
 
     /**
      * 当{@link #isAvailable(Object)}适用效果对象的时候，会立即执行。
      *
      * @param t
-     * @return
      */
-    R execute(T t);
+    void active(T[] effectTargetObjects);
 
-    /**
-     * 获取发动条件
-     *
-     * @return 发动条件
-     */
-    Predicate<T> getCondition();
 
-    /**
-     * 设置发动条件
-     *
-     * @param condition 发动条件
-     */
-    void setCondition(Predicate<T> condition);
+    void action(T t);
 
+//    /**
+//     * 获取发动条件
+//     *
+//     * @return 发动条件
+//     */
+//    Predicate<T> getCondition();
+//
+//    /**
+//     * 设置发动条件
+//     *
+//     * @param condition 发动条件
+//     */
+//    void setCondition(Predicate<T> condition);
 
 
     /**
@@ -143,18 +163,26 @@ public interface Effect<T, S, R> {
      */
     void setSource(S source);
 
-    /**
-     * 获得效果对象
-     */
-    T getTarget();
-//    Duelist getController();
+//    /**
+//     * 获得效果对象
+//     */
+//    T[] getEffectTarget();
+//
+//    /**
+//     * 效果对象
+//     */
+//    void setEffectTarget(T[] target);
+
+//    /** 获取可用的效果对象 */
+//    T[] getAvailableEffectTargets();
+
+//    /** 可供作为代价的对象 */
+//    Object[] getAvailableCosts();
+
+    Duelist getController();
 //
 //    void setController(Duelist duelist);
 
-    /**
-     * 效果对象
-     */
-    void setTarget(T target);
 
     int getCost();
 
