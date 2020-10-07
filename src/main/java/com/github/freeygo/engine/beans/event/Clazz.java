@@ -16,12 +16,19 @@
 
 package com.github.freeygo.engine.beans.event;
 
-import java.util.EventListener;
-
 /**
  * @author Zhi yong Dai
  */
-public interface PropertyChangeListener extends EventListener {
+public interface Clazz {
+    <T> void addProperty(String name, T value);
 
-    void propertyChange(PropertyChangeEvent e);
+    <T> void removeProperty(String name);
+
+    <T> T getValue(String name);
+
+    <T> Property<T> getProperty(String name);
+
+    void addMethod(String name, Procedure.TargetProcedure procedure);
+
+    Procedure getMethod(String name);
 }

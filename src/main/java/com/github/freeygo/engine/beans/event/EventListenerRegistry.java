@@ -21,7 +21,17 @@ import java.util.EventListener;
 /**
  * @author Zhi yong Dai
  */
-public interface PropertyChangeListener extends EventListener {
+public interface EventListenerRegistry<T extends EventListener> {
 
-    void propertyChange(PropertyChangeEvent e);
+    interface PropertyChangeEventListenerRegistry
+            extends EventListenerRegistry<PropertyChangeListener> {
+        void registry(String propertyName, PropertyChangeListener listener);
+    }
+
+    interface ProcedureCallEventListenerRegistry
+            extends EventListenerRegistry<ProcedureCallListener> {
+        void registry(String procedureName, ProcedureCallListener listener);
+    }
+
+
 }

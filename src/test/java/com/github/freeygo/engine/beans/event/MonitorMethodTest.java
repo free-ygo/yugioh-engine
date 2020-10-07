@@ -30,8 +30,8 @@ class MonitorMethodTest {
         CallableProcedure procedure = new CallableProcedure();
         procedure.setProcedureName("testMe");
         procedure.setArguments(1, 1);
-        procedure.setCaller(null);
-        procedure.setTargetProcedure((caller, procedureName, args) -> 1 + 1);
+//        procedure.setCaller(null);
+        procedure.setTargetProcedure((ctx, caller, procedureName, args) -> 1 + 1);
         procedure.addAfterCallListener((e) ->
                 assertEquals(2, e.getReturnValue()));
 

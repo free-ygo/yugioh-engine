@@ -27,7 +27,7 @@ import java.util.EventListener;
 /**
  * @author Zhi yong Dai
  */
-public abstract class AbstractProcedure implements Procedure {
+public class AbstractProcedure implements Procedure {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractProcedure.class);
 
@@ -37,11 +37,13 @@ public abstract class AbstractProcedure implements Procedure {
 
     private Object caller;
 
+    private Object context;
+
     private AfterCallListener afterCallListener;
     private BeforeCallListener beforeCallListener;
 
 
-    private TargetProcedure targetProcedure = (caller, method, args) -> {
+    private TargetProcedure targetProcedure = (context, caller, method, args) -> {
         LOG.debug("Method {} is called with args [{}] by caller {} ",
                 method, Arrays.toString(args), caller);
         return null;
@@ -87,13 +89,23 @@ public abstract class AbstractProcedure implements Procedure {
     }
 
     @Override
+    public Object getContext() {
+        return context;
+    }
+
+    @Override
+    public void setContext(Object context) {
+        this.context = context;
+    }
+
+    @Override
     public Object call() {
         if (targetProcedure != null) {
             Procedure p = fireCallProcedureEvent(beforeCallListener, null);
             TargetProcedure tp = p != null ?
                     p.getTargetProcedure() : targetProcedure;
             if (tp != null) {
-                Object result = tp.procedure(arguments, procedureName);
+                Object result = tp.procedure(getContext(), getCaller(), procedureName, arguments);
                 fireCallProcedureEvent(afterCallListener, result);
                 return result;
             }

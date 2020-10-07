@@ -95,10 +95,25 @@ public interface Procedure {
     void setTargetProcedure(TargetProcedure targetProcedure);
 
     /**
+     * Get the context that the procedure is defined.
+     *
+     * @return context
+     */
+    Object getContext();
+
+    /**
+     * The context that the procedure is defined.
+     *
+     * @param context define context
+     */
+    void setContext(Object context);
+
+    /**
      * An interface for target procedure.
      */
     @FunctionalInterface
     interface TargetProcedure {
-        Object procedure(Object caller, String method, Object... args);
+        Object procedure(Object context, Object caller,
+                         String procedureName, Object... args);
     }
 }
