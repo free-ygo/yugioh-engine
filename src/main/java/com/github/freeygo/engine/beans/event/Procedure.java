@@ -51,7 +51,10 @@ public interface Procedure {
     void setArguments(Object... arguments);
 
     /**
-     * The caller of {@link Procedure}. This return value can be null.
+     * The caller of {@link Procedure}. This return value can be null. The
+     * {@code caller} object for static method is define context and for
+     * instance method is caller of calling. If the caller is a null that prove
+     * the procedure is not associated to calling context.
      *
      * @return caller, can be null.
      */
@@ -96,6 +99,6 @@ public interface Procedure {
      */
     @FunctionalInterface
     interface TargetProcedure {
-        Object performProcedure(Object caller, String method, Object... args);
+        Object procedure(Object caller, String method, Object... args);
     }
 }

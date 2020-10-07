@@ -93,7 +93,7 @@ public abstract class AbstractProcedure implements Procedure {
             TargetProcedure tp = p != null ?
                     p.getTargetProcedure() : targetProcedure;
             if (tp != null) {
-                Object result = tp.performProcedure(arguments, procedureName);
+                Object result = tp.procedure(arguments, procedureName);
                 fireCallProcedureEvent(afterCallListener, result);
                 return result;
             }
