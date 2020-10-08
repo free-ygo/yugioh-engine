@@ -14,40 +14,32 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.event;
+package com.github.freeygo.engine.beans.event;
 
-import com.github.freeygo.engine.Duel;
-import com.github.freeygo.engine.DuelistPair;
+import com.github.freeygo.engine.beans.event.EventListenerRegistry.ProcedureCallListenerRegistry;
 
 /**
  * @author Zhi yong Dai
  */
-public class DuelEvent extends Event {
+public class ProcedureCallRegistrySupport<T extends ProcedureCallEvent> implements ProcedureCallListenerRegistry<T> {
 
-    private Status status;
-    private DuelistPair duelistPair;
 
-    public DuelEvent(Duel target) {
-        super(target);
+    @Override
+    public void register(String listenerGroup, ProcedureCallListener<T> listener) {
+
     }
 
-    public Status getStatus() {
-        return status;
+    @Override
+    public void unregister(String listenerGroup, ProcedureCallListener<T> listener) {
+
     }
 
-    protected void setStatus(Status status) {
-        this.status = status;
+    @Override
+    public <E> void push(String listenerGroup, E event) {
+
     }
 
-    public DuelistPair getDuelistPair() {
-        return duelistPair;
-    }
-
-    protected void setDuelistPair(DuelistPair duelistPair) {
-        this.duelistPair = duelistPair;
-    }
-
-    enum Status {
-        START, END
+    public <E> void addBeforeCallListener(String listenerGroup, E event) {
+        push(listenerGroup, event);
     }
 }

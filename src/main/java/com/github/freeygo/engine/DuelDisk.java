@@ -29,11 +29,16 @@ public interface DuelDisk {
 
     <T extends CardGrid> void setArea(Area area, CardArea<T> cardArea);
 
-    <T extends CardGrid> boolean move(Card card, Area area);
+    <T extends CardGrid> boolean moveCard(Card card, Area destArea, int gridIndex, int layer);
+
+    <T extends CardGrid> boolean moveCard(Card card, Location location);
 
     enum Area {
         MAGIC_TRAP, MONSTER, EXTRA_SUMMON, FIELD_MAGIC, DECK, EXTRA_DECK, Grave,
-        BANISH, HAND,
+        BANISH, HAND;
+        private int grids;
+
+
     }
 
 //    /**

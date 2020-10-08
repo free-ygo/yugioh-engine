@@ -20,4 +20,23 @@ package com.github.freeygo.engine.beans.event;
  * @author Zhi yong Dai
  */
 public class CallableProcedure extends AbstractProcedure {
+    public CallableProcedure(String procedureName) {
+        super(procedureName);
+    }
+
+    public CallableProcedure(String procedureName, ProcedureCallContext context) {
+        super(procedureName, context);
+    }
+
+    @Override
+    protected ProcedureCallEvent newAfterCallEvent() {
+        return null;
+    }
+
+    @Override
+    protected ProcedureCallEvent newBeforeCallEvent() {
+        return null;
+    }
+
+//    public void addListener()
 }

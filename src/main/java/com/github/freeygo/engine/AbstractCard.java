@@ -16,7 +16,7 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cardscript.CardEffect;
+import com.github.freeygo.engine.cardscript.DuelEffect;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +28,7 @@ public abstract class AbstractCard implements Card {
     private String runtimeId;
     private FieldStatus fieldStatus;
     private Category category;
-    private List<CardEffect> cardEffects;
+    private List<DuelEffect> duelEffects;
     private CardGrid cardGrid;
     private Integer level;
     private Integer attack;
@@ -41,6 +41,7 @@ public abstract class AbstractCard implements Card {
     private Collection<String> tags;
     private String id;
     private MagicType magicType;
+    private Location location;
 
     public AbstractCard() {
     }
@@ -76,13 +77,13 @@ public abstract class AbstractCard implements Card {
     }
 
     @Override
-    public List<CardEffect> getEffects() {
-        return cardEffects;
+    public List<DuelEffect> getEffects() {
+        return duelEffects;
     }
 
     @Override
-    public void setEffects(List<CardEffect> cardEffects) {
-        this.cardEffects = cardEffects;
+    public void setEffects(List<DuelEffect> duelEffects) {
+        this.duelEffects = duelEffects;
     }
 
     @Override
@@ -212,5 +213,30 @@ public abstract class AbstractCard implements Card {
     @Override
     public void setRuntimeId(String runtimeId) {
         this.runtimeId = runtimeId;
+    }
+
+    @Override
+    public Location getLocation() {
+        return location;
+    }
+
+    @Override
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    @Override
+    public boolean addActivatedEffect(DuelEffect effect) {
+        return false;
+    }
+
+    @Override
+    public boolean removeActivatedEffect(DuelEffect effect) {
+        return false;
+    }
+
+    @Override
+    public List<DuelEffect> getActivatedEffects() {
+        return null;
     }
 }

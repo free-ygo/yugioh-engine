@@ -21,6 +21,7 @@ package com.github.freeygo.engine.beans.event;
  */
 public interface Procedure {
 
+
     /**
      * Get the name of procedure.
      *
@@ -28,44 +29,44 @@ public interface Procedure {
      */
     String getProcedureName();
 
-    /**
-     * Set this procedure name. The procedure name can be null
-     *
-     * @param name procedure name
-     */
-    void setProcedureName(String name);
+//    /**
+//     * Set this procedure name. The procedure name can be null
+//     *
+//     * @param name procedure name
+//     */
+//    void setProcedureName(String name);
 
-    /**
-     * The method will return arguments of {@link Procedure}. The return value
-     * is not null.
-     *
-     * @return Arguments of {@link Procedure}
-     */
-    Object[] getArguments();
+//    /**
+//     * The method will return arguments of {@link Procedure}. The return value
+//     * is not null.
+//     *
+//     * @return Arguments of {@link Procedure}
+//     */
+//    Object[] getArguments();
+//
+//    /**
+//     * Set arguments for {@link Procedure}.
+//     *
+//     * @param arguments arguments for {@link Procedure}
+//     */
+//    void setArguments(Object... arguments);
 
-    /**
-     * Set arguments for {@link Procedure}.
-     *
-     * @param arguments arguments for {@link Procedure}
-     */
-    void setArguments(Object... arguments);
-
-    /**
-     * The caller of {@link Procedure}. This return value can be null. The
-     * {@code caller} object for static method is define context and for
-     * instance method is caller of calling. If the caller is a null that prove
-     * the procedure is not associated to calling context.
-     *
-     * @return caller, can be null.
-     */
-    Object getCaller();
-
-    /**
-     * Set the caller of {@link Procedure}. The parameter can be null.
-     *
-     * @param caller the caller of {@link Procedure}
-     */
-    void setCaller(Object caller);
+//    /**
+//     * The caller of {@link Procedure}. This return value can be null. The
+//     * {@code caller} object for static method is define context and for
+//     * instance method is caller of calling. If the caller is a null that prove
+//     * the procedure is not associated to calling context.
+//     *
+//     * @return caller, can be null.
+//     */
+//    Object getCaller();
+//
+//    /**
+//     * Set the caller of {@link Procedure}. The parameter can be null.
+//     *
+//     * @param caller the caller of {@link Procedure}
+//     */
+//    void setCaller(Object caller);
 
     /**
      * Call this {@link Procedure}. In fact, The call of procedure delegate to
@@ -79,41 +80,44 @@ public interface Procedure {
      */
     Object call();
 
-    /**
-     * Return the target {@link Procedure}.
-     *
-     * @return target procedure
-     */
-    TargetProcedure getTargetProcedure();
+//    /**
+//     * Return the target {@link Procedure}.
+//     *
+//     * @return target procedure
+//     */
+//    TargetProcedure getTargetProcedure();
+//
+//    /**
+//     * Set the target {@link Procedure}. It can be null. If target procedure is
+//     * null, {@link Procedure} will do nothing and return {@code null}.
+//     *
+//     * @param targetProcedure {@link Procedure}
+//     */
+//    void setTargetProcedure(TargetProcedure targetProcedure);
 
-    /**
-     * Set the target {@link Procedure}. It can be null. If target procedure is
-     * null, {@link Procedure} will do nothing and return {@code null}.
-     *
-     * @param targetProcedure {@link Procedure}
-     */
-    void setTargetProcedure(TargetProcedure targetProcedure);
+//    /**
+//     * Get the context that the procedure is defined.
+//     *
+//     * @return context
+//     */
+//    Object getContext();
+//
+//    /**
+//     * The context that the procedure is defined.
+//     *
+//     * @param context define context
+//     */
+//    void setContext(Object context);
 
-    /**
-     * Get the context that the procedure is defined.
-     *
-     * @return context
-     */
-    Object getContext();
+    ProcedureCallContext getContext();
 
-    /**
-     * The context that the procedure is defined.
-     *
-     * @param context define context
-     */
-    void setContext(Object context);
+    void setContext(ProcedureCallContext context);
 
     /**
      * An interface for target procedure.
      */
     @FunctionalInterface
     interface TargetProcedure {
-        Object procedure(Object context, Object caller,
-                         String procedureName, Object... args);
+        Object procedure(ProcedureCallContext context);
     }
 }

@@ -17,16 +17,14 @@
 package com.github.freeygo.engine.beans.event;
 
 import java.util.EventObject;
+import java.util.Objects;
 
 /**
  * @author Zhi yong Dai
  */
 public class ProcedureCallEvent extends EventObject {
 
-    private Object callObject;
-    private String methodName;
-    private Object[] arguments;
-    private Object returnValue;
+    private final ProcedureCallContext context;
     private Procedure procedure;
 
 
@@ -36,21 +34,14 @@ public class ProcedureCallEvent extends EventObject {
      * @param source the object on which the Event initially occurred
      * @throws IllegalArgumentException if source is null
      */
-    public ProcedureCallEvent(Object source, Object callObject, String methodName,
-                              Object[] arguments, Object returnValue) {
+    public ProcedureCallEvent(Object source, ProcedureCallContext context) {
         super(source);
+        Objects.requireNonNull(context);
+        this.context = context;
     }
 
-    public String getMethodName() {
-        return methodName;
-    }
-
-    public Object[] getArguments() {
-        return arguments;
-    }
-
-    public Object getReturnValue() {
-        return returnValue;
+    public ProcedureCallContext getContext() {
+        return context;
     }
 
     /**

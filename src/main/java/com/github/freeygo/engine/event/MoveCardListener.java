@@ -14,23 +14,14 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.event;
 
-import com.github.freeygo.engine.event.EventSystem;
+import java.util.EventListener;
 
 /**
  * @author Zhi yong Dai
  */
-public class StandardDuelEngineContext implements DuelEngineContext {
+public interface MoveCardListener extends EventListener {
 
-    private EventSystem eventSystem;
-
-    @Override
-    public EventSystem getEventSystem() {
-        return eventSystem;
-    }
-
-    public void setEventSystem(EventSystem eventSystem) {
-        this.eventSystem = eventSystem;
-    }
+    void moveCard(MoveCardEvent event);
 }

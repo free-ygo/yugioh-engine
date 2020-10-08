@@ -23,7 +23,7 @@ import java.util.EventObject;
  */
 public class CardEffectEvent extends EventObject {
 
-    private final CardEffect cardEffect;
+    private final DuelEffect duelEffect;
 
 
     /**
@@ -32,13 +32,13 @@ public class CardEffectEvent extends EventObject {
      * @param source the object on which the Event initially occurred
      * @throws IllegalArgumentException if source is null
      */
-    public CardEffectEvent(Object source, CardEffect cardEffect) {
+    public CardEffectEvent(Object source, DuelEffect duelEffect) {
         super(source);
-        this.cardEffect = cardEffect;
+        this.duelEffect = duelEffect;
     }
 
-    public CardEffect getEffect() {
-        return cardEffect;
+    public DuelEffect getEffect() {
+        return duelEffect;
     }
 
 

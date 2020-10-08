@@ -16,42 +16,30 @@
 
 package com.github.freeygo.engine.beans.event;
 
-import com.github.freeygo.engine.beans.event.ProcedureCallListener.AfterCallListener;
-import com.github.freeygo.engine.beans.event.ProcedureCallListener.BeforeCallListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
-import java.util.EventListener;
 
 /**
  * @author Zhi yong Dai
  */
-public class AbstractProcedure implements Procedure {
+public abstract class AbstractProcedure implements Procedure {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractProcedure.class);
-
-    private String procedureName;
-
-    private Object[] arguments;
-
-    private Object caller;
-
-    private Object context;
-
-    private AfterCallListener afterCallListener;
-
-    private BeforeCallListener beforeCallListener;
-
-    // TODO complete registry
-    private PropertyChangeRegistrySupport propertyChangeRegistrySupport;
+    private static final String BEFORE_CALL = "beforeCall";
+    private static final String AFTER_CALL = "afterCall";
+    private final String procedureName;
+    private ProcedureCallContext context;
+    private ProcedureCallRegistrySupport procedureCallRegistrySupport;
 
 
-    private TargetProcedure targetProcedure = (context, caller, method, args) -> {
-        LOG.debug("Method {} is called with args [{}] by caller {} ",
-                method, Arrays.toString(args), caller);
-        return null;
-    };
+    public AbstractProcedure(String procedureName) {
+        this(procedureName, null);
+    }
+
+    public AbstractProcedure(String procedureName, ProcedureCallContext context) {
+        this.procedureName = procedureName;
+        this.context = context;
+    }
 
 
     @Override
@@ -59,89 +47,101 @@ public class AbstractProcedure implements Procedure {
         return procedureName;
     }
 
-    public void setProcedureName(String procedureName) {
-        this.procedureName = procedureName;
-    }
-
-    public Object[] getArguments() {
-        return arguments;
-    }
-
     @Override
-    public void setArguments(Object... arguments) {
-        this.arguments = arguments;
-    }
-
-    public Object getCaller() {
-        return caller;
-    }
-
-    @Override
-    public void setCaller(Object caller) {
-        this.caller = caller;
-    }
-
-    public TargetProcedure getTargetProcedure() {
-        return targetProcedure;
-    }
-
-    @Override
-    public void setTargetProcedure(TargetProcedure targetProcedure) {
-        if (targetProcedure != null) {
-            this.targetProcedure = targetProcedure;
+    public Object call() {
+        if (context == null || context.getTargetProcedure() == null) {
+            return null;
         }
+        Procedure p = fireProcedureCallEvent(BEFORE_CALL, newBeforeCallEvent());
+        TargetProcedure tp = p == null ?
+                context.getTargetProcedure() :
+                p.getContext().getTargetProcedure();
+        Object returnValue = null;
+        if (tp != null) {
+            returnValue = tp.procedure(context);
+            context.setReturnValue(returnValue);
+            fireProcedureCallEvent(AFTER_CALL, newAfterCallEvent());
+        }
+        return returnValue;
     }
 
+
+    private Procedure fireProcedureCallEvent(String eventType, ProcedureCallEvent e) {
+        if (e == null) {
+            throw new RuntimeException("Procedure call event cannot be null");
+        }
+        if (procedureCallRegistrySupport == null) {
+            procedureCallRegistrySupport = new ProcedureCallRegistrySupport();
+        }
+        if (BEFORE_CALL.equals(eventType)) {
+            procedureCallRegistrySupport.push(getProcedureName(), e);
+            if (e.getProcedure() != null) {
+                return e.getProcedure();
+            }
+        }
+        if (AFTER_CALL.equals(eventType)) {
+            procedureCallRegistrySupport.push(getProcedureName(), e);
+        }
+        return null;
+    }
+
+    protected abstract ProcedureCallEvent newAfterCallEvent();
+
+    protected abstract ProcedureCallEvent newBeforeCallEvent();
+
     @Override
-    public Object getContext() {
+    public ProcedureCallContext getContext() {
         return context;
     }
 
     @Override
-    public void setContext(Object context) {
+    public void setContext(ProcedureCallContext context) {
         this.context = context;
     }
 
-    @Override
-    public Object call() {
-        if (targetProcedure != null) {
-            Procedure p = fireCallProcedureEvent(beforeCallListener, null);
-            TargetProcedure tp = p != null ?
-                    p.getTargetProcedure() : targetProcedure;
-            if (tp != null) {
-                Object result = tp.procedure(getContext(), getCaller(), procedureName, arguments);
-                fireCallProcedureEvent(afterCallListener, result);
-                return result;
-            }
-        }
-        return null;
-    }
 
-    public void addAfterCallListener(AfterCallListener listener) {
-        if (this.afterCallListener != null) {
-            this.afterCallListener = listener;
-        }
-    }
-
-    public void addBeforeCallListener(BeforeCallListener listener) {
-        if (this.beforeCallListener != null) {
-            this.beforeCallListener = listener;
-        }
-    }
-
-    protected Procedure fireCallProcedureEvent(EventListener listener,
-                                               Object returnValue) {
-        if (listener != null) {
-            ProcedureCallEvent e = new ProcedureCallEvent(this, caller,
-                    procedureName, arguments, returnValue);
-            if (listener instanceof BeforeCallListener) {
-                beforeCallListener.beforeCall(e);
-                return e.getProcedure();
-            }
-            if (listener instanceof AfterCallListener) {
-                afterCallListener.afterCall(e);
-            }
-        }
-        return null;
-    }
+//
+//
+//    @Override
+//    public Object call() {
+//        if (targetProcedure != null) {
+//            Procedure p = fireCallProcedureEvent(beforeCallListener, null);
+//            TargetProcedure tp = p != null ?
+//                    p.getTargetProcedure() : targetProcedure;
+//            if (tp != null) {
+//                Object result = tp.procedure(getContext(), getCaller(), procedureName, arguments);
+//                fireCallProcedureEvent(afterCallListener, result);
+//                return result;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    public void addAfterCallListener(AfterCallListener listener) {
+//        if (this.afterCallListener != null) {
+//            this.afterCallListener = listener;
+//        }
+//    }
+//
+//    public void addBeforeCallListener(BeforeCallListener listener) {
+//        if (this.beforeCallListener != null) {
+//            this.beforeCallListener = listener;
+//        }
+//    }
+//
+//    protected Procedure fireCallProcedureEvent(EventListener listener,
+//                                               Object returnValue) {
+//        if (listener != null) {
+//            StandardProcedureCallContext context = new StandardProcedureCallContext();
+//            ProcedureCallEvent e = new ProcedureCallEvent(this, );
+//            if (listener instanceof BeforeCallListener) {
+//                beforeCallListener.beforeCall(e);
+//                return e.getProcedure();
+//            }
+//            if (listener instanceof AfterCallListener) {
+//                afterCallListener.afterCall(e);
+//            }
+//        }
+//        return null;
+//    }
 }

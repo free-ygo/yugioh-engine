@@ -34,7 +34,7 @@ import static com.github.freeygo.engine.cardscript.EffectListener.BeforeActiveEf
  *
  * @author 戴志勇
  */
-public interface CardEffect<T extends EffectTargetObject, S, R> {
+public interface DuelEffect<T extends EffectTargetObject, S, R> {
     /*
     效果有效时间：
     发动回合

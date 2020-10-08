@@ -16,7 +16,7 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cardscript.CardEffect;
+import com.github.freeygo.engine.cardscript.DuelEffect;
 import com.github.freeygo.engine.cardscript.EffectTargetObject;
 
 import java.util.Collection;
@@ -34,6 +34,12 @@ public interface Card extends EffectTargetObject {
 //    int CONTINUOUS_MAGIC = 1106;
 //    int COUNTER_MAGIC = 1107;
 
+//    Location getLocation();
+//    void setLocation(Location location);
+
+    Location getLocation();
+
+    void setLocation(Location location);
 
     String getRuntimeId();
 
@@ -70,9 +76,9 @@ public interface Card extends EffectTargetObject {
      */
     void setCategory(Category category);
 
-    List<CardEffect> getEffects();
+    List<DuelEffect> getEffects();
 
-    void setEffects(List<CardEffect> cardEffects);
+    void setEffects(List<DuelEffect> duelEffects);
 
     CardGrid getCardArea();
 

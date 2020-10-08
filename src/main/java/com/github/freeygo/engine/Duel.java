@@ -22,9 +22,9 @@ public interface Duel {
 
     void setContext(DuelContext context);
 
-    void setDuelistPair(DuelistPair duelistPair);
-
-    DuelistPair getDuelistPair();
+//    void setDuelistPair(DuelistPair duelistPair);
+//
+//    DuelistPair getDuelistPair();
 
     void setCurrentRound(Round round);
 }

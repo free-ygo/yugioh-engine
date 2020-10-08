@@ -32,9 +32,9 @@ import java.util.List;
  */
 public interface EffectTargetObject {
 
-    void addActivatedEffect(CardEffect effect);
+    boolean addActivatedEffect(DuelEffect effect);
 
-    void removeActivatedEffect(CardEffect effect);
+    boolean removeActivatedEffect(DuelEffect effect);
 
-    List<CardEffect> getActivatedEffects();
+    List<DuelEffect> getActivatedEffects();
 }

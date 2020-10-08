@@ -16,7 +16,7 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cardscript.CardEffect;
+import com.github.freeygo.engine.cardscript.DuelEffect;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,6 +27,16 @@ import java.util.List;
  * @author Zhi yong Dai
  */
 public final class NullCard implements Card {
+    @Override
+    public Location getLocation() {
+        return null;
+    }
+
+    @Override
+    public void setLocation(Location location) {
+
+    }
+
     @Override
     public String getRuntimeId() {
         return null;
@@ -78,12 +88,12 @@ public final class NullCard implements Card {
     }
 
     @Override
-    public List<CardEffect> getEffects() {
+    public List<DuelEffect> getEffects() {
         return null;
     }
 
     @Override
-    public void setEffects(List<CardEffect> cardEffects) {
+    public void setEffects(List<DuelEffect> duelEffects) {
 
     }
 
@@ -190,5 +200,20 @@ public final class NullCard implements Card {
     @Override
     public void setMagicType(MagicType type) {
 
+    }
+
+    @Override
+    public boolean addActivatedEffect(DuelEffect effect) {
+        return false;
+    }
+
+    @Override
+    public boolean removeActivatedEffect(DuelEffect effect) {
+        return false;
+    }
+
+    @Override
+    public List<DuelEffect> getActivatedEffects() {
+        return null;
     }
 }

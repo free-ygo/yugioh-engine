@@ -30,6 +30,13 @@ public interface CardGrid {
      */
     List<Card> search(Predicate<Card> condition);
 
+    /**
+     * 该值不能返回为空
+     */
+    DuelDisk getDuelDisk();
+
+//    void setDuelDisk(DuelDisk duelDisk);
+
 //    /**
 //     * Determine the card area is an available area. If return false that area
 //     * is available else not available.
@@ -174,15 +181,7 @@ public interface CardGrid {
 //     */
 //    void shuffle();
 
-    /**
-     * Return the size of area. In some cases, the size of the  card area is
-     * equal to the number of cards, but this is not absolute.
-     * <p>
-     * <em>Notice</em>: This is not the number of cards.
-     *
-     * @return the size of area.
-     */
-    int size();
+
 
 //    /**
 //     * Return the duel disk of card area.
@@ -208,10 +207,10 @@ public interface CardGrid {
 //     */
 //    Map<Integer, Card> getPositions();
 
-//    /**
-//     * Get position of card
-//     */
-//    int getPosition(Card card);
+    /**
+     * Get index of card grid.
+     */
+    int getIndex();
 
     /**
      * Return size of all cards whose position is not {@code null}.

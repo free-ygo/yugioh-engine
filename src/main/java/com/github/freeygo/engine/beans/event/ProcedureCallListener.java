@@ -21,20 +21,20 @@ import java.util.EventListener;
 /**
  * @author Zhi yong Dai
  */
-public interface ProcedureCallListener extends EventListener {
+public interface ProcedureCallListener<T extends ProcedureCallEvent> extends EventListener {
 
-    interface BeforeCallListener extends ProcedureCallListener {
+    interface BeforeCallListener<T2 extends ProcedureCallEvent> extends ProcedureCallListener<T2> {
         /**
          * 调用具体的过程之前，调用该监听器。
          */
-        void beforeCall(ProcedureCallEvent event);
+        void beforeCall(T2 event);
     }
 
 
-    interface AfterCallListener extends ProcedureCallListener {
+    interface AfterCallListener<T3 extends ProcedureCallEvent> extends ProcedureCallListener<T3> {
         /**
          * 调用后的事件监听器
          */
-        void afterCall(ProcedureCallEvent event);
+        void afterCall(T3 event);
     }
 }

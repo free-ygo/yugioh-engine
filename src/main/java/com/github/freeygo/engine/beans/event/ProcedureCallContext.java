@@ -14,17 +14,33 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.beans.event;
 
-import java.util.EventListener;
+import com.github.freeygo.engine.beans.event.Procedure.TargetProcedure;
 
 /**
  * @author Zhi yong Dai
  */
-public interface EngineListener extends EventListener {
+public interface ProcedureCallContext {
+    Object getContext();
 
-    /**
-     * 发生事件时，调用这个发送给监听器
-     */
-    void onEngineEvent(EngineEvent event);
+    void setContext(Object context);
+
+    Object getCaller();
+
+    void setCaller(Object caller);
+
+    //    String getProcedureName();
+    Object[] getArguments();
+
+    //    void setProcedureName(String procedureName);
+    void setArguments(Object... arguments);
+
+    Object getReturnValue();
+
+    void setReturnValue(Object returnValue);
+
+    TargetProcedure getTargetProcedure();
+
+    void setTargetProcedure(TargetProcedure targetProcedure);
 }

@@ -17,54 +17,35 @@
 package com.github.freeygo.engine.event;
 
 import com.github.freeygo.engine.Card;
-import com.github.freeygo.engine.CardGrid;
-import com.github.freeygo.engine.Duel;
+import com.github.freeygo.engine.Location;
+import com.github.freeygo.engine.beans.event.ProcedureCallEvent;
 
 /**
- * @author 戴志勇
+ * @author Zhi yong Dai
  */
-public class MoveCardEvent extends Event {
+public class MoveCardEvent extends ProcedureCallEvent {
+    private final Card card;
+    private final Location oldLocation;
+    private final Location newLocation;
 
-    private int count;
-    private CardGrid sourceArea;
-    private CardGrid targetArea;
-    private Card card;
-
-
-    public MoveCardEvent(Duel target) {
-        super(target);
+    public MoveCardEvent(Object source, Object callObject, String methodName,
+                         Object[] arguments, Object returnValue,
+                         Card card, Location oldLocation, Location newLocation) {
+        super(source, callObject, methodName, arguments, returnValue);
+        this.card = card;
+        this.oldLocation = oldLocation;
+        this.newLocation = newLocation;
     }
 
-
-    public int getCount() {
-        return count;
+    public Location getOldLocation() {
+        return oldLocation;
     }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public CardGrid getSourceArea() {
-        return sourceArea;
-    }
-
-    public void setSourceArea(CardGrid sourceArea) {
-        this.sourceArea = sourceArea;
-    }
-
-    public CardGrid getTargetArea() {
-        return targetArea;
-    }
-
-    public void setTargetArea(CardGrid targetArea) {
-        this.targetArea = targetArea;
+    public Location getNewLocation() {
+        return newLocation;
     }
 
     public Card getCard() {
         return card;
-    }
-
-    public void setCard(Card card) {
-        this.card = card;
     }
 }

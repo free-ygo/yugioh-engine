@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * @author Zhi yong Dai
  */
-public abstract class RoundAccessor extends DuelObject {
+public abstract class RoundAccessor extends DuelObject implements Duel {
 
     private static final String CURRENT_ROUND = "currentRound";
     private final DuelistAccessor duelistAccessor;

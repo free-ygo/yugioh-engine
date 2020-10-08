@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @author Zhi yong Dai
  */
-public interface CardArea<T extends CardGrid> {
+public interface CardArea<T extends CardGrid> extends CardGrid {
 
     /**
      * 返回原来是设置的{@link CardGrid}列表。
@@ -46,6 +46,16 @@ public interface CardArea<T extends CardGrid> {
      * @return {@link CardGrid}
      */
     T getCardGrid(int index);
+
+    /**
+     * Return the size of area. In some cases, the size of the  card area is
+     * equal to the number of cards, but this is not absolute.
+     * <p>
+     * <em>Notice</em>: This is not the number of cards.
+     *
+     * @return the size of area.
+     */
+    int gridSize();
 
 //    /**
 //     * Card Area 是否可用

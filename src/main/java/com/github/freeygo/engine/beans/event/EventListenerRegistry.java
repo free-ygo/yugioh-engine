@@ -33,8 +33,8 @@ public interface EventListenerRegistry<T extends EventListener> {
             extends EventListenerRegistry<PropertyChangeListener> {
     }
 
-    interface ProcedureCallListenerRegistry
-            extends EventListenerRegistry<ProcedureCallListener> {
+    interface ProcedureCallListenerRegistry<T2 extends ProcedureCallEvent>
+            extends EventListenerRegistry<ProcedureCallListener<T2>> {
     }
 
 
