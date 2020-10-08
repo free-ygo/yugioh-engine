@@ -24,7 +24,7 @@ import java.util.*;
  */
 public class StandardEventListenerRegistry implements EventListenerRegistry {
 
-    private Map<Object, List> listenersMap;
+    private Map<Object, Set> listenersMap;
 
     @Override
     public <T extends DuelEventListener>
@@ -35,9 +35,9 @@ public class StandardEventListenerRegistry implements EventListenerRegistry {
         if (listenersMap == null) {
             listenersMap = new HashMap<>();
         }
-        List<T> listeners = listenersMap.get(listenerGroup);
+        Set<T> listeners = listenersMap.get(listenerGroup);
         if (listeners == null) {
-            listeners = new ArrayList<>();
+            listeners = new LinkedHashSet<>();
         }
         listeners.add(listener);
         listenersMap.put(listenerGroup, listeners);
@@ -55,7 +55,7 @@ public class StandardEventListenerRegistry implements EventListenerRegistry {
 
     @Override
     public <E extends EventObject> void push(Object listenerGroup, E event) {
-        List<DuelEventListener> listeners = listenersMap.get(listenerGroup);
+        Set<DuelEventListener> listeners = listenersMap.get(listenerGroup);
         if (listeners != null) {
             for (DuelEventListener l : listeners) {
                 l.call(event);

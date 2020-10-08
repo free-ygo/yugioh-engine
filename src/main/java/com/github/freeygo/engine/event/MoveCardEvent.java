@@ -56,4 +56,5 @@ public class MoveCardEvent extends CallEvent {
     public Card getCard() {
         return card;
     }
+
 }

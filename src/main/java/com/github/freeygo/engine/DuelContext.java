@@ -16,6 +16,8 @@
 
 package com.github.freeygo.engine;
 
+import com.github.freeygo.engine.beans.event.EventListenerRegistry;
+
 public interface DuelContext {
 
 //    /**
@@ -47,5 +49,6 @@ public interface DuelContext {
 
     RoundAccessor getRoundAccessor();
 
+    EventListenerRegistry getEventListenerRegistry();
 
 }

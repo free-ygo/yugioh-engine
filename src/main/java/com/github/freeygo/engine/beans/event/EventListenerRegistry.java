@@ -23,6 +23,14 @@ import java.util.EventObject;
  */
 public interface EventListenerRegistry {
 
+    /**
+     * 这是一个事件注册方法，{@code listenerGroup}指定某个监听器组，{@code listener}
+     * 指定了监听器。
+     *
+     * @param listenerGroup 哪个监听器组
+     * @param listener      监听器
+     * @param <T>           监听器类型
+     */
     <T extends DuelEventListener> void register(Object listenerGroup, T listener);
 
     <T extends DuelEventListener> void unregister(Object listenerGroup, T listener);

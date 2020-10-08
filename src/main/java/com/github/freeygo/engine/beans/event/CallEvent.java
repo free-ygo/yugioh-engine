@@ -26,6 +26,7 @@ public class CallEvent extends EventObject implements CallContext {
 
     private final ProcedureCallContext context;
     private Procedure procedure;
+    private boolean execute;
 
 
     /**
@@ -38,6 +39,7 @@ public class CallEvent extends EventObject implements CallContext {
         super(source);
         Objects.requireNonNull(context);
         this.context = context;
+        this.execute = true;
     }
 
     public ProcedureCallContext getContext() {
@@ -61,5 +63,13 @@ public class CallEvent extends EventObject implements CallContext {
     @Override
     public ProcedureCallContext getProcedureCallContext() {
         return context;
+    }
+
+    public boolean isExecute() {
+        return execute;
+    }
+
+    public void setPerformDefaultAction(boolean execute) {
+        this.execute = execute;
     }
 }

@@ -29,14 +29,15 @@ public abstract class AbstractProcedure implements Procedure {
     private static final String AFTER_CALL = "afterCall";
     private final String procedureName;
     private ProcedureCallContext context;
-    private final Object source;
+    private final Object eventSource;
     private EventListenerRegistry listenerRegistry;
 
 
-    public AbstractProcedure(Object source, String procedureName, ProcedureCallContext context) {
+    public AbstractProcedure(Object eventSource, String procedureName,
+                             ProcedureCallContext context) {
         this.procedureName = procedureName;
         this.context = context;
-        this.source = source;
+        this.eventSource = eventSource;
     }
 
 
@@ -63,10 +64,16 @@ public abstract class AbstractProcedure implements Procedure {
         return returnValue;
     }
 
+    public Object getEventSource() {
+        return eventSource;
+    }
 
     private Procedure fireProcedureCallEvent(String eventType, CallEvent e) {
         if (e == null) {
             throw new RuntimeException("Procedure call event cannot be null");
+        }
+        if (e.getProcedureCallContext() == null) {
+            throw new RuntimeException("Procedure call context cannot be null");
         }
         if (listenerRegistry == null) {
             listenerRegistry = new StandardEventListenerRegistry();

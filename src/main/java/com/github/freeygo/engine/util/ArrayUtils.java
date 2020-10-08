@@ -14,30 +14,25 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.beans.event;
+package com.github.freeygo.engine.util;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * @author Zhi yong Dai
  */
-public class CallableProcedure implements Procedure {
-    private ProcedureCallContext context;
+public class ArrayUtils {
 
-    public CallableProcedure(ProcedureCallContext context) {
-        this.context = context;
+
+    public static <E> Set<E> asLinkedHashSet(E... elements) {
+        return new LinkedHashSet<>(Arrays.asList(elements));
     }
 
-    @Override
-    public Object call() {
-        return context.getTargetProcedure();
+    public static <E> Set<E> asHashSet(E... elements) {
+        return new HashSet<>(Arrays.asList(elements));
     }
 
-    @Override
-    public ProcedureCallContext getContext() {
-        return context;
-    }
-
-    @Override
-    public void setContext(ProcedureCallContext context) {
-        this.context = context;
-    }
 }

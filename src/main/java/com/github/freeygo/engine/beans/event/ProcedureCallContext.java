@@ -30,6 +30,10 @@ public final class ProcedureCallContext {
     private String procedureName;
     private TargetProcedure targetProcedure;
 
+    public ProcedureCallContext(TargetProcedure targetProcedure, Object... arguments) {
+        this.targetProcedure = targetProcedure;
+        this.arguments = arguments;
+    }
 
     public ProcedureCallContext(Object context, Object caller, Object[] arguments,
                                 Object returnValue, String procedureName, TargetProcedure targetProcedure) {
@@ -89,6 +93,4 @@ public final class ProcedureCallContext {
         this.targetProcedure = targetProcedure;
     }
 
-    //    Procedure getProcedure();
-//    void setProcedure(Procedure procedure);
 }

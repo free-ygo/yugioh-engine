@@ -22,12 +22,12 @@ package com.github.freeygo.engine.beans.event;
 public interface Procedure {
 
 
-    /**
-     * Get the name of procedure.
-     *
-     * @return procedure name
-     */
-    String getProcedureName();
+//    /**
+//     * Get the name of procedure.
+//     *
+//     * @return procedure name
+//     */
+//    String getProcedureName();
 
 //    /**
 //     * Set this procedure name. The procedure name can be null
