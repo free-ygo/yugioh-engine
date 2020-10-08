@@ -21,26 +21,74 @@ import com.github.freeygo.engine.beans.event.Procedure.TargetProcedure;
 /**
  * @author Zhi yong Dai
  */
-public interface ProcedureCallContext {
-    Object getContext();
+public final class ProcedureCallContext {
 
-    void setContext(Object context);
+    private Object context;
+    private Object caller;
+    private Object[] arguments;
+    private Object returnValue;
+    private String procedureName;
+    private TargetProcedure targetProcedure;
 
-    Object getCaller();
 
-    void setCaller(Object caller);
+    public ProcedureCallContext(Object context, Object caller, Object[] arguments,
+                                Object returnValue, String procedureName, TargetProcedure targetProcedure) {
+        this.context = context;
+        this.caller = caller;
+        this.arguments = arguments;
+        this.returnValue = returnValue;
+        this.procedureName = procedureName;
+        this.targetProcedure = targetProcedure;
+    }
 
-    //    String getProcedureName();
-    Object[] getArguments();
+    public Object getContext() {
+        return context;
+    }
 
-    //    void setProcedureName(String procedureName);
-    void setArguments(Object... arguments);
+    public void setContext(Object context) {
+        this.context = context;
+    }
 
-    Object getReturnValue();
+    public Object getCaller() {
+        return caller;
+    }
 
-    void setReturnValue(Object returnValue);
+    public void setCaller(Object caller) {
+        this.caller = caller;
+    }
 
-    TargetProcedure getTargetProcedure();
+    public String getProcedureName() {
+        return procedureName;
+    }
 
-    void setTargetProcedure(TargetProcedure targetProcedure);
+    public void setProcedureName(String procedureName) {
+        this.procedureName = procedureName;
+    }
+
+    public Object[] getArguments() {
+        return arguments;
+    }
+
+    public void setArguments(Object... arguments) {
+        this.arguments = arguments;
+    }
+
+    public Object getReturnValue() {
+        return returnValue;
+    }
+
+    public void setReturnValue(Object returnValue) {
+        this.returnValue = returnValue;
+    }
+
+    public TargetProcedure getTargetProcedure() {
+        return targetProcedure;
+    }
+
+    public void setTargetProcedure(TargetProcedure targetProcedure) {
+        this.targetProcedure = targetProcedure;
+    }
+
+    //    Procedure getProcedure();
+//    void setProcedure(Procedure procedure);
 }

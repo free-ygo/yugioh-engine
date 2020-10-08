@@ -16,30 +16,13 @@
 
 package com.github.freeygo.engine.beans.event;
 
-import com.github.freeygo.engine.beans.event.EventListenerRegistry.ProcedureCallListenerRegistry;
+import java.util.EventListener;
+import java.util.EventObject;
 
 /**
  * @author Zhi yong Dai
  */
-public class ProcedureCallRegistrySupport<T extends ProcedureCallEvent> implements ProcedureCallListenerRegistry<T> {
+public interface DuelEventListener extends EventListener {
 
-
-    @Override
-    public void register(String listenerGroup, ProcedureCallListener<T> listener) {
-
-    }
-
-    @Override
-    public void unregister(String listenerGroup, ProcedureCallListener<T> listener) {
-
-    }
-
-    @Override
-    public <E> void push(String listenerGroup, E event) {
-
-    }
-
-    public <E> void addBeforeCallListener(String listenerGroup, E event) {
-        push(listenerGroup, event);
-    }
+    <T extends EventObject> void call(T event);
 }

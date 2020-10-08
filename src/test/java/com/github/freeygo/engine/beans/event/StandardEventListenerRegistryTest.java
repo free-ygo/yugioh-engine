@@ -16,27 +16,15 @@
 
 package com.github.freeygo.engine.beans.event;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * @author Zhi yong Dai
  */
-public class CallableProcedure extends AbstractProcedure {
-    public CallableProcedure(String procedureName) {
-        super(procedureName);
-    }
+class StandardEventListenerRegistryTest {
 
-    public CallableProcedure(String procedureName, ProcedureCallContext context) {
-        super(procedureName, context);
-    }
+    @Test
+    void register() {
 
-    @Override
-    protected CallEvent newAfterCallEvent() {
-        return null;
     }
-
-    @Override
-    protected CallEvent newBeforeCallEvent() {
-        return null;
-    }
-
-//    public void addListener()
 }

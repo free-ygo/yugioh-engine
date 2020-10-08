@@ -29,16 +29,14 @@ public abstract class AbstractProcedure implements Procedure {
     private static final String AFTER_CALL = "afterCall";
     private final String procedureName;
     private ProcedureCallContext context;
-    private ProcedureCallRegistrySupport procedureCallRegistrySupport;
+    private final Object source;
+    private EventListenerRegistry listenerRegistry;
 
 
-    public AbstractProcedure(String procedureName) {
-        this(procedureName, null);
-    }
-
-    public AbstractProcedure(String procedureName, ProcedureCallContext context) {
+    public AbstractProcedure(Object source, String procedureName, ProcedureCallContext context) {
         this.procedureName = procedureName;
         this.context = context;
+        this.source = source;
     }
 
 
@@ -58,7 +56,7 @@ public abstract class AbstractProcedure implements Procedure {
                 p.getContext().getTargetProcedure();
         Object returnValue = null;
         if (tp != null) {
-            returnValue = tp.procedure(context);
+            returnValue = tp.procedure(() -> context);
             context.setReturnValue(returnValue);
             fireProcedureCallEvent(AFTER_CALL, newAfterCallEvent());
         }
@@ -66,28 +64,28 @@ public abstract class AbstractProcedure implements Procedure {
     }
 
 
-    private Procedure fireProcedureCallEvent(String eventType, ProcedureCallEvent e) {
+    private Procedure fireProcedureCallEvent(String eventType, CallEvent e) {
         if (e == null) {
             throw new RuntimeException("Procedure call event cannot be null");
         }
-        if (procedureCallRegistrySupport == null) {
-            procedureCallRegistrySupport = new ProcedureCallRegistrySupport();
+        if (listenerRegistry == null) {
+            listenerRegistry = new StandardEventListenerRegistry();
         }
         if (BEFORE_CALL.equals(eventType)) {
-            procedureCallRegistrySupport.push(getProcedureName(), e);
+            listenerRegistry.push(getProcedureName(), e);
             if (e.getProcedure() != null) {
                 return e.getProcedure();
             }
         }
         if (AFTER_CALL.equals(eventType)) {
-            procedureCallRegistrySupport.push(getProcedureName(), e);
+            listenerRegistry.push(getProcedureName(), e);
         }
         return null;
     }
 
-    protected abstract ProcedureCallEvent newAfterCallEvent();
+    protected abstract CallEvent newAfterCallEvent();
 
-    protected abstract ProcedureCallEvent newBeforeCallEvent();
+    protected abstract CallEvent newBeforeCallEvent();
 
     @Override
     public ProcedureCallContext getContext() {

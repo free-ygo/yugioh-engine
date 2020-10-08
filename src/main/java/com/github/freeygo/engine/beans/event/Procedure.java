@@ -118,6 +118,6 @@ public interface Procedure {
      */
     @FunctionalInterface
     interface TargetProcedure {
-        Object procedure(ProcedureCallContext context);
+        Object procedure(CallContext context);
     }
 }

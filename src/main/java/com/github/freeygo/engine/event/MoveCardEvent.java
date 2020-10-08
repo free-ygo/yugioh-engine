@@ -18,20 +18,28 @@ package com.github.freeygo.engine.event;
 
 import com.github.freeygo.engine.Card;
 import com.github.freeygo.engine.Location;
-import com.github.freeygo.engine.beans.event.ProcedureCallEvent;
+import com.github.freeygo.engine.beans.event.CallEvent;
+import com.github.freeygo.engine.beans.event.ProcedureCallContext;
 
 /**
  * @author Zhi yong Dai
  */
-public class MoveCardEvent extends ProcedureCallEvent {
+public class MoveCardEvent extends CallEvent {
     private final Card card;
     private final Location oldLocation;
     private final Location newLocation;
 
-    public MoveCardEvent(Object source, Object callObject, String methodName,
-                         Object[] arguments, Object returnValue,
-                         Card card, Location oldLocation, Location newLocation) {
-        super(source, callObject, methodName, arguments, returnValue);
+    /**
+     * Constructs a prototypical Event.
+     *
+     * @param source  the object on which the Event initially occurred
+     * @param context
+     * @throws IllegalArgumentException if source is null
+     */
+    public MoveCardEvent(Object source, ProcedureCallContext context,
+                         Card card, Location oldLocation,
+                         Location newLocation) {
+        super(source, context);
         this.card = card;
         this.oldLocation = oldLocation;
         this.newLocation = newLocation;

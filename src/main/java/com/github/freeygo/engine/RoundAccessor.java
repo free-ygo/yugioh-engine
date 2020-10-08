@@ -31,7 +31,8 @@ public abstract class RoundAccessor extends DuelObject implements Duel {
     private final DuelistAccessor duelistAccessor;
     private final ChangeableProperty<Round> currentRound;
 
-    public RoundAccessor(DuelistAccessor duelistAccessor) {
+    public RoundAccessor(DuelContext duelContext, DuelistAccessor duelistAccessor) {
+        super(duelContext);
         Objects.requireNonNull(duelistAccessor);
         this.duelistAccessor = duelistAccessor;
         this.currentRound = new ChangeableProperty<>(CURRENT_ROUND);

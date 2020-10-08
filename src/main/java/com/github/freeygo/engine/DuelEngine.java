@@ -16,24 +16,23 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.event.EventSystem;
 
 public interface DuelEngine {
 
-
-    /**
-     * 获取引擎当前的执行上下文。
-     *
-     * @return 引擎执行上下文
-     */
-    DuelEngineContext getEngineContext();
-
-    /**
-     * 设置引擎执行上下文。
-     *
-     * @param context 引擎执行上下文
-     */
-    void setEngineContext(DuelEngineContext context);
+//
+//    /**
+//     * 获取引擎当前的执行上下文。
+//     *
+//     * @return 引擎执行上下文
+//     */
+//    DuelEngineContext getEngineContext();
+//
+//    /**
+//     * 设置引擎执行上下文。
+//     *
+//     * @param context 引擎执行上下文
+//     */
+//    void setEngineContext(DuelEngineContext context);
 
 
     /**
@@ -53,12 +52,12 @@ public interface DuelEngine {
      * @return 脚本返回的结果
      */
     Object send(String script, DuelContext context);
-
-    Object send(CommandArgument argument);
-
-    EventSystem getEventSystem();
-
-    void setEventSystem(EventSystem eventSystem);
+//
+//    Object send(CommandArgument argument);
+//
+//    EventSystem getEventSystem();
+//
+//    void setEventSystem(EventSystem eventSystem);
 
     void start(Duel duel);
 }

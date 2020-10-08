@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * @author Zhi yong Dai
  */
-public class ProcedureCallEvent extends EventObject {
+public class CallEvent extends EventObject implements CallContext {
 
     private final ProcedureCallContext context;
     private Procedure procedure;
@@ -34,7 +34,7 @@ public class ProcedureCallEvent extends EventObject {
      * @param source the object on which the Event initially occurred
      * @throws IllegalArgumentException if source is null
      */
-    public ProcedureCallEvent(Object source, ProcedureCallContext context) {
+    public CallEvent(Object source, ProcedureCallContext context) {
         super(source);
         Objects.requireNonNull(context);
         this.context = context;
@@ -56,5 +56,10 @@ public class ProcedureCallEvent extends EventObject {
 
     public void setProcedure(Procedure procedure) {
         this.procedure = procedure;
+    }
+
+    @Override
+    public ProcedureCallContext getProcedureCallContext() {
+        return context;
     }
 }

@@ -16,12 +16,17 @@
 
 package com.github.freeygo.engine.beans.event;
 
-import java.util.EventListener;
+import java.util.EventObject;
 
 /**
  * @author Zhi yong Dai
  */
-public interface PropertyChangeListener extends EventListener {
+public abstract class PropertyChangeListener implements DuelEventListener {
 
-    void propertyChange(PropertyChangeEvent e);
+    @Override
+    public <T extends EventObject> void call(T event) {
+        propertyChange((PropertyChangeEvent) event);
+    }
+
+    public abstract void propertyChange(PropertyChangeEvent event);
 }

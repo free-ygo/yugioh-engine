@@ -16,12 +16,12 @@
 
 package com.github.freeygo.engine.event;
 
-import java.util.EventListener;
+import com.github.freeygo.engine.beans.event.DuelEventListener;
 
 /**
  * @author Zhi yong Dai
  */
-public interface MoveCardListener extends EventListener {
+public interface MoveCardListener extends DuelEventListener {
 
     void moveCard(MoveCardEvent event);
 }

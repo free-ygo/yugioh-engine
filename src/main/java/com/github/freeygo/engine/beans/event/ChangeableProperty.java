@@ -16,7 +16,6 @@
 
 package com.github.freeygo.engine.beans.event;
 
-import com.github.freeygo.engine.beans.event.EventListenerRegistry.PropertyChangeListenerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,17 +27,20 @@ import java.util.Objects;
 public class ChangeableProperty<T> extends AbstractProperty<T> {
 
     private static final Logger
-            logger = LoggerFactory.getLogger(ChangeableProperty.class);
+            LOG = LoggerFactory.getLogger(ChangeableProperty.class);
 
-    private final PropertyChangeListener listener = (e) -> {
-        logger.debug("Property {} changed: {} -> {}",
-                e.getPropertyName(), e.getOldValue(), e.getNewValue());
-        // do nothing
-    };
-    private PropertyChangeListenerRegistry propertyChangeRegistrySupport;
+    private EventListenerRegistry listenerRegistry;
 
     public ChangeableProperty(String propertyName) {
         super(propertyName);
+    }
+
+    public EventListenerRegistry getListenerRegistry() {
+        return listenerRegistry;
+    }
+
+    public void setListenerRegistry(EventListenerRegistry listenerRegistry) {
+        this.listenerRegistry = listenerRegistry;
     }
 
     @Override
@@ -59,23 +61,23 @@ public class ChangeableProperty<T> extends AbstractProperty<T> {
         if (listener == null) {
             return;
         }
-        if (propertyChangeRegistrySupport == null) {
-            propertyChangeRegistrySupport = new PropertyChangeRegistrySupport();
+        if (listenerRegistry == null) {
+            listenerRegistry = new StandardEventListenerRegistry();
         }
-        propertyChangeRegistrySupport.register(getPropertyName(), listener);
+        listenerRegistry.register(getPropertyName(), listener);
     }
 
     public void removeListener(PropertyChangeListener listener) {
-        if (listener == null || propertyChangeRegistrySupport == null) {
+        if (listener == null || listenerRegistry == null) {
             return;
         }
-        propertyChangeRegistrySupport.unregister(getPropertyName(), listener);
+        listenerRegistry.unregister(getPropertyName(), listener);
     }
 
 
     private void firePropertyChangeEvent(Object oldValue, Object newValue) {
-        if (propertyChangeRegistrySupport != null) {
-            propertyChangeRegistrySupport.push(getPropertyName(),
+        if (listenerRegistry != null) {
+            listenerRegistry.push(getPropertyName(),
                     new PropertyChangeEvent(this,
                             getPropertyName(), oldValue, newValue)
             );

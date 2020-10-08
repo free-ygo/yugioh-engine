@@ -31,7 +31,6 @@ public abstract class AbstractDuelDisk extends DuelObject implements DuelDisk {
 
     private final EnumMap<Area, CardArea> cardAreas;
     private CallableProcedure moveCard;
-//    private ProcedureCallListenerRegistry procedureCallListenerRegistry;
 
     public AbstractDuelDisk(DuelContext duelContext) {
         super(duelContext);
@@ -64,8 +63,8 @@ public abstract class AbstractDuelDisk extends DuelObject implements DuelDisk {
     public <T extends CardGrid> boolean moveCard(Card card0, Area destArea0,
                                                  int gridIndex0, int index0) {
         moveCard.getContext().setArguments(card0, destArea0, gridIndex0, index0);
-        moveCard.getContext().setTargetProcedure((context) -> {
-            Object[] args = context.getArguments();
+        moveCard.getContext().setTargetProcedure((event) -> {
+            Object[] args = event.getProcedureCallContext().getArguments();
             Card card = (Card) args[0];
             Area destArea = (Area) args[1];
             int gridIndex = (int) args[2];
@@ -113,7 +112,7 @@ public abstract class AbstractDuelDisk extends DuelObject implements DuelDisk {
     }
 
     private void register(String listenerGroup, MoveCardListener listener) {
-        moveCard
+
 //        if (procedureCallListenerRegistry == null) {
 //            procedureCallListenerRegistry = newProcedureCallListenerRegistry();
 //        }
@@ -121,7 +120,7 @@ public abstract class AbstractDuelDisk extends DuelObject implements DuelDisk {
     }
 
     protected EnumMap<Area, CardArea> newCardAreas() {
-        return new EnumMap<Area, CardArea>();
+        return new EnumMap<Area, CardArea>(Area.class);
     }
 
 

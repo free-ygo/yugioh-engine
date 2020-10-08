@@ -16,26 +16,18 @@
 
 package com.github.freeygo.engine.beans.event;
 
-import java.util.EventListener;
+import java.util.EventObject;
 
 /**
  * @author Zhi yong Dai
  */
-public interface EventListenerRegistry<T extends EventListener> {
+public interface EventListenerRegistry {
 
-    void register(String listenerGroup, T listener);
+    <T extends DuelEventListener> void register(Object listenerGroup, T listener);
 
-    void unregister(String listenerGroup, T listener);
+    <T extends DuelEventListener> void unregister(Object listenerGroup, T listener);
 
-    <E> void push(String listenerGroup, E event);
-
-    interface PropertyChangeListenerRegistry
-            extends EventListenerRegistry<PropertyChangeListener> {
-    }
-
-    interface ProcedureCallListenerRegistry<T2 extends ProcedureCallEvent>
-            extends EventListenerRegistry<ProcedureCallListener<T2>> {
-    }
+    <E extends EventObject> void push(Object listenerGroup, E event);
 
 
 }
