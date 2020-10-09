@@ -18,10 +18,18 @@ package com.github.freeygo.engine.event;
 
 import com.github.freeygo.engine.beans.event.DuelEventListener;
 
+import java.util.EventObject;
+
 /**
  * @author Zhi yong Dai
  */
-public interface MoveCardListener extends DuelEventListener {
+public abstract class MoveCardListener implements DuelEventListener {
 
-    void moveCard(MoveCardEvent event);
+
+    @Override
+    public <T extends EventObject> void call(T event) {
+        moveCard((MoveCardEvent) event);
+    }
+
+    public abstract void moveCard(MoveCardEvent event);
 }

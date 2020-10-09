@@ -63,6 +63,7 @@ public interface DuelEffect<T extends EffectTargetObject, S, R> {
 //     */
 //    Object active(Event event);
 
+
     void addAfterActiveEffectListener(AfterActiveEffectListener listener);
 
     void removeAfterActiveEffectListener(AfterActiveEffectListener listener);

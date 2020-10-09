@@ -49,6 +49,9 @@ public interface Card extends EffectTargetObject {
 
     void setId(String id);
 
+    /**
+     * Card name
+     */
     String getName();
 
     /**

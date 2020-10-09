@@ -35,18 +35,6 @@ public interface CardGrid {
      */
     DuelDisk getDuelDisk();
 
-//    void setDuelDisk(DuelDisk duelDisk);
-
-//    /**
-//     * Determine the card area is an available area. If return false that area
-//     * is available else not available.
-//     *
-//     * @return true if available, false if unavailable
-//     */
-//    boolean isAvailable();
-//
-//    void setAvailable(boolean available);
-
     /**
      * Put a card into a card area. If the card area is full that returns an
      * {@link IndexOutOfBoundsException}. If success, return true, else return
@@ -166,32 +154,6 @@ public interface CardGrid {
      */
     boolean remove(Card card);
 
-//    /**
-//     * Put the card in position index;
-//     *
-//     * @param index from 0 to {@link #cardSize()}(exclude)
-//     * @param card  card to put
-//     * @return true if success, false if fail.
-//     */
-//    boolean set(int index, Card card);
-
-//    /**
-//     * Shuffle the cards area.
-//     * true if success, false if fail.
-//     */
-//    void shuffle();
-
-
-
-//    /**
-//     * Return the duel disk of card area.
-//     *
-//     * @return The {@link DuelDisk } of card area
-//     */
-//    DuelDisk getDuelDisk();
-//
-//    void setDuelDisk(DuelDisk duelDisk);
-
     /**
      * Return all cards whose position is not {@code null}. The return value is
      * a modifiable list.
@@ -200,12 +162,6 @@ public interface CardGrid {
      */
     List<Card> getCards();
 
-//    /**
-//     * Returns the position index of all cards with non empty area.
-//     *
-//     * @return Return a map that key is index and value is card.
-//     */
-//    Map<Integer, Card> getPositions();
 
     /**
      * Get index of card grid.

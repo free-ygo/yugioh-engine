@@ -70,13 +70,4 @@ public class DuelObject implements EffectTargetObject {
         return duelContext;
     }
 
-    //    private DuelContext duelContext;
-//
-//    public DuelObject(DuelContext duelContext) {
-//        this.duelContext = duelContext;
-//    }
-//
-//    DuelContext getDuelContext() {
-//        return duelContext;
-//    }
 }

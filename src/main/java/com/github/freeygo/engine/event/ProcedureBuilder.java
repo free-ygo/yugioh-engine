@@ -18,26 +18,19 @@ package com.github.freeygo.engine.event;
 
 import com.github.freeygo.engine.beans.event.CallEvent;
 import com.github.freeygo.engine.beans.event.Procedure;
+import com.github.freeygo.engine.beans.event.Procedure.TargetProcedure;
 
 /**
  * @author Zhi yong Dai
  */
 public class ProcedureBuilder {
-    public ProcedureBuilder procedure(Runnable run) {
+    public ProcedureBuilder procedure(TargetProcedure targetProcedure) {
         return this;
     }
 
     public ProcedureBuilder arguments(Object... arguments) {
         return this;
     }
-
-//    public ProcedureBuilder caller(Object caller) {
-//        return this;
-//    }
-//
-//    public ProcedureBuilder context(Object context) {
-//        return this;
-//    }
 
     public <T extends CallEvent> ProcedureBuilder event(T event) {
         return this;
