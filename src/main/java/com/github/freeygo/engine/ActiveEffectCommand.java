@@ -16,25 +16,23 @@
 
 package com.github.freeygo.engine;
 
-import java.util.List;
+import com.github.freeygo.engine.cardscript.Effect;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public class CardDeck extends CardArea {
-
-    private String deckName;
-
-    public CardDeck(String deckName, List<Card> cards) {
-        this.deckName = deckName;
-        super.setCards(cards);
+public class ActiveEffectCommand implements CardCommand {
+    @Override
+    public <T> T execute() {
+        return null;
     }
 
-    public String getDeckName() {
-        return deckName;
+    @Override
+    public long getCommandType() {
+        return 0;
     }
 
-    public void setDeckName(String deckName) {
-        this.deckName = deckName;
+    public Effect getEffect() {
+        return null;
     }
 }

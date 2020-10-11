@@ -37,9 +37,9 @@ public interface Card extends EffectTargetObject {
 //    Location getLocation();
 //    void setLocation(Location location);
 
-    Location getLocation();
-
-    void setLocation(Location location);
+//    Location getLocation();
+//
+//    void setLocation(Location location);
 
     String getRuntimeId();
 
@@ -85,11 +85,11 @@ public interface Card extends EffectTargetObject {
 
     List<Effect> getEffects();
 
-    CardGrid getCardArea();
-
-    void setCardArea(CardGrid cardGrid);
-
-    void moveTo(CardGrid cardGrid);
+//    CardGrid getCardArea();
+//
+//    void setCardArea(CardGrid cardGrid);
+//
+//    void moveTo(CardGrid cardGrid);
 
     String getDescription();
 

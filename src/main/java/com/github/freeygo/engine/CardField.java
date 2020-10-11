@@ -16,25 +16,30 @@
 
 package com.github.freeygo.engine;
 
-import java.util.List;
-
 /**
+ * 卡片场地，每个场地只能放一张卡片。
+ *
  * @author Zhi yong Dai
  */
-public class CardDeck extends CardArea {
+public class CardField {
 
-    private String deckName;
+    private Card card;
+    private boolean available;
 
-    public CardDeck(String deckName, List<Card> cards) {
-        this.deckName = deckName;
-        super.setCards(cards);
+
+    public Card getCard() {
+        return card;
     }
 
-    public String getDeckName() {
-        return deckName;
+    public void setCard(Card card) {
+        this.card = card;
     }
 
-    public void setDeckName(String deckName) {
-        this.deckName = deckName;
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 }

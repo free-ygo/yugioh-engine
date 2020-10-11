@@ -16,25 +16,28 @@
 
 package com.github.freeygo.engine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 卡片区域的卡片数量是大于1张的，如果要使用卡片场地，请使用{@link CardField}
+ *
  * @author Zhi yong Dai
  */
-public class CardDeck extends CardArea {
+public class CardArea {
 
-    private String deckName;
 
-    public CardDeck(String deckName, List<Card> cards) {
-        this.deckName = deckName;
-        super.setCards(cards);
+    private List<Card> cards;
+
+    public CardArea() {
+        this.cards = new ArrayList<>();
     }
 
-    public String getDeckName() {
-        return deckName;
+    public List<Card> getCards() {
+        return cards;
     }
 
-    public void setDeckName(String deckName) {
-        this.deckName = deckName;
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 }

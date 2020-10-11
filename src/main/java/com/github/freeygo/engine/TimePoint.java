@@ -16,25 +16,24 @@
 
 package com.github.freeygo.engine;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * @author Zhi yong Dai
+ * 保存处理过程中的时点。
+ *
+ * @author Zhiyong Dai
  */
-public class CardDeck extends CardArea {
+public class TimePoint {
+    public static final int TURN_START = 1;
 
-    private String deckName;
+    private final Set<Integer> timePoints;
 
-    public CardDeck(String deckName, List<Card> cards) {
-        this.deckName = deckName;
-        super.setCards(cards);
+    public TimePoint() {
+        timePoints = new HashSet<>();
     }
 
-    public String getDeckName() {
-        return deckName;
-    }
-
-    public void setDeckName(String deckName) {
-        this.deckName = deckName;
+    public void add(Integer timePoint) {
+        timePoints.add(timePoint);
     }
 }

@@ -16,25 +16,26 @@
 
 package com.github.freeygo.engine;
 
-import java.util.List;
-
 /**
  * @author Zhi yong Dai
  */
-public class CardDeck extends CardArea {
+public class NormalCommand implements CardCommand {
 
-    private String deckName;
+    private final CardDeck cardDeck;
+    private final int count;
 
-    public CardDeck(String deckName, List<Card> cards) {
-        this.deckName = deckName;
-        super.setCards(cards);
+    public NormalCommand(CardDeck cardDeck, int count) {
+        this.count = count;
+        this.cardDeck = cardDeck;
     }
 
-    public String getDeckName() {
-        return deckName;
+    @Override
+    public <T> T execute() {
+        return null;
     }
 
-    public void setDeckName(String deckName) {
-        this.deckName = deckName;
+    @Override
+    public long getCommandType() {
+        return CardCommand.NORMAL_DRAW;
     }
 }

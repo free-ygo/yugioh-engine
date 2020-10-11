@@ -25,13 +25,16 @@ public class PlayerTurn {
     private final Player p1;
     private final Player p2;
     private Player currentPlayer;
+    private int turnNumber;
 
     public PlayerTurn(Player p1, Player p2) {
         this.p1 = p1;
         this.p2 = p2;
+        this.turnNumber = 0;
     }
 
     public Player nextPlayer() {
+        turnNumber++;
         if (currentPlayer == null) {
             return currentPlayer = p1;
         }
@@ -43,5 +46,9 @@ public class PlayerTurn {
             return p2;
         }
         return p1;
+    }
+
+    public int getTurnNumber() {
+        return turnNumber;
     }
 }
