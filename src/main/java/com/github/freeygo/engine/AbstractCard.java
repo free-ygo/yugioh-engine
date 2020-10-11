@@ -16,7 +16,7 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cardscript.DuelEffect;
+import com.github.freeygo.engine.cardscript.Effect;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,8 +28,7 @@ public abstract class AbstractCard implements Card {
     private String runtimeId;
     private FieldStatus fieldStatus;
     private Category category;
-    private List<DuelEffect> duelEffects;
-    private CardGrid cardGrid;
+    private List<Effect> duelEffects;
     private Integer level;
     private Integer attack;
     private Integer defense;
@@ -41,7 +40,6 @@ public abstract class AbstractCard implements Card {
     private Collection<String> tags;
     private String id;
     private MagicType magicType;
-    private Location location;
 
     public AbstractCard() {
     }
@@ -77,33 +75,14 @@ public abstract class AbstractCard implements Card {
     }
 
     @Override
-    public List<DuelEffect> getEffects() {
+    public List<Effect> getEffects() {
         return duelEffects;
     }
 
-    @Override
-    public void setEffects(List<DuelEffect> duelEffects) {
+    public void setEffects(List<Effect> duelEffects) {
         this.duelEffects = duelEffects;
     }
 
-    @Override
-    public CardGrid getCardArea() {
-        return cardGrid;
-    }
-
-    @Override
-    public void setCardArea(CardGrid cardGrid) {
-        this.cardGrid = cardGrid;
-    }
-
-
-    @Override
-    public void moveTo(CardGrid cardGrid) {
-        if (this.cardGrid != null) {
-            this.cardGrid.remove(this);
-        }
-        cardGrid.push(this);
-    }
 
     @Override
     public String getDescription() {
@@ -215,28 +194,4 @@ public abstract class AbstractCard implements Card {
         this.runtimeId = runtimeId;
     }
 
-    @Override
-    public Location getLocation() {
-        return location;
-    }
-
-    @Override
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    @Override
-    public boolean addActivatedEffect(DuelEffect effect) {
-        return false;
-    }
-
-    @Override
-    public boolean removeActivatedEffect(DuelEffect effect) {
-        return false;
-    }
-
-    @Override
-    public List<DuelEffect> getActivatedEffects() {
-        return null;
-    }
 }

@@ -19,8 +19,6 @@ package com.github.freeygo.engine.cardscript;
 
 import com.github.freeygo.engine.Card;
 
-import java.util.List;
-
 /**
  * Each {@link EffectTargetObject} maintains a queue of effects applied to this
  * object. When the queue is changed, the status of object must be recalculate.
@@ -32,9 +30,9 @@ import java.util.List;
  */
 public interface EffectTargetObject {
 
-    boolean addActivatedEffect(DuelEffect effect);
-
-    boolean removeActivatedEffect(DuelEffect effect);
-
-    List<DuelEffect> getActivatedEffects();
+//    boolean addActivatedEffect(DuelEffect effect);
+//
+//    boolean removeActivatedEffect(DuelEffect effect);
+//
+//    List<DuelEffect> getActivatedEffects();
 }

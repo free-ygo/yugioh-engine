@@ -14,19 +14,11 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.util;
+package com.github.freeygo.engine.cardscript;
 
 /**
  * @author Zhi yong Dai
  */
-public final class CardAreaUtils {
-
-    /**
-     * shuffle card area.
-     *
-     * @param cardGrid
-     */
-    public static void shuffle(CardGrid cardGrid) {
-        throw new RuntimeException("Not implementation operation");
-    }
+public enum TimePoint {
+    NORMAL_SUMMON
 }

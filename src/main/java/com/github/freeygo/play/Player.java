@@ -14,32 +14,38 @@
 // * limitations under the License.
 // */
 //
-//package com.github.freeygo.engine.cardscript;
+//package com.github.freeygo.play;
 //
-//import java.util.EventObject;
+//import com.github.freeygo.engine.Card;
+//
+//import java.util.List;
 //
 ///**
 // * @author Zhi yong Dai
 // */
-//public class CardEffectEvent extends EventObject {
+//public class Player {
 //
-//    private final DuelEffect duelEffect;
+//    private String name;
+//    private List<Card> deck;
 //
-//
-//    /**
-//     * Constructs a prototypical Event.
-//     *
-//     * @param source the object on which the Event initially occurred
-//     * @throws IllegalArgumentException if source is null
-//     */
-//    public CardEffectEvent(Object source, DuelEffect duelEffect) {
-//        super(source);
-//        this.duelEffect = duelEffect;
+//    public Player(String name, List<Card> deck) {
+//        this.name = name;
+//        this.deck = deck;
 //    }
 //
-//    public DuelEffect getEffect() {
-//        return duelEffect;
+//    public String getName() {
+//        return name;
 //    }
 //
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 //
+//    public List<Card> getDeck() {
+//        return deck;
+//    }
+//
+//    public void setDeck(List<Card> deck) {
+//        this.deck = deck;
+//    }
 //}

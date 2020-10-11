@@ -17,7 +17,6 @@
 package com.github.freeygo.engine.event;
 
 import com.github.freeygo.engine.Card;
-import com.github.freeygo.engine.Location;
 import com.github.freeygo.engine.beans.event.CallEvent;
 import com.github.freeygo.engine.beans.event.ProcedureCallContext;
 

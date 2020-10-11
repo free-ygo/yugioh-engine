@@ -14,35 +14,26 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.cardscript;
 
 /**
+ * 效果发动时的条件
+ *
  * @author Zhi yong Dai
  */
-public abstract class AbstractCardGrid implements CardGrid {
+public interface ActiveCondition {
+    /**
+     * 返回可以发动效果的时点，不可以返回{@code null}。可以返回空数组。
+     *
+     * @return 一个 {@link TimePoint}数组。
+     */
+    TimePoint[] getTimePoints();
 
-    //    private boolean available;
-    private DuelDisk duelDisk;
-
-//    @Override
-//    public boolean isAvailable(int i) {
-//        return available;
-//    }
-
-//    @Override
-//    public void setAvailable(boolean available) {
-//        this.available = available;
-//    }
-//
-//    @Override
-//    public DuelDisk getDuelDisk() {
-//        return duelDisk;
-//    }
-//
-//    @Override
-//    public void setDuelDisk(DuelDisk duelDisk) {
-//        this.duelDisk = duelDisk;
-//    }
+    /**
+     * 设置哪些时点可以发动这个效果，一旦到达这些时点的某一个就可以发动效果。如果为null，
+     * 则任何时点都不可以发动效果。
+     */
+    void setTimePoints(TimePoint[] timePoints);
 
 
 }

@@ -16,13 +16,16 @@
 
 package com.github.freeygo.engine;
 
-import java.util.List;
-
 /**
  * @author Zhi yong Dai
  */
-public interface DuelistAccessor {
-    List<Duelist> getDuelists();
+public class PlayerCommand {
 
-    Duelist next();
+    public boolean isFinishTurn() {
+        return false;
+    }
+
+    public boolean isActiveEffect() {
+        return false;
+    }
 }

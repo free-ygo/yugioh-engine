@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.util;
+package com.github.freeygo.engine;
+
+import com.github.freeygo.engine.beans.event.EventListenerRegistry;
 
 /**
  * @author Zhi yong Dai
  */
-public final class CardAreaUtils {
+public class StandardDuelContext implements DuelContext {
+    @Override
+    public RoundAccessor getRoundAccessor() {
+        return null;
+    }
 
-    /**
-     * shuffle card area.
-     *
-     * @param cardGrid
-     */
-    public static void shuffle(CardGrid cardGrid) {
-        throw new RuntimeException("Not implementation operation");
+    @Override
+    public EventListenerRegistry getEventListenerRegistry() {
+        return null;
     }
 }

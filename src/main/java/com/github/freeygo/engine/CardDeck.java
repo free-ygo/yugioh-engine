@@ -16,10 +16,34 @@
 
 package com.github.freeygo.engine;
 
-public interface Duel {
+import java.util.List;
 
-    DuelContext getContext();
+/**
+ * @author Zhi yong Dai
+ */
+public class CardDeck {
 
-    void setContext(DuelContext context);
+    private String deckName;
+    private List<Card> cards;
 
+    public CardDeck(String deckName, List<Card> cards) {
+        this.deckName = deckName;
+        this.cards = cards;
+    }
+
+    public String getDeckName() {
+        return deckName;
+    }
+
+    public void setDeckName(String deckName) {
+        this.deckName = deckName;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
 }

@@ -16,8 +16,6 @@
 
 package com.github.freeygo.engine.util;
 
-import com.github.freeygo.engine.Duel;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

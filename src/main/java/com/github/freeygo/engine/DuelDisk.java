@@ -25,13 +25,13 @@ package com.github.freeygo.engine;
  * </p>
  */
 public interface DuelDisk {
-    <T extends CardGrid> CardArea<T> getArea(Area area);
-
-    <T extends CardGrid> void setArea(Area area, CardArea<T> cardArea);
-
-    <T extends CardGrid> boolean moveCard(Card card, Area destArea, int gridIndex, int layer);
-
-    <T extends CardGrid> boolean moveCard(Card card, Location location);
+//    <T extends CardGrid> CardArea<T> getArea(Area area);
+//
+//    <T extends CardGrid> void setArea(Area area, CardArea<T> cardArea);
+//
+//    <T extends CardGrid> boolean moveCard(Card card, Area destArea, int gridIndex, int layer);
+//
+//    <T extends CardGrid> boolean moveCard(Card card, Location location);
 
     enum Area {
         MAGIC_TRAP, MONSTER, EXTRA_SUMMON, FIELD_MAGIC, DECK, EXTRA_DECK, Grave,

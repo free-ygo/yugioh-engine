@@ -14,19 +14,35 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.util;
+package com.github.freeygo.engine;
 
 /**
  * @author Zhi yong Dai
  */
-public final class CardAreaUtils {
+public class Player {
 
-    /**
-     * shuffle card area.
-     *
-     * @param cardGrid
-     */
-    public static void shuffle(CardGrid cardGrid) {
-        throw new RuntimeException("Not implementation operation");
+    private String name;
+
+    private CardDeck cardDeck;
+
+    public Player(String name, CardDeck cardDeck) {
+        this.name = name;
+        this.cardDeck = cardDeck;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public CardDeck getCardDeck() {
+        return cardDeck;
+    }
+
+    public void setCardDeck(CardDeck cardDeck) {
+        this.cardDeck = cardDeck;
     }
 }

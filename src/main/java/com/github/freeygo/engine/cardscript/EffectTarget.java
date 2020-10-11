@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.util;
+package com.github.freeygo.engine.cardscript;
 
 /**
  * @author Zhi yong Dai
  */
-public final class CardAreaUtils {
+public interface EffectTarget {
 
-    /**
-     * shuffle card area.
-     *
-     * @param cardGrid
-     */
-    public static void shuffle(CardGrid cardGrid) {
-        throw new RuntimeException("Not implementation operation");
-    }
+    int getTargetType();
+
+    void setTargetType(int type);
+
 }

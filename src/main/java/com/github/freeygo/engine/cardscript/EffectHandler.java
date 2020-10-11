@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.cardscript;
 
-public interface Duelist {
+/**
+ * @author Zhi yong Dai
+ */
+public interface EffectHandler {
 
-    int getLifePoint();
-
-    void setLifePoint(int lifePoint);
-
-    DuelDisk getDuelDisk();
-
-    void setDuelDisk(DuelDisk duelDisk);
-
+    void handle();
 }

@@ -16,7 +16,7 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cardscript.DuelEffect;
+import com.github.freeygo.engine.cardscript.Effect;
 import com.github.freeygo.engine.cardscript.EffectTargetObject;
 
 import java.util.Collection;
@@ -79,9 +79,11 @@ public interface Card extends EffectTargetObject {
      */
     void setCategory(Category category);
 
-    List<DuelEffect> getEffects();
+//    List<DuelEffect> getEffects();
+//
+//    void setEffects(List<DuelEffect> duelEffects);
 
-    void setEffects(List<DuelEffect> duelEffects);
+    List<Effect> getEffects();
 
     CardGrid getCardArea();
 
