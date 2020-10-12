@@ -19,7 +19,7 @@ package com.github.freeygo.engine;
 /**
  * @author Zhi yong Dai
  */
-public interface CardCommand {
+public interface Command {
 
     long NORMAL_DRAW = 0x1;
     long EFFECT_DRAW = 0x2;

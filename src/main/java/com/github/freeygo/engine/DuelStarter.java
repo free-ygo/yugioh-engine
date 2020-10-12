@@ -16,6 +16,8 @@
 
 package com.github.freeygo.engine;
 
+import com.github.freeygo.engine.cardscript.Effect;
+
 import java.util.*;
 
 /**
@@ -34,19 +36,19 @@ public class DuelStarter {
     private boolean finish;
     private final Map<Player, DuelArena> arenas;
     private final int basicLifePoint;
-    private final LinkedList<TimePoint> timePoints;
-    private final LinkedList<Card> effectCards;
+    private final LinkedList<TimePointSet> timePointSets;
+    private final LinkedList<Effect> effectCards;
 
     public DuelStarter(int basicLifePoint, PlayerTurn playerTurn) {
         this.playerTurn = playerTurn;
         this.arenas = new HashMap<>();
         this.basicLifePoint = basicLifePoint;
-        timePoints = new LinkedList<>();
+        timePointSets = new LinkedList<>();
         this.effectCards = new LinkedList<>();
     }
 
     public void start() {
-
+        startGame();
     }
 
     private DuelArena getArena(Player player) {
@@ -63,7 +65,9 @@ public class DuelStarter {
     }
 
     private void startGame() {
+        int turn = 0;
         while (!finish) {
+            setTurn(++turn);
             Player player = playerTurn.nextPlayer();
             startTurn(player, new int[]{
                     DRAW_PHRASE,
@@ -76,6 +80,10 @@ public class DuelStarter {
         }
     }
 
+    private void setTurn(int i) {
+
+    }
+
     private void startTurn(Player player, int[] phrases) {
         for (int phrase : phrases) {
             startPhrase(phrase, player);
@@ -84,15 +92,16 @@ public class DuelStarter {
 
 
     private void mainPhrase1Action(Player player) {
-        TimePoint currentTimePoint = new TimePoint();
-        currentTimePoint.add(TimePoint.TURN_START);
-        timePoints.push(currentTimePoint);
+        TimePointSet currentTimePointSet = new TimePointSet();
+        currentTimePointSet.add(TimePointSet.MAIN_PHRASE_1);
+        timePointSets.push(currentTimePointSet);
         if (player == null) {
             throw new RuntimeException("玩家人数不足");
         }
-        handleEffect(player);
-        CardCommand cmd = null;
-        List<? extends CardCommand> commands;
+        // 处理效果
+        activeEffectsFlow(effectCards);
+        Command cmd;
+        List<? extends Command> commands;
         while ((cmd = read(player)) != null && !isFinishTurn(cmd)) {
             if (isActiveEffect(cmd)) {
                 commands = chainEffect(player, cmd);
@@ -102,9 +111,22 @@ public class DuelStarter {
             handleCommands(commands);
         }
         handleChainEffect();
-        if (timePoints.pop() != currentTimePoint) {
+        if (timePointSets.pop() != currentTimePointSet) {
             throw new RuntimeException();
         }
+    }
+
+    private void activeEffectsFlow(LinkedList<Effect> needHandlerEffects) {
+        while (needHandlerEffects != null && !needHandlerEffects.isEmpty()) {
+            LinkedList<TimePointSet> effectsTps = handleEffects(needHandlerEffects);
+            LinkedList<Effect> effects = notifyEffects(effectsTps);
+            // TODO 依次发动效果
+            needHandlerEffects = activeEffects(effects);
+        }
+    }
+
+    private LinkedList<Effect> notifyEffects(LinkedList<TimePointSet> effectsTps) {
+        return null;
     }
 
     private void startPhrase(int phrase, Player player) {
@@ -148,7 +170,7 @@ public class DuelStarter {
     private void endPhraseAction(Player player) {
     }
 
-    private void handleCommands(List<? extends CardCommand> commands) {
+    private void handleCommands(List<? extends Command> commands) {
 
     }
 
@@ -156,12 +178,12 @@ public class DuelStarter {
 
     }
 
-    private List<ActiveEffectCommand> chainEffect(Player player, CardCommand cmd) {
-        TimePoint current = new TimePoint();
-        timePoints.push(current);
+    private List<ActiveEffectCommand> chainEffect(Player player, Command cmd) {
+        TimePointSet current = new TimePointSet();
+        timePointSets.push(current);
         Player p = player;
-        CardCommand cmd2 = cmd;
-        CardCommand lastCmd = cmd;
+        Command cmd2 = cmd;
+        Command lastCmd = cmd;
         List<ActiveEffectCommand> commands = new ArrayList<>();
         while (isActiveEffect(cmd2) || isActiveEffect(lastCmd)) {
             ActiveEffectCommand aec = (ActiveEffectCommand) cmd2;
@@ -172,33 +194,45 @@ public class DuelStarter {
             cmd2 = read(p);
             lastCmd = cmd2;
         }
-        if (timePoints.pop() != current) {
+        if (timePointSets.pop() != current) {
             throw new RuntimeException();
         }
         return commands;
     }
 
-    private void activeEffect(Card card) {
+    private LinkedList<Effect> activeEffects(LinkedList<Effect> effects) {
+        // 按照优先级发动效果
 
+        return effects;
     }
 
-    private boolean isActiveEffect(CardCommand cmd) {
-        return cmd.getCommandType() == CardCommand.ACTIVE_EFFECT;
+    private boolean isActiveEffect(Command cmd) {
+        return cmd.getCommandType() == Command.ACTIVE_EFFECT;
     }
 
-    private boolean isFinishTurn(CardCommand cmd) {
-        return cmd.getCommandType() == CardCommand.TURN_FINISH;
+    private boolean isFinishTurn(Command cmd) {
+        return cmd.getCommandType() == Command.TURN_FINISH;
     }
 
-    private void handleEffect(Player player) {
-
+    /**
+     * 处理效果，并返回处理效果时发生的时点
+     */
+    private LinkedList<TimePointSet> handleEffects(LinkedList<Effect> effects) {
+        ListIterator<Effect> it = effects.listIterator(effects.size());
+        LinkedList<TimePointSet> timePointSets = new LinkedList<>();
+        while (it.hasPrevious()) {
+            Effect effect = it.previous();
+            // TODO 处理卡片效果
+            timePointSets.addAll(effect.action());
+        }
+        return timePointSets;
     }
 
-    private CardCommand read(Player player) {
+    private Command read(Player player) {
         return null;
     }
 
-    private void execute(CardCommand cmd) {
+    private void execute(Command cmd) {
         if (cmd == null) return;
         cmd.execute();
     }

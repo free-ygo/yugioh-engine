@@ -19,7 +19,7 @@ package com.github.freeygo.engine;
 /**
  * @author Zhi yong Dai
  */
-public class NormalCommand implements CardCommand {
+public class NormalCommand implements Command {
 
     private final CardDeck cardDeck;
     private final int count;
@@ -36,6 +36,6 @@ public class NormalCommand implements CardCommand {
 
     @Override
     public long getCommandType() {
-        return CardCommand.NORMAL_DRAW;
+        return Command.NORMAL_DRAW;
     }
 }

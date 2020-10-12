@@ -20,20 +20,34 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 保存处理过程中的时点。
+ * 这个类是一个时点集，用来保存处理过程中的时点。
  *
  * @author Zhiyong Dai
  */
-public class TimePoint {
+public class TimePointSet {
     public static final int TURN_START = 1;
+    public static final int DRAW_PHRASE = 2;
+    public static final int PREPARE_PHRASE = 3;
+    public static final int MAIN_PHRASE_1 = 4;
 
     private final Set<Integer> timePoints;
 
-    public TimePoint() {
+    public TimePointSet() {
         timePoints = new HashSet<>();
     }
 
     public void add(Integer timePoint) {
-        timePoints.add(timePoint);
+        if (timePoint != null) {
+            timePoints.add(timePoint);
+        }
+    }
+
+    public void add(Integer... timePoints) {
+        if (timePoints == null) {
+            return;
+        }
+        for (Integer timePoint : timePoints) {
+            add(timePoint);
+        }
     }
 }

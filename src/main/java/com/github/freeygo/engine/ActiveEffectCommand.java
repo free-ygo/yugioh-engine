@@ -21,7 +21,7 @@ import com.github.freeygo.engine.cardscript.Effect;
 /**
  * @author Zhiyong Dai
  */
-public class ActiveEffectCommand implements CardCommand {
+public class ActiveEffectCommand implements Command {
     @Override
     public <T> T execute() {
         return null;

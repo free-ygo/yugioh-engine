@@ -16,6 +16,10 @@
 
 package com.github.freeygo.engine.cardscript;
 
+import com.github.freeygo.engine.TimePointSet;
+
+import java.util.LinkedList;
+
 /**
  * @author Zhi yong Dai
  */
@@ -28,4 +32,6 @@ public interface Effect {
     HandleCondition getHandleCondition();
 
     void setHandleCondition(HandleCondition condition);
+
+    LinkedList<TimePointSet> action();
 }
