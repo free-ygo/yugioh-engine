@@ -100,6 +100,7 @@ public class DuelStarter {
         if (player == null) {
             throw new RuntimeException("玩家人数不足");
         }
+        String test = "";
         // 处理效果
         activeEffectsFlow(effectCards);
         Command cmd;
