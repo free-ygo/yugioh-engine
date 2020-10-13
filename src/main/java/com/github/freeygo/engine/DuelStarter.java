@@ -33,7 +33,7 @@ public class DuelStarter {
 
 
     private final PlayerTurn playerTurn;
-    private boolean finish;
+    private boolean gameOver;
     private final Map<Player, DuelArena> arenas;
     private final int basicLifePoint;
     private final LinkedList<TimePointSet> timePointSets;
@@ -51,22 +51,9 @@ public class DuelStarter {
         startGame();
     }
 
-    private DuelArena getArena(Player player) {
-        DuelArena arena = arenas.get(player);
-        if (arena == null) {
-            arena = new DuelArena(basicLifePoint, player.getCardDeck());
-            arenas.put(player, arena);
-        }
-        return arena;
-    }
-
-    private DuelArena getOpponentArena(Player player) {
-        return getArena(playerTurn.getOpponent(player));
-    }
-
     private void startGame() {
         int turn = 0;
-        while (!finish) {
+        while (!gameOver) {
             setTurn(++turn);
             Player player = playerTurn.nextPlayer();
             startTurn(player, new int[]{
@@ -89,6 +76,21 @@ public class DuelStarter {
             startPhrase(phrase, player);
         }
     }
+
+    private DuelArena getArena(Player player) {
+        DuelArena arena = arenas.get(player);
+        if (arena == null) {
+            arena = new DuelArena(basicLifePoint, player.getCardDeck());
+            arenas.put(player, arena);
+        }
+        return arena;
+    }
+
+    private DuelArena getOpponentArena(Player player) {
+        return getArena(playerTurn.getOpponent(player));
+    }
+
+
 
 
     private void mainPhrase1Action(Player player) {
@@ -116,16 +118,16 @@ public class DuelStarter {
         }
     }
 
-    private void activeEffectsFlow(LinkedList<Effect> needHandlerEffects) {
-        while (needHandlerEffects != null && !needHandlerEffects.isEmpty()) {
-            LinkedList<TimePointSet> effectsTps = handleEffects(needHandlerEffects);
-            LinkedList<Effect> effects = notifyEffects(effectsTps);
+    private void activeEffectsFlow(LinkedList<Effect> needHandleEffects) {
+        while (needHandleEffects != null && !needHandleEffects.isEmpty()) {
+            LinkedList<TimePointSet> effectsTps = handleEffects(needHandleEffects);
+            LinkedList<Effect> needActiveEffects = notifyTimePoints(effectsTps);
             // TODO 依次发动效果
-            needHandlerEffects = activeEffects(effects);
+            needHandleEffects = activeEffects(needActiveEffects);
         }
     }
 
-    private LinkedList<Effect> notifyEffects(LinkedList<TimePointSet> effectsTps) {
+    private LinkedList<Effect> notifyTimePoints(LinkedList<TimePointSet> effectsTps) {
         return null;
     }
 
@@ -222,7 +224,7 @@ public class DuelStarter {
         LinkedList<TimePointSet> timePointSets = new LinkedList<>();
         while (it.hasPrevious()) {
             Effect effect = it.previous();
-            // TODO 处理卡片效果
+            // TODO 这里判断并处理卡片效果
             timePointSets.addAll(effect.action());
         }
         return timePointSets;
