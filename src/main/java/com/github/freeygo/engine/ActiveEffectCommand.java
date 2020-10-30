@@ -16,8 +16,6 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cardscript.Effect;
-
 /**
  * @author Zhiyong Dai
  */

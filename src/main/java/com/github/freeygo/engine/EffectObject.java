@@ -14,11 +14,27 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.beans.event;
+package com.github.freeygo.engine;
 
 /**
- * @author Zhi yong Dai
+ * 游戏王中的一切对象都要继承此自此类。
+ * 效果对象
+ *
+ * @author Zhiyong Dai
  */
-public interface CallContext {
-    ProcedureCallContext getProcedureCallContext();
+public class EffectObject {
+    private static final int MONSTER = 1;
+    private static final int MAGIC = 2;
+    private static final int TRAP = 3;
+
+    // 1怪兽、2魔法、3陷阱、4场地、5玩家
+    private final int objectType;
+
+    public EffectObject(int objectType) {
+        this.objectType = objectType;
+    }
+
+    public int getObjectType() {
+        return objectType;
+    }
 }

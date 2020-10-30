@@ -50,4 +50,22 @@ public class TimePointSet {
             add(timePoint);
         }
     }
+
+    public boolean contains(int timePoint) {
+        return timePoints.contains(timePoint);
+    }
+
+    public boolean containAll(TimePointSet tps) {
+        return timePoints.containsAll(tps.timePoints);
+    }
+
+    public boolean containsAny(TimePointSet tps) {
+        if (tps == null || tps.timePoints.isEmpty()) return false;
+        for (int tp : tps.timePoints) {
+            if (this.contains(tp)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

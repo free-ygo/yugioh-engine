@@ -16,11 +16,12 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cardscript.Effect;
-
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
+ * 决斗启动器
+ *
  * @author Zhi yong Dai
  */
 public class DuelStarter {
@@ -32,19 +33,29 @@ public class DuelStarter {
     public static final int END_PHRASE = 5;
 
 
-    private final PlayerTurn playerTurn;
+    private final DuelContext context;
+    private final GameTurn gameTurn;
     private boolean gameOver;
     private final Map<Player, DuelArena> arenas;
     private final int basicLifePoint;
     private final LinkedList<TimePointSet> timePointSets;
     private final LinkedList<Effect> effectCards;
+    private final List<Effect> appliedEffects;
+    private int currentTurn;
+    private CommandReader cmdReader;
 
-    public DuelStarter(int basicLifePoint, PlayerTurn playerTurn) {
-        this.playerTurn = playerTurn;
+    public DuelStarter(int basicLifePoint, GameTurn gameTurn) {
+        this.gameTurn = gameTurn;
         this.arenas = new HashMap<>();
         this.basicLifePoint = basicLifePoint;
-        timePointSets = new LinkedList<>();
+        this.timePointSets = new LinkedList<>();
         this.effectCards = new LinkedList<>();
+        this.appliedEffects = new ArrayList<>();
+        this.context = new DuelContext();
+    }
+
+    private void initContext() {
+        this.context.setPlayerTurn(gameTurn);
     }
 
     public void start() {
@@ -52,10 +63,9 @@ public class DuelStarter {
     }
 
     private void startGame() {
-        int turn = 0;
         while (!gameOver) {
-            setTurn(++turn);
-            Player player = playerTurn.nextPlayer();
+            gameTurn.nextTurn();
+            Player player = gameTurn.getTurnPlayer();
             startTurn(player, new int[]{
                     DRAW_PHRASE,
                     PREPARE_PHRASE,
@@ -65,10 +75,6 @@ public class DuelStarter {
                     END_PHRASE
             });
         }
-    }
-
-    private void setTurn(int i) {
-
     }
 
     private void startTurn(Player player, int[] phrases) {
@@ -87,13 +93,10 @@ public class DuelStarter {
     }
 
     private DuelArena getOpponentArena(Player player) {
-        return getArena(playerTurn.getOpponent(player));
+        return getArena(gameTurn.getOpponent());
     }
 
-
-
-
-    private void mainPhrase1Action(Player player) {
+    private void mainPhrase1(Player player) {
         TimePointSet currentTimePointSet = new TimePointSet();
         currentTimePointSet.add(TimePointSet.MAIN_PHRASE_1);
         timePointSets.push(currentTimePointSet);
@@ -134,42 +137,84 @@ public class DuelStarter {
     private void startPhrase(int phrase, Player player) {
         switch (phrase) {
             case DRAW_PHRASE:
-                drawPhraseAction(player);
+                drawPhrase(player);
                 break;
             case PREPARE_PHRASE:
-                preparePhraseAction(player);
+                preparePhrase(player);
                 break;
             case MAIN_PHRASE_1:
-                mainPhrase1Action(player);
+                mainPhrase1(player);
                 break;
             case BATTLE_PHRASE:
-                battlePhraseAction(player);
+                battlePhrase(player);
                 break;
             case MAIN_PHRASE_2:
-                mainPhrase2Action(player);
+                mainPhrase2(player);
                 break;
             case END_PHRASE:
-                endPhraseAction(player);
+                endPhrase(player);
                 break;
+            default:
+                throw new RuntimeException("Unknown phrase");
         }
     }
 
-    private void drawPhraseAction(Player player) {
-        // 执行抽卡
+    private void drawPhrase(Player player) {
+        // 遍历回合玩家可以在此时点适用的已发动效果
+        // 若可以发动效果，设置超时时间等待回合玩家发出命令。
+        // 遍历对手玩家可以在此时点发动的效果
+        // 若可以发动效果，设置超时间等待对方玩家发出命令。
+
+        // 等待玩家操作
+        // 适用效果已经完成了适用，以及特定效果已经完成了激活和适用：
+        // 抽卡
+        // 玩家发动卡片时间
+        // 双发放弃卡片发动权，进入下一阶段
+        // TODO 设置时点
+        TimePointSet tps = new TimePointSet();
+        tps.add(TimePointSet.DRAW_PHRASE);
+        timePointSets.add(tps);
+        handleAppliedEffects();
+        List<Effect> effects = effectCards.stream().filter(e -> e.getActiveCondition().containsAny(tps))
+                .collect(Collectors.toList());
+        System.out.println(player.getName() + "可以发动：" + effects);
+        String cmd = cmdReader.read(player);
+        System.out.println("处理：" + cmd);
+        if (!player.getCardDeck().drawNormal()) {
+            exit();
+        }
+        // 等待回合玩家命令
+        String c1 = cmdReader.read(player);
+        String c2 = cmdReader.read(gameTurn.getOpponent());
+
     }
 
-    private void preparePhraseAction(Player player) {
+    private List<TimePointSet> handleAppliedEffects() {
+        List<TimePointSet> appliedEffectTps = new ArrayList<>();
+        do {
+            List<TimePointSet> produceTps = applyEffects(effectCards);
+            if (produceTps.isEmpty()) break;
+            appliedEffectTps.addAll(produceTps);
+        } while (true);
+        return appliedEffectTps;
+    }
+
+    private boolean executeCommand(String cmd) {
+        return true;
+    }
+
+    private void preparePhrase(Player player) {
         // 准备阶段
     }
 
-    private void battlePhraseAction(Player player) {
+    private void battlePhrase(Player player) {
         // 战斗阶段
     }
 
-    private void mainPhrase2Action(Player player) {
+    private void mainPhrase2(Player player) {
     }
 
-    private void endPhraseAction(Player player) {
+    private void endPhrase(Player player) {
     }
 
     private void handleCommands(List<? extends Command> commands) {
@@ -178,6 +223,22 @@ public class DuelStarter {
 
     private void handleChainEffect() {
 
+    }
+
+    private void exit() {
+        System.out.println("游戏结束");
+    }
+
+    private List<TimePointSet> applyEffects(List<Effect> effects) {
+        return appliedEffects.stream()
+                .filter(e -> e.getActiveCondition().canApply(this.context))
+                .map(Effect::applyEffect).reduce(new ArrayList<TimePointSet>(), (a, b) -> {
+                    a.addAll(b);
+                    return a;
+                }, (a, b) -> {
+                    a.addAll(b);
+                    return a;
+                });
     }
 
     private List<ActiveEffectCommand> chainEffect(Player player, Command cmd) {
@@ -192,7 +253,7 @@ public class DuelStarter {
             commands.add(aec);
             // TODO 优先权轮流
 //             TODO 检索是否有可发动的效果
-            p = playerTurn.getOpponent(p);
+            p = gameTurn.getOpponent();
             cmd2 = read(p);
             lastCmd = cmd2;
         }
@@ -225,7 +286,7 @@ public class DuelStarter {
         while (it.hasPrevious()) {
             Effect effect = it.previous();
             // TODO 这里判断并处理卡片效果
-            timePointSets.addAll(effect.action());
+            timePointSets.addAll(effect.applyEffect());
         }
         return timePointSets;
     }

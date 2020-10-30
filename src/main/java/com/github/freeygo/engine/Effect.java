@@ -16,29 +16,40 @@
 
 package com.github.freeygo.engine;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author Zhi yong Dai
  */
-public class CardDeck extends CardArea {
+public class Effect {
 
-    private String deckName;
+    private final EffectActiveCondition effectActiveCondition;
+    private Player activePlayer;
 
-    public CardDeck(String deckName, List<Card> cards) {
-        this.deckName = deckName;
-        super.setCards(cards);
+
+    public Effect() {
+        this.effectActiveCondition = new EffectActiveCondition();
     }
 
-    public String getDeckName() {
-        return deckName;
+    public LinkedList<TimePointSet> applyEffect() {
+        return null;
     }
 
-    public void setDeckName(String deckName) {
-        this.deckName = deckName;
+    public EffectActiveCondition getActiveCondition() {
+        return effectActiveCondition;
     }
 
-    public boolean drawNormal() {
-        return false;
+    public EffectActiveCondition getApplyCondition() {
+        return effectActiveCondition;
+    }
+
+    public List<TimePointSet> active(Player activePlayer) {
+        this.activePlayer = activePlayer;
+        return null;
+    }
+
+    public Player getActivePlayer() {
+        return activePlayer;
     }
 }

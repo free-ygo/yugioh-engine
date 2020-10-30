@@ -14,35 +14,30 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.beans.event;
+package com.github.freeygo.engine;
 
+import java.util.List;
+import java.util.Scanner;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public abstract class AbstractProperty<T> implements Property<T> {
+public class CommandReader {
 
-    private final String propertyName;
-    private T value;
+    private final Scanner scanner;
 
-    public AbstractProperty(String propertyName) {
-        this.propertyName = propertyName;
+    public CommandReader() {
+        this.scanner = new Scanner(System.in);
     }
 
-    @Override
-    public T getValue() {
-        return value;
+    public String read(Player player) {
+        System.out.println(player.getName() + "，请输入命令：\n");
+        return scanner.nextLine();
     }
 
-    @Override
-    public void setValue(T value) {
-        this.value = value;
+    public String read(Player player, List<Effect> effects) {
+        System.out.println(player.getName() + "可以发动：" + effects + "\n");
+        System.out.println("请输入命令：\n");
+        return scanner.nextLine();
     }
-
-    @Override
-    public String getPropertyName() {
-        return propertyName;
-    }
-
-
 }

@@ -14,24 +14,31 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.cardscript;
+package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.TimePointSet;
-
-import java.util.LinkedList;
+import java.util.Set;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public interface Effect {
+public class EffectActiveCondition {
 
-    ActiveCondition getActiveCondition();
+    private TimePointSet timePointSets;
+    private Set<Integer> effectObjectTypes;
 
-    void setActiveCondition(ActiveCondition condition);
+    public boolean isEffectObject(EffectObject o) {
+        return effectObjectTypes.contains(o.getObjectType());
+    }
 
-    HandleCondition getHandleCondition();
+    public boolean containsTimePoint(int timePoint) {
+        return timePointSets.contains(timePoint);
+    }
 
-    void setHandleCondition(HandleCondition condition);
+    public boolean containsAny(TimePointSet tps) {
+        return timePointSets.containsAny(tps);
+    }
 
-    LinkedList<TimePointSet> action();
+    public boolean canApply(DuelContext context) {
+        return true;
+    }
 }

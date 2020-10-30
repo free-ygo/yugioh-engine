@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.beans.event;
-
+package com.github.freeygo.engine;
 
 /**
  * @author Zhi yong Dai
  */
-public interface Property<T> {
-
-    T getValue();
-
-    void setValue(T value);
-
-    String getPropertyName();
+public enum TimePoint {
+    NORMAL_SUMMON
 }

@@ -16,13 +16,10 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cardscript.Effect;
-import com.github.freeygo.engine.cardscript.EffectTargetObject;
-
 import java.util.Collection;
 import java.util.List;
 
-public interface Card extends EffectTargetObject {
+public interface Card {
 
 //    int NORMAL_MONSTER = 1001;
 //    int EFFECT_MONSTER = 1002;

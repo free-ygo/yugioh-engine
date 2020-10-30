@@ -14,30 +14,20 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.beans.event;
+package com.github.freeygo.engine;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public class CallableProcedure implements Procedure {
-    private ProcedureCallContext context;
+public class DuelContext {
 
-    public CallableProcedure(ProcedureCallContext context) {
-        this.context = context;
+    private GameTurn gameTurn;
+
+    public GameTurn getPlayerTurn() {
+        return gameTurn;
     }
 
-    @Override
-    public Object call() {
-        return context.getTargetProcedure();
-    }
-
-    @Override
-    public ProcedureCallContext getContext() {
-        return context;
-    }
-
-    @Override
-    public void setContext(ProcedureCallContext context) {
-        this.context = context;
+    public void setPlayerTurn(GameTurn gameTurn) {
+        this.gameTurn = gameTurn;
     }
 }
