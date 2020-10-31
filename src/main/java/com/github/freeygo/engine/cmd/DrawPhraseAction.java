@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.cmd;
+
+import com.github.freeygo.engine.DuelContext;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public interface Command<R> {
+public class DrawPhraseAction<R> implements Action<Void> {
 
-    long NORMAL_DRAW = 0x1;
-    long EFFECT_DRAW = 0x2;
-    long ACTIVE_EFFECT = 0x3;
-    long TURN_FINISH = 0x4;
+    public DrawPhraseAction() {
+    }
 
-    R execute();
-
-    long getCommandType();
+    @Override
+    public Void action(DuelContext context) {
+        context.getGameAction().drawNormal();
+        return null;
+    }
 }

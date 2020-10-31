@@ -16,6 +16,8 @@
 
 package com.github.freeygo.engine;
 
+import com.github.freeygo.engine.exception.CardNotEnoughException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,11 @@ public class CardArea {
     private List<Card> cards;
 
     public CardArea() {
-        this.cards = new ArrayList<>();
+        this(new ArrayList<>());
+    }
+
+    public CardArea(List<Card> cards) {
+        this.cards = cards;
     }
 
     public List<Card> getCards() {
@@ -39,5 +45,30 @@ public class CardArea {
 
     public void setCards(List<Card> cards) {
         this.cards = cards;
+    }
+
+    public List<Card> pop(int n) throws CardNotEnoughException {
+        return null;
+    }
+
+    public Card pop() throws CardNotEnoughException {
+        return null;
+    }
+
+    public List<Card> peek(int n) throws CardNotEnoughException {
+        return null;
+    }
+
+    public boolean remove(Card card) {
+        return false;
+    }
+
+    public boolean push(List<Card> cards) {
+        return false;
+    }
+
+    public CardArea add(Card card) {
+
+        return this;
     }
 }

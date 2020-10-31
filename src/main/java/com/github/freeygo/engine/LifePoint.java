@@ -16,21 +16,36 @@
 
 package com.github.freeygo.engine;
 
+import static java.lang.Math.round;
+
 /**
  * @author Zhiyong Dai
  */
-public class ActiveEffectCommand<R> implements Command<R> {
-    @Override
-    public R execute() {
-        return null;
+public final class LifePoint {
+    private final long lifePoint;
+
+    public LifePoint(double lifePoint) {
+        this.lifePoint = round(lifePoint);
     }
 
-    @Override
-    public long getCommandType() {
-        return 0;
+    public LifePoint subtract(double lifePoint) {
+        return new LifePoint(this.lifePoint - lifePoint);
     }
 
-    public Effect getEffect() {
-        return null;
+    public LifePoint plus(double lifePoint) {
+        return new LifePoint(this.lifePoint + lifePoint);
+    }
+
+    public LifePoint multiply(double lifePoint) {
+        return new LifePoint(this.lifePoint * lifePoint);
+    }
+
+
+    public LifePoint divide(double lifePoint) {
+        return new LifePoint(this.lifePoint / lifePoint);
+    }
+
+    public long get() {
+        return lifePoint;
     }
 }

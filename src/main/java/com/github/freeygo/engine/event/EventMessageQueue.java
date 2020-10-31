@@ -14,28 +14,27 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.event;
+
+import java.util.LinkedList;
 
 /**
- * @author Zhi yong Dai
+ * 事件消息队列。
+ *
+ * @author Zhiyong Dai
  */
-public class NormalCommand implements Command {
+public class EventMessageQueue {
+    private final LinkedList<GameEvent> eventQueue;
 
-    private final CardDeck cardDeck;
-    private final int count;
-
-    public NormalCommand(CardDeck cardDeck, int count) {
-        this.count = count;
-        this.cardDeck = cardDeck;
+    public EventMessageQueue() {
+        this.eventQueue = new LinkedList<>();
     }
 
-    @Override
-    public <T> T execute() {
-        return null;
+    public GameEvent poll() {
+        return eventQueue.poll();
     }
 
-    @Override
-    public long getCommandType() {
-        return Command.NORMAL_DRAW;
+    public boolean offer(GameEvent gameEvent) {
+        return eventQueue.offer(gameEvent);
     }
 }

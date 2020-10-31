@@ -14,19 +14,27 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.event;
+
+import java.util.EventObject;
 
 /**
- * @author Zhi yong Dai
+ * 一切游戏事件对象由此继承
+ *
+ * @author Zhiyong Dai
  */
-public interface Command<R> {
+public class GameEvent extends EventObject {
+    /**
+     * Constructs a prototypical Event.
+     *
+     * @param source the object on which the Event initially occurred
+     * @throws IllegalArgumentException if source is null
+     */
+    public GameEvent(Object source) {
+        super(source);
+    }
 
-    long NORMAL_DRAW = 0x1;
-    long EFFECT_DRAW = 0x2;
-    long ACTIVE_EFFECT = 0x3;
-    long TURN_FINISH = 0x4;
-
-    R execute();
-
-    long getCommandType();
+    public EventType getEventType() {
+        return null;
+    }
 }

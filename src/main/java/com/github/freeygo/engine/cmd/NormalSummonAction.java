@@ -14,23 +14,31 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.cmd;
+
+import com.github.freeygo.engine.Card;
+import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.Player;
 
 /**
  * @author Zhiyong Dai
  */
-public class ActiveEffectCommand<R> implements Command<R> {
-    @Override
-    public R execute() {
-        return null;
+public class NormalSummonAction implements Action<Boolean> {
+
+    private final Card card;
+    private final Player player;
+
+    public NormalSummonAction(Player player, Card card) {
+        this.card = card;
+        this.player = player;
     }
 
-    @Override
-    public long getCommandType() {
-        return 0;
-    }
 
-    public Effect getEffect() {
+    @Override
+    public Boolean action(DuelContext context) {
+        player.getHand().remove(card);
+        int index = player.getUserDirectiveReader().selectIdleMonsterField();
+        player.getDuelArena().getMonsterFields(index).setCard(card);
         return null;
     }
 }

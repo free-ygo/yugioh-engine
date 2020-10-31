@@ -16,6 +16,8 @@
 
 package com.github.freeygo.engine;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,6 +31,8 @@ public class TimePointSet {
     public static final int DRAW_PHRASE = 2;
     public static final int PREPARE_PHRASE = 3;
     public static final int MAIN_PHRASE_1 = 4;
+    public static final int NORMAL_DRAW = 5;
+    public static final Integer NO_CARDS = 6;
 
     private final Set<Integer> timePoints;
 
@@ -67,5 +71,15 @@ public class TimePointSet {
             }
         }
         return false;
+    }
+
+    public static TimePointSet create(Integer... timePoints) {
+        TimePointSet tps = new TimePointSet();
+        tps.addAll(Arrays.asList(timePoints));
+        return tps;
+    }
+
+    public void addAll(Collection<Integer> tps) {
+        timePoints.addAll(tps);
     }
 }

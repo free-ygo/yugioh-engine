@@ -14,33 +14,28 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
-
-import com.github.freeygo.engine.exception.CardNotEnoughException;
-
-import java.util.List;
+package com.github.freeygo.engine.exception;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public class CardDeck extends CardArea {
-
-    private String deckName;
-
-    public CardDeck(String deckName, List<Card> cards) {
-        this.deckName = deckName;
-        super.setCards(cards);
+public class InvalidActionException extends Exception {
+    public InvalidActionException() {
     }
 
-    public String getDeckName() {
-        return deckName;
+    public InvalidActionException(String message) {
+        super(message);
     }
 
-    public void setDeckName(String deckName) {
-        this.deckName = deckName;
+    public InvalidActionException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public boolean drawNormal() throws CardNotEnoughException {
-        return false;
+    public InvalidActionException(Throwable cause) {
+        super(cause);
+    }
+
+    public InvalidActionException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 }

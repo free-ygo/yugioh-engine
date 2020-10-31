@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.event;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public interface Command<R> {
+public interface EventHandler {
 
-    long NORMAL_DRAW = 0x1;
-    long EFFECT_DRAW = 0x2;
-    long ACTIVE_EFFECT = 0x3;
-    long TURN_FINISH = 0x4;
-
-    R execute();
-
-    long getCommandType();
+    void handle(GameEvent e);
 }

@@ -14,19 +14,26 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.event;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public interface Command<R> {
+public class CardSummonEvent extends CardEvent {
 
-    long NORMAL_DRAW = 0x1;
-    long EFFECT_DRAW = 0x2;
-    long ACTIVE_EFFECT = 0x3;
-    long TURN_FINISH = 0x4;
+    public static final int NORMAL = 1;
+    public static final int SPECIAL = 2;
+    private final Integer summonType;
 
-    R execute();
+    /**
+     * Constructs a prototypical Event.
+     *
+     * @param source the object on which the Event initially occurred
+     * @throws IllegalArgumentException if source is null
+     */
+    public CardSummonEvent(Object source, Integer summonType) {
+        super(source);
+        this.summonType = summonType;
+    }
 
-    long getCommandType();
 }

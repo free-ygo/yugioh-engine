@@ -14,19 +14,28 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.exception;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public interface Command<R> {
+public class GameException extends Exception {
+    public GameException() {
+    }
 
-    long NORMAL_DRAW = 0x1;
-    long EFFECT_DRAW = 0x2;
-    long ACTIVE_EFFECT = 0x3;
-    long TURN_FINISH = 0x4;
+    public GameException(String message) {
+        super(message);
+    }
 
-    R execute();
+    public GameException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-    long getCommandType();
+    public GameException(Throwable cause) {
+        super(cause);
+    }
+
+    public GameException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 }

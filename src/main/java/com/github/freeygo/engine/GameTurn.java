@@ -31,9 +31,9 @@ public class GameTurn {
         Objects.requireNonNull(players);
         if (players.length != 2) throw new RuntimeException("人数少于2人");
         if (players[0] == players[1]) throw new RuntimeException("同一个人作为两个玩家");
-
-        this.players = players;
         this.currentTurn = 0;
+        this.players = Arrays.copyOf(players, players.length);
+        Arrays.sort(this.players);
     }
 
     public int nextTurn() {

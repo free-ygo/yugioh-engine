@@ -16,53 +16,119 @@
 
 package com.github.freeygo.engine;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @author Zhi yong Dai
  */
 public class DuelArena {
 
-    public static final int HAND = 1;
-    public static final int GRAVE = 2;
-    public static final int DECK = 3;
-    public static final int EXTRA = 4;
-    public static final int BANISH = 5;
-    public static final int MAGIC_TRAP_FIELD = 6;
     public static final int MONSTER_FIELD = 7;
 
-    private final Map<Integer, CardArea> areaMap;
-    private Map<Integer, CardField> fieldMap;
-    private int lifePoint;
+    private final CardArea banish;
+    private final CardArea extra;
+    private final CardArea grave;
+    private final List<CardField> monsterFields;
+    private final List<CardField> magicTrapFields;
+    private final List<CardField> extraFields;
+    private final CardField fieldMagicField;
 
-    public DuelArena(int lifePoint, CardArea deck) {
-        areaMap = new HashMap<>();
-        this.lifePoint = lifePoint;
+
+    private final Set<Player> players;
+
+    public DuelArena(Set<Player> players) {
+        this.players = new HashSet<>(players);
+        this.players.forEach(this::add);
+        this.banish = new CardArea();
+        this.grave = new CardArea();
+        this.extra = new CardArea();
+        this.monsterFields = createCardFields(5);
+        this.magicTrapFields = createCardFields(5);
+        this.extraFields = createCardFields(2);
+        this.fieldMagicField = new CardField();
     }
 
-
-    public CardArea getCardArea(int area) {
-        return areaMap.get(area);
+    public DuelArena() {
+        this(new HashSet<>());
     }
 
-    public void put(int id, CardArea area) {
-        areaMap.put(id, area);
+    private List<CardField> createCardFields(int n) {
+        return Collections.unmodifiableList(
+                IntStream.range(0, n).mapToObj(i -> new CardField())
+                        .collect(Collectors.toList())
+        );
     }
 
-    public CardField getCardField(int id) {
-        return fieldMap.get(id);
+    public CardArea getExtra() {
+        return extra;
     }
 
-    public void put(int id, CardField field) {
-        fieldMap.put(id, field);
+    public CardArea getGrave() {
+        return grave;
     }
 
-    public int getLifePoint() {
-        return lifePoint;
+    public CardArea getBanish() {
+        return banish;
     }
 
-    public void setLifePoint(int lifePoint) {
-        this.lifePoint = lifePoint;
+    public List<CardField> getMonsterFields() {
+        return monsterFields;
     }
+
+    public CardField getMonsterFields(int n) {
+        if (n < 1 || n > 5) {
+            throw new RuntimeException("Card field index out of bound");
+        }
+        return monsterFields.get(n - 1);
+    }
+
+    public List<CardField> getMagicTrapFields() {
+        return magicTrapFields;
+    }
+
+    public CardField getMagicTrapFields(int n) {
+        if (n < 1 || n > 5) {
+            throw new RuntimeException("Card field index out of bound");
+        }
+        return magicTrapFields.get(n - 1);
+    }
+
+    public List<CardField> getExtraFields() {
+        return extraFields;
+    }
+
+    public CardField getExtraFields(int n) {
+        if (n < 1 || n > 5) {
+            throw new RuntimeException("Card field index out of bound");
+        }
+        return extraFields.get(n - 1);
+    }
+
+    public CardField getFieldMagicField() {
+        return fieldMagicField;
+    }
+
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public void add(Player player) {
+        player.setDuelArena(this);
+        players.add(player);
+    }
+
+    public void remove(Player player) {
+        player.setDuelArena(null);
+        players.remove(player);
+    }
+
+    public boolean contains(Player player) {
+        return players.contains(player);
+    }
+
 }

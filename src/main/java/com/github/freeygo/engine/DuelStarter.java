@@ -37,17 +37,13 @@ public class DuelStarter {
     private final GameTurn gameTurn;
     private boolean gameOver;
     private final Map<Player, DuelArena> arenas;
-    private final int basicLifePoint;
     private final LinkedList<TimePointSet> timePointSets;
     private final LinkedList<Effect> effectCards;
     private final List<Effect> appliedEffects;
-    private int currentTurn;
-    private CommandReader cmdReader;
 
-    public DuelStarter(int basicLifePoint, GameTurn gameTurn) {
+    public DuelStarter(GameTurn gameTurn) {
         this.gameTurn = gameTurn;
         this.arenas = new HashMap<>();
-        this.basicLifePoint = basicLifePoint;
         this.timePointSets = new LinkedList<>();
         this.effectCards = new LinkedList<>();
         this.appliedEffects = new ArrayList<>();
@@ -55,7 +51,7 @@ public class DuelStarter {
     }
 
     private void initContext() {
-        this.context.setPlayerTurn(gameTurn);
+        this.context.setGameTurn(gameTurn);
     }
 
     public void start() {
@@ -86,7 +82,7 @@ public class DuelStarter {
     private DuelArena getArena(Player player) {
         DuelArena arena = arenas.get(player);
         if (arena == null) {
-            arena = new DuelArena(basicLifePoint, player.getCardDeck());
+            arena = new DuelArena(player.getDeck());
             arenas.put(player, arena);
         }
         return arena;
@@ -173,26 +169,23 @@ public class DuelStarter {
         // TODO 设置时点
         TimePointSet tps = new TimePointSet();
         tps.add(TimePointSet.DRAW_PHRASE);
-        timePointSets.add(tps);
-        handleAppliedEffects();
+        handleAppliedEffects(effectCards);
         List<Effect> effects = effectCards.stream().filter(e -> e.getActiveCondition().containsAny(tps))
                 .collect(Collectors.toList());
         System.out.println(player.getName() + "可以发动：" + effects);
-        String cmd = cmdReader.read(player);
+        Command cmd = cmdReader.read(player);
         System.out.println("处理：" + cmd);
-        if (!player.getCardDeck().drawNormal()) {
-            exit();
-        }
         // 等待回合玩家命令
-        String c1 = cmdReader.read(player);
-        String c2 = cmdReader.read(gameTurn.getOpponent());
+        Command<TimePointSet> c1 = cmdReader.read(player);
+        Command<TimePointSet> c2 = cmdReader.read(gameTurn.getOpponent());
 
     }
 
-    private List<TimePointSet> handleAppliedEffects() {
+    private List<TimePointSet> handleAppliedEffects(List<Effect> effects) {
+        // 效果处理步骤产生的时点不立即处理
         List<TimePointSet> appliedEffectTps = new ArrayList<>();
         do {
-            List<TimePointSet> produceTps = applyEffects(effectCards);
+            List<TimePointSet> produceTps = applyEffects(effects);
             if (produceTps.isEmpty()) break;
             appliedEffectTps.addAll(produceTps);
         } while (true);

@@ -17,16 +17,11 @@
 package com.github.freeygo.engine;
 
 /**
- * @author Zhi yong Dai
+ * 用户交互接口
+ *
+ * @author Zhiyong Dai
  */
-public interface Command<R> {
+public interface UserDirectiveReader {
 
-    long NORMAL_DRAW = 0x1;
-    long EFFECT_DRAW = 0x2;
-    long ACTIVE_EFFECT = 0x3;
-    long TURN_FINISH = 0x4;
-
-    R execute();
-
-    long getCommandType();
+    int selectIdleMonsterField();
 }

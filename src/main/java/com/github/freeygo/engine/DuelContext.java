@@ -16,18 +16,63 @@
 
 package com.github.freeygo.engine;
 
+import com.github.freeygo.engine.event.EventSystem;
+
 /**
  * @author Zhiyong Dai
  */
 public class DuelContext {
 
     private GameTurn gameTurn;
+    private final EventSystem eventSystem;
+    private final Phrase[] phrases;
+    private final ActionReader<Object> actionReader;
+    private final UserDirectiveReader reader;
+    private Duel duel;
+    private GameAction gameAction;
 
-    public GameTurn getPlayerTurn() {
+    public DuelContext(GameTurn gameTurn, Duel duel, EventSystem eventSystem, Phrase[] phrases, UserDirectiveReader reader) {
+        this.gameTurn = gameTurn;
+        this.duel = duel;
+        this.eventSystem = eventSystem;
+        this.phrases = phrases;
+        this.actionReader = new ActionReader<>();
+        this.reader = reader;
+    }
+
+    public Duel getDuel() {
+        return duel;
+    }
+
+    public void setDuel(Duel duel) {
+        this.duel = duel;
+    }
+
+    public GameTurn getGameTurn() {
         return gameTurn;
     }
 
-    public void setPlayerTurn(GameTurn gameTurn) {
+    public void setGameTurn(GameTurn gameTurn) {
         this.gameTurn = gameTurn;
+    }
+
+    public EventSystem getEventSystem() {
+        return eventSystem;
+    }
+
+    public Phrase[] getPhrases() {
+        return phrases;
+    }
+
+    public ActionReader<Object> getActionReader() {
+        return actionReader;
+    }
+
+    public UserDirectiveReader getReader() {
+        return reader;
+    }
+
+    public GameAction getGameAction() {
+        return gameAction;
     }
 }

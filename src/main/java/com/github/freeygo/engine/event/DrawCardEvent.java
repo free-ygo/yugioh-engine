@@ -14,30 +14,29 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
-
-import java.util.List;
-import java.util.Scanner;
+package com.github.freeygo.engine.event;
 
 /**
  * @author Zhiyong Dai
  */
-public class CommandReader {
+public class DrawCardEvent extends CardEvent {
 
-    private final Scanner scanner;
+    public static final int NORMAL = 1;
+    public static final int SPECIAL = 2;
+    private final Integer drawCardType;
 
-    public CommandReader() {
-        this.scanner = new Scanner(System.in);
+    /**
+     * Constructs a prototypical Event.
+     *
+     * @param source the object on which the Event initially occurred
+     * @throws IllegalArgumentException if source is null
+     */
+    public DrawCardEvent(Object source, Integer drawCardType) {
+        super(source);
+        this.drawCardType = drawCardType;
     }
 
-    public String read(Player player) {
-        System.out.println(player.getName() + "，请输入命令：\n");
-        return scanner.nextLine();
-    }
-
-    public String read(Player player, List<Effect> effects) {
-        System.out.println(player.getName() + "可以发动：" + effects + "\n");
-        System.out.println("请输入命令：\n");
-        return scanner.nextLine();
+    public Integer getDrawCardType() {
+        return drawCardType;
     }
 }

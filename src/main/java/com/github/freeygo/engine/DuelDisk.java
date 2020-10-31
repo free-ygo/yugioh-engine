@@ -16,17 +16,32 @@
 
 package com.github.freeygo.engine;
 
+import javax.smartcardio.CardNotPresentException;
+import java.util.List;
+
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public interface Command<R> {
+public class DuelDisk {
 
-    long NORMAL_DRAW = 0x1;
-    long EFFECT_DRAW = 0x2;
-    long ACTIVE_EFFECT = 0x3;
-    long TURN_FINISH = 0x4;
+    private final CardArea hand;
+    private final CardArea deck;
 
-    R execute();
+    public DuelDisk(List<Card> cards) {
+        this.hand = new CardArea();
+        this.deck = new CardArea(cards);
+    }
 
-    long getCommandType();
+    public boolean draw(int n) throws CardNotPresentException {
+        // 抽卡
+        return true;
+    }
+
+    public CardArea getDeck() {
+        return deck;
+    }
+
+    public CardArea getHand() {
+        return hand;
+    }
 }

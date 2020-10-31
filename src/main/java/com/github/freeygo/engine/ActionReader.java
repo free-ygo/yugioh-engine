@@ -16,17 +16,14 @@
 
 package com.github.freeygo.engine;
 
+import com.github.freeygo.engine.cmd.Action;
+
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public interface Command<R> {
+public class ActionReader<R> {
 
-    long NORMAL_DRAW = 0x1;
-    long EFFECT_DRAW = 0x2;
-    long ACTIVE_EFFECT = 0x3;
-    long TURN_FINISH = 0x4;
-
-    R execute();
-
-    long getCommandType();
+    public Action<R> read(Player player) {
+        return null;
+    }
 }

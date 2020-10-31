@@ -17,8 +17,9 @@
 package com.github.freeygo.engine;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public enum TimePoint {
-    NORMAL_SUMMON
+public enum Phrase {
+
+    DRAW, PREPARE, MAIN1, FIGHT, MAIN2, END
 }

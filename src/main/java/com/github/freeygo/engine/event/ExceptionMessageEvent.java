@@ -14,19 +14,29 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.event;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
-public interface Command<R> {
+public class ExceptionMessageEvent extends MessageEvent {
 
-    long NORMAL_DRAW = 0x1;
-    long EFFECT_DRAW = 0x2;
-    long ACTIVE_EFFECT = 0x3;
-    long TURN_FINISH = 0x4;
+    public static final int NORMAL_DRAW_FAILED = 1;
 
-    R execute();
+    private final int messageType;
 
-    long getCommandType();
+    /**
+     * Constructs a prototypical Event.
+     *
+     * @param source the object on which the Event initially occurred
+     * @throws IllegalArgumentException if source is null
+     */
+    public ExceptionMessageEvent(Object source, int messageType) {
+        super(source);
+        this.messageType = messageType;
+    }
+
+    public int getMessageType() {
+        return messageType;
+    }
 }
