@@ -24,12 +24,17 @@ import java.util.List;
  */
 public class Effect {
 
+    private final Card source;
     private final EffectActiveCondition effectActiveCondition;
-    private Player activePlayer;
+    private final DuelContext duelContext;
+    private Player controller;
+    private int status;
+    private boolean canApply;
 
-
-    public Effect() {
+    public Effect(Card source, DuelContext duelContext) {
         this.effectActiveCondition = new EffectActiveCondition();
+        this.duelContext = duelContext;
+        this.source = source;
     }
 
     public LinkedList<TimePointSet> applyEffect() {
@@ -45,11 +50,52 @@ public class Effect {
     }
 
     public List<TimePointSet> active(Player activePlayer) {
-        this.activePlayer = activePlayer;
+        this.controller = activePlayer;
         return null;
     }
 
-    public Player getActivePlayer() {
-        return activePlayer;
+    public Player getController() {
+        return controller;
+    }
+
+    /**
+     * 获取效果对象
+     *
+     * @return
+     */
+    public List<Object> getAppliedObjects() {
+        return null;
+    }
+
+    public boolean canActivate() {
+        return false;
+    }
+
+    public boolean canApply() {
+        return false;
+    }
+
+    public boolean isApplied() {
+        return false;
+    }
+
+    public boolean isActive() {
+        return false;
+    }
+
+    public boolean isDestroy() {
+        return false;
+    }
+
+    public void activate(Player player) {
+
+    }
+
+    public void apply() {
+
+    }
+
+    public void destroy() {
+
     }
 }

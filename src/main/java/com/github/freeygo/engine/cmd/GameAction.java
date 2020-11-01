@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.cmd;
 
-import com.github.freeygo.engine.cmd.ActionController;
-import com.github.freeygo.engine.cmd.NormalDrawAction;
-import com.github.freeygo.engine.cmd.NormalSummonAction;
+import com.github.freeygo.engine.Card;
+import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.Player;
 import com.github.freeygo.engine.event.CardSummonEvent;
 import com.github.freeygo.engine.event.DrawCardEvent;
 

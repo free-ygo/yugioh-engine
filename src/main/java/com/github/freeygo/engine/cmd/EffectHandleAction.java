@@ -14,18 +14,31 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.cmd;
 
-import com.github.freeygo.engine.cmd.Action;
+import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.Effect;
+
+import java.util.List;
 
 /**
- * 用户交互接口
- *
  * @author Zhiyong Dai
  */
-public interface UserDirectiveReader {
+public class EffectHandleAction implements Action<Void> {
 
-    int selectIdleMonsterField();
+    private final List<Effect> effects;
 
-    <R> Action<R> selectDirectives();
+    public EffectHandleAction(List<Effect> effects) {
+        this.effects = effects;
+    }
+
+    @Override
+    public Void action(DuelContext context) {
+        effects.forEach(effect -> {
+            if (effect.canApply()) {
+                effect.apply();
+            }
+        });
+        return null;
+    }
 }

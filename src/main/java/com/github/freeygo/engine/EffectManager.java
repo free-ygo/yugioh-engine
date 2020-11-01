@@ -16,16 +16,25 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cmd.Action;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 用户交互接口
- *
  * @author Zhiyong Dai
  */
-public interface UserDirectiveReader {
+public class EffectManager {
+    private final DuelContext duelContext;
+    private final List<Effect> appliedEffects;
 
-    int selectIdleMonsterField();
+    public EffectManager(DuelContext duelContext) {
+        this.duelContext = duelContext;
+        this.appliedEffects = new ArrayList<>();
+    }
 
-    <R> Action<R> selectDirectives();
+    public void active(Player player, Effect effect) {
+        if (effect.canActivate()) {
+            effect.activate(player);
+            appliedEffects.add(effect);
+        }
+    }
 }

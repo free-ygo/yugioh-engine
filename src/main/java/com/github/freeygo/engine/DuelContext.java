@@ -16,6 +16,7 @@
 
 package com.github.freeygo.engine;
 
+import com.github.freeygo.engine.cmd.GameAction;
 import com.github.freeygo.engine.event.EventSystem;
 
 /**

@@ -14,18 +14,29 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.cmd;
 
-import com.github.freeygo.engine.cmd.Action;
+import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.Effect;
+import com.github.freeygo.engine.Player;
 
 /**
- * 用户交互接口
- *
  * @author Zhiyong Dai
  */
-public interface UserDirectiveReader {
+public class EffectActivateAction implements Action<Void> {
+    private final Effect effect;
+    private final Player player;
 
-    int selectIdleMonsterField();
+    public EffectActivateAction(Effect effect, Player player) {
+        this.effect = effect;
+        this.player = player;
+    }
 
-    <R> Action<R> selectDirectives();
+    @Override
+    public Void action(DuelContext context) {
+        if (effect.canActivate()) {
+            effect.activate(player);
+        }
+        return null;
+    }
 }
