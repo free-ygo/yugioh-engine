@@ -21,10 +21,14 @@ package com.github.freeygo.engine;
  *
  * @author Zhi yong Dai
  */
-public class CardField {
+public class CardField extends CardAreaStatus implements Locatable {
 
     private Card card;
     private boolean available;
+
+    public CardField(int area) {
+        super(area);
+    }
 
 
     public Card getCard() {
@@ -41,5 +45,20 @@ public class CardField {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    @Override
+    public int getArea() {
+        return 0;
+    }
+
+    @Override
+    public int getPosition(Card card) {
+        return 0;
+    }
+
+    @Override
+    public boolean setPosition(int pos, Card card) {
+        return false;
     }
 }

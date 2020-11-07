@@ -16,32 +16,22 @@
 
 package com.github.freeygo.engine;
 
-import javax.smartcardio.CardNotPresentException;
-import java.util.List;
-
 /**
  * @author Zhiyong Dai
  */
-public class DuelDisk {
+public abstract class CardAreaStatus implements Locatable {
 
-    private final CardArea hand;
-    private final CardArea deck;
+    private final int area;
 
-    public DuelDisk(List<Card> cards) {
-        this.hand = new CardArea(Locatable.HAND_AREA);
-        this.deck = new CardArea(Locatable.DECK_AREA, cards);
+    public CardAreaStatus(int area) {
+        this.area = area;
     }
 
-    public boolean draw(int n) throws CardNotPresentException {
-        // 抽卡
-        return true;
+
+    @Override
+    public int getArea() {
+        return area;
     }
 
-    public CardArea getDeck() {
-        return deck;
-    }
 
-    public CardArea getHand() {
-        return hand;
-    }
 }

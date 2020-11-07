@@ -16,7 +16,7 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cmd.GameAction;
+import com.github.freeygo.engine.cmd.GameEventAction;
 import com.github.freeygo.engine.event.EventSystem;
 
 /**
@@ -30,7 +30,7 @@ public class DuelContext {
     private final ActionReader<Object> actionReader;
     private final UserDirectiveReader reader;
     private Duel duel;
-    private GameAction gameAction;
+    private GameEventAction gameEventAction;
 
     public DuelContext(GameTurn gameTurn, Duel duel, EventSystem eventSystem, Phrase[] phrases, UserDirectiveReader reader) {
         this.gameTurn = gameTurn;
@@ -73,7 +73,7 @@ public class DuelContext {
         return reader;
     }
 
-    public GameAction getGameAction() {
-        return gameAction;
+    public GameEventAction getGameAction() {
+        return gameEventAction;
     }
 }

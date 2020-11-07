@@ -27,36 +27,32 @@ import java.util.List;
 /**
  * @author Zhiyong Dai
  */
-public class GameAction {
+public class GameEventAction {
 
     private final DuelContext context;
-    private final ActionController drawNormal;
-    private final ActionController summon;
 
-    public GameAction(DuelContext context) {
-        this.drawNormal = new ActionController<Void>(ctx -> {
-            return null;
-        });
-        this.summon = new ActionController<Void>(ctx -> {
-            return null;
-        });
+    public GameEventAction(DuelContext context) {
         this.context = context;
     }
 
-    public void drawNormal() {
+    public void normalDraw() {
         ActionController<Boolean> action =
                 new ActionController<>(new NormalDrawAction(getPlayer()));
         context.getEventSystem()
                 .send(new DrawCardEvent(getPlayer(), DrawCardEvent.NORMAL))
                 .then(() -> action.action(context));
-
     }
 
     public List<Card> getHandCards() {
         return getPlayer().getHand().getCards();
     }
 
-    public void summon(Card card) {
+    /**
+     * 通常召唤
+     *
+     * @param card 需要通常召唤的卡片
+     */
+    public void normalSummon(Card card) {
         ActionController<Boolean> action =
                 new ActionController<>(new NormalSummonAction(getPlayer(),
                         card));

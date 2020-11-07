@@ -16,19 +16,31 @@
 
 package com.github.freeygo.engine.cmd;
 
+import com.github.freeygo.engine.Card;
+import com.github.freeygo.engine.CardAreaStatus;
 import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.Player;
 
 /**
  * @author Zhiyong Dai
  */
-public class DrawPhraseAction<R> implements Action<Void> {
+public class SpecialSummonAction implements Action<Void> {
 
-    public DrawPhraseAction() {
+    private final Card card;
+    private final Player player;
+    private final CardAreaStatus location;
+
+    public SpecialSummonAction(Card card, Player player, CardAreaStatus location) {
+        this.card = card;
+        this.player = player;
+        this.location = location;
     }
 
     @Override
     public Void action(DuelContext context) {
-        context.getGameAction().normalDraw();
+        card.setController(player);
+        card.setLocation(location);
+
         return null;
     }
 }

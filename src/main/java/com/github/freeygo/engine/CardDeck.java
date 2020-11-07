@@ -18,18 +18,20 @@ package com.github.freeygo.engine;
 
 import com.github.freeygo.engine.exception.CardNotEnoughException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Zhi yong Dai
  */
-public class CardDeck extends CardArea {
+public class CardDeck {
 
     private String deckName;
+    private final List<Card> cards;
 
     public CardDeck(String deckName, List<Card> cards) {
         this.deckName = deckName;
-        super.setCards(cards);
+        this.cards = cards;
     }
 
     public String getDeckName() {
@@ -42,5 +44,9 @@ public class CardDeck extends CardArea {
 
     public boolean drawNormal() throws CardNotEnoughException {
         return false;
+    }
+
+    public List<Card> getCards() {
+        return new ArrayList<>(cards);
     }
 }

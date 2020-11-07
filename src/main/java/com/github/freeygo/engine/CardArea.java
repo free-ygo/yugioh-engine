@@ -26,17 +26,17 @@ import java.util.List;
  *
  * @author Zhi yong Dai
  */
-public class CardArea {
-
+public class CardArea extends CardAreaStatus implements Locatable {
 
     private List<Card> cards;
 
-    public CardArea() {
-        this(new ArrayList<>());
+    public CardArea(int area, List<Card> cards) {
+        super(area);
+        this.cards = cards;
     }
 
-    public CardArea(List<Card> cards) {
-        this.cards = cards;
+    public CardArea(int area) {
+        this(area, new ArrayList<>());
     }
 
     public List<Card> getCards() {
@@ -70,5 +70,16 @@ public class CardArea {
     public CardArea add(Card card) {
 
         return this;
+    }
+
+
+    @Override
+    public int getPosition(Card card) {
+        return cards.indexOf(card);
+    }
+
+    @Override
+    public boolean setPosition(int pos, Card card) {
+        return false;
     }
 }

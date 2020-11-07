@@ -21,30 +21,13 @@ import java.util.List;
 
 public interface Card {
 
-//    int NORMAL_MONSTER = 1001;
-//    int EFFECT_MONSTER = 1002;
-//    int NORMAL_MAGIC = 1101;
-//    int FAST_MAGIC = 1102;
-//    int EQUIP_MAGIC = 1103;
-//    int FIELD_MAGIC = 1104;
-//    int RITUAL_MAGIC = 1105;
-//    int CONTINUOUS_MAGIC = 1106;
-//    int COUNTER_MAGIC = 1107;
+    Player getController();
 
-//    Location getLocation();
-//    void setLocation(Location location);
+    void setController(Player player);
 
-//    Location getLocation();
-//
-//    void setLocation(Location location);
+    Locatable getLocation();
 
-    String getRuntimeId();
-
-    void setRuntimeId(String id);
-
-    String getId();
-
-    void setId(String id);
+    void setLocation(Locatable location);
 
     /**
      * Card name
@@ -76,17 +59,7 @@ public interface Card {
      */
     void setCategory(Category category);
 
-//    List<DuelEffect> getEffects();
-//
-//    void setEffects(List<DuelEffect> duelEffects);
-
     List<Effect> getEffects();
-
-//    CardGrid getCardArea();
-//
-//    void setCardArea(CardGrid cardGrid);
-//
-//    void moveTo(CardGrid cardGrid);
 
     String getDescription();
 
@@ -128,7 +101,6 @@ public interface Card {
     enum MagicType {
         EQUIP, FIELD, FAST, RITUAL, CONTINUOUS, NORMAL
     }
-
 
     enum Race {
         SPELLCASTER, DRAGON, ZOMBIE, WARRIOR, BEAST_WARRIOR, BEAST, WINGED_BEAST,

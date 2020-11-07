@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * @author Zhi yong Dai
+ * @author Zhiyong Dai
  */
 public class DuelArena {
 
@@ -44,22 +44,22 @@ public class DuelArena {
     public DuelArena(Set<Player> players) {
         this.players = new HashSet<>(players);
         this.players.forEach(this::add);
-        this.banish = new CardArea();
-        this.grave = new CardArea();
-        this.extra = new CardArea();
-        this.monsterFields = createCardFields(5);
-        this.magicTrapFields = createCardFields(5);
-        this.extraFields = createCardFields(2);
-        this.fieldMagicField = new CardField();
+        this.banish = new CardArea(Locatable.BANISH_AREA);
+        this.grave = new CardArea(Locatable.GRAVE_AREA);
+        this.extra = new CardArea(Locatable.EXTRA_DECK_AREA);
+        this.monsterFields = createCardFields(5, Locatable.MONSTER_AREA);
+        this.magicTrapFields = createCardFields(5, Locatable.MAGIC_TRAP_AREA);
+        this.extraFields = createCardFields(2, Locatable.EXTRA_AREA);
+        this.fieldMagicField = new CardField(Locatable.FIELD_MAGIC_AREA);
     }
 
     public DuelArena() {
         this(new HashSet<>());
     }
 
-    private List<CardField> createCardFields(int n) {
+    private List<CardField> createCardFields(int count, int area) {
         return Collections.unmodifiableList(
-                IntStream.range(0, n).mapToObj(i -> new CardField())
+                IntStream.range(0, count).mapToObj(i -> new CardField(area))
                         .collect(Collectors.toList())
         );
     }
