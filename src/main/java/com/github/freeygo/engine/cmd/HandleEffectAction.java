@@ -14,33 +14,34 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.cmd;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.Effect;
+
+import java.util.Deque;
 
 /**
  * @author Zhiyong Dai
  */
-public class EffectManager {
-    private final DuelContext duelContext;
-    private final List<Effect> appliedEffects;
+public class HandleEffectAction implements Action<Void> {
 
-    public EffectManager(DuelContext duelContext) {
-        this.duelContext = duelContext;
-        this.appliedEffects = new ArrayList<>();
+    private final Deque<Effect> effects;
+
+    public HandleEffectAction(Deque<Effect> effects) {
+        this.effects = effects;
     }
 
-    public void active(Player player, Effect effect) {
-        if (effect.canActivate()) {
-            effect.activate(player);
-            appliedEffects.add(effect);
+    @Override
+    public Void action(DuelContext context) {
+        while (!effects.isEmpty()) {
+            Effect e = effects.poll();
+            if (e.isActive()) {
+                e.apply();
+            } else {
+                throw new RuntimeException("还有未激活的效果");
+            }
         }
-    }
-
-    public List<Effect> getAppliedEffects() {
         return null;
     }
-
-
 }

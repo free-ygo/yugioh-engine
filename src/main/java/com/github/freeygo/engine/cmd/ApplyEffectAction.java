@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.cmd;
+
+import com.github.freeygo.engine.DuelContext;
 
 /**
  * @author Zhiyong Dai
  */
-public enum Phrase {
-
-    DRAW, PREPARE, MAIN1, FIGHT, MAIN2, END
+public class ApplyEffectAction implements Action<Void> {
+    @Override
+    public Void action(DuelContext context) {
+//        context.get
+        return null;
+    }
 }

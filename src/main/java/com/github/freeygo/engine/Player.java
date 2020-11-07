@@ -16,6 +16,7 @@
 
 package com.github.freeygo.engine;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -98,5 +99,9 @@ public class Player implements Comparable<Player> {
 
     public boolean hasActiveEffects() {
         return false;
+    }
+
+    public List<Effect> getActionableEffects() {
+        return null;
     }
 }

@@ -14,33 +14,27 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.cmd.flow;
 
-import java.util.ArrayList;
+import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.Effect;
+
 import java.util.List;
 
 /**
  * @author Zhiyong Dai
  */
-public class EffectManager {
-    private final DuelContext duelContext;
-    private final List<Effect> appliedEffects;
+public class CommonUtils {
+    public static List<Effect> applyEffects(DuelContext context) {
 
-    public EffectManager(DuelContext duelContext) {
-        this.duelContext = duelContext;
-        this.appliedEffects = new ArrayList<>();
-    }
-
-    public void active(Player player, Effect effect) {
-        if (effect.canActivate()) {
-            effect.activate(player);
-            appliedEffects.add(effect);
-        }
-    }
-
-    public List<Effect> getAppliedEffects() {
         return null;
     }
 
+    public static List<Effect> getActionableEffects(DuelContext context) {
+        return null;
+    }
 
+    public static void startActions(DuelContext context) {
+
+    }
 }

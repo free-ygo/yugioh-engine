@@ -21,6 +21,8 @@ import java.util.List;
 
 public interface Card {
 
+    List<Effect> getActionableEffects();
+
     Player getController();
 
     void setController(Player player);

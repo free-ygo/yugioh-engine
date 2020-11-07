@@ -34,4 +34,6 @@ public interface UserDirectiveReader {
     Effect notifyActivateEffect();
 
     int notifyMessage(String message);
+
+    int readDirective();
 }

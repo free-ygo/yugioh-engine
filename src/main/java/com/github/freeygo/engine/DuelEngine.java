@@ -92,7 +92,11 @@ public class DuelEngine {
         context.getEventSystem().register(EventType.FLOW, (e) -> {
             FlowEvent fe = (FlowEvent) e;
             if (fe.getType().equals(FlowEvent.CHANGE)) {
-                context.getFlowController().setPhrase(fe.getNextPhrase());
+                context.getFlowController().setCurrentFlow(fe.getNextFlow());
+                context.getFlowController().startFlow(fe.getNextFlow());
+                int d = context.getFlowController().getTurnPlayer()
+                        .getUserDirectiveReader().readDirective();
+                // TODO 处理用户指令
             }
         });
     }
@@ -106,45 +110,45 @@ public class DuelEngine {
 //        }
     }
 
-    private void startTurn() {
-        for (Phrase phrase : context.getPhrases()) {
-            startPhrase(phrase);
-        }
-    }
+//    private void startTurn() {
+//        for (Flow flow : context.getPhrases()) {
+//            startPhrase(flow);
+//        }
+//    }
 
-    private void startPhrase(Phrase phrase) {
-        switch (phrase) {
-            case DRAW:
-                startDraw();
-                break;
-            case PREPARE:
-                startPrepare();
-                break;
-            case MAIN1:
-                startMain1();
-                break;
-            case FIGHT:
-                startFight();
-                break;
-            case MAIN2:
-                startMain2();
-                break;
-            case END:
-                startEnd();
-                break;
-            default:
-                throw new RuntimeException("Unknown phrase " + phrase);
-        }
-    }
+//    private void startPhrase(Flow flow) {
+//        switch (flow) {
+//            case DRAW:
+//                startDraw();
+//                break;
+//            case PREPARE:
+//                startPrepare();
+//                break;
+//            case MAIN1:
+//                startMain1();
+//                break;
+//            case FIGHT:
+//                startFight();
+//                break;
+//            case MAIN2:
+//                startMain2();
+//                break;
+//            case END:
+//                startEnd();
+//                break;
+//            default:
+//                throw new RuntimeException("Unknown phrase " + flow);
+//        }
+//    }
 
-    private void startDraw() {
-        // 发送事件
-//        context.getEventSystem()
-//                .send(new FlowEvent(Phrase.DRAW, phrase, FlowEvent.START))
-//                .then(() -> {
-////                    context.getGameTurn().getTurnPlayer().
-//                }).then(() -> null);
-    }
+//    private void startDraw() {
+//        // 发送事件
+////        context.getEventSystem()
+////                .send(new FlowEvent(Phrase.DRAW, phrase, FlowEvent.START))
+////                .then(() -> {
+//////                    context.getGameTurn().getTurnPlayer().
+////                }).then(() -> null);
+//    }
 
     private void startPrepare() {
 

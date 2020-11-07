@@ -26,17 +26,17 @@ public class DuelContext {
 
     private FlowController flowController;
     private final EventSystem eventSystem;
-    private final Phrase[] phrases;
+    private final Flow[] flows;
     private final ActionReader<Object> actionReader;
     private final UserDirectiveReader reader;
     private Duel duel;
     private GameEventAction gameEventAction;
 
-    public DuelContext(FlowController flowController, Duel duel, EventSystem eventSystem, Phrase[] phrases, UserDirectiveReader reader) {
+    public DuelContext(FlowController flowController, Duel duel, EventSystem eventSystem, Flow[] flows, UserDirectiveReader reader) {
         this.flowController = flowController;
         this.duel = duel;
         this.eventSystem = eventSystem;
-        this.phrases = phrases;
+        this.flows = flows;
         this.actionReader = new ActionReader<>();
         this.reader = reader;
     }
@@ -61,8 +61,8 @@ public class DuelContext {
         return eventSystem;
     }
 
-    public Phrase[] getPhrases() {
-        return phrases;
+    public Flow[] getPhrases() {
+        return flows;
     }
 
     public ActionReader<Object> getActionReader() {
@@ -76,4 +76,5 @@ public class DuelContext {
     public GameEventAction getGameAction() {
         return gameEventAction;
     }
+
 }

@@ -66,7 +66,7 @@ public class GameEventAction {
 
     }
 
-    public void finishPhrase(Phrase phrase) {
+    public void finishPhrase(Flow flow) {
 
     }
 

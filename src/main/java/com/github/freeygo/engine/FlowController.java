@@ -18,6 +18,9 @@ package com.github.freeygo.engine;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * @author Zhi yong Dai
@@ -26,7 +29,7 @@ public class FlowController {
 
     private final Player[] players;
     private int currentTurn;
-    private Phrase phrase;
+    private Flow flow;
 
 
     public FlowController(Player[] players) {
@@ -61,9 +64,9 @@ public class FlowController {
         return Arrays.copyOf(players, players.length);
     }
 
-    public void setPhrase(Phrase phrase) {
-        if (phrase == null) return;
-        this.phrase = phrase;
+    public void setCurrentFlow(Flow flow) {
+        if (flow == null) return;
+        this.flow = flow;
     }
 
     private int getTurnNum(Player player) {
@@ -73,5 +76,49 @@ public class FlowController {
             }
         }
         return -1;
+    }
+
+    public void startFlow(Flow flow) {
+
+    }
+
+
+    /**
+     * 从指定的player按游戏顺序开始轮转，直到某个条件成立为止。
+     *
+     * @param player        开始轮转的玩家（包括）
+     * @param stopCondition true：停止轮转，false：继续轮转。
+     * @param action        当前轮转的玩家执行的动作。
+     */
+    public void roundUntil(Player player, Predicate<Player> stopCondition, Consumer<Player> action) {
+        int turnNum = getTurnNum(player);
+        if (turnNum < 0) {
+            throw new RuntimeException("玩家不存在");
+        }
+        Player nextPlayer = player;
+        while (stopCondition.test(nextPlayer)) {
+            action.accept(player);
+            nextPlayer = getNextPlayer(player);
+        }
+    }
+
+    public void roundUntil(Player starter, BiFunction<Player, Player, Player> starterSupplier,
+                           Predicate<Player> stopCondition, Consumer<Player> action) {
+        int turnNum = getTurnNum(starter);
+        if (turnNum < 0) {
+            throw new RuntimeException("玩家不存在");
+        }
+        if (!stopCondition.test(starter)) {
+            return;
+        }
+        Player cp;
+        Player sp = starter;
+        Player np = starter;
+        do {
+            cp = np;
+            action.accept(cp);
+            np = getNextPlayer(cp);
+            sp = starterSupplier.apply(sp, np);
+        } while (!Objects.equals(np, sp) && stopCondition.test(np));
     }
 }

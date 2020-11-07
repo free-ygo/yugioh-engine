@@ -14,21 +14,25 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.cmd;
+package com.github.freeygo.engine.cmd.flow;
 
 import com.github.freeygo.engine.DuelContext;
+
+import static com.github.freeygo.engine.cmd.flow.CommonUtils.applyEffects;
+import static com.github.freeygo.engine.cmd.flow.CommonUtils.startActions;
 
 /**
  * @author Zhiyong Dai
  */
-public class DrawPhraseAction<R> implements Action<Void> {
+public class Main1FlowAction implements FlowAction<Void> {
 
-    public DrawPhraseAction() {
-    }
 
     @Override
     public Void action(DuelContext context) {
-        context.getGameAction().normalDraw();
+        // 处理适用卡片的效果
+        applyEffects(context);
+        startActions(context);
+        // 等待回合玩家优先行动
         return null;
     }
 }

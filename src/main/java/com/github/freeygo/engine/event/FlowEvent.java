@@ -16,7 +16,7 @@
 
 package com.github.freeygo.engine.event;
 
-import com.github.freeygo.engine.Phrase;
+import com.github.freeygo.engine.Flow;
 
 /**
  * 流程事件
@@ -29,22 +29,22 @@ public class FlowEvent extends GameEvent {
 //    public static final Integer END = 2;
     public static final int CHANGE = 1;
 
-    private final Phrase nextPhrase;
-    private final Phrase prevPhrase;
+    private final Flow nextFlow;
+    private final Flow prevFlow;
     private final Integer type;
 
     /**
      * Constructs a prototypical Event.
      *
-     * @param source     the object on which the Event initially occurred
-     * @param nextPhrase
-     * @param prevPhrase
+     * @param source   the object on which the Event initially occurred
+     * @param nextFlow
+     * @param prevFlow
      * @throws IllegalArgumentException if source is null
      */
-    public FlowEvent(Object source, Phrase nextPhrase, Phrase prevPhrase, Integer type) {
+    public FlowEvent(Object source, Flow nextFlow, Flow prevFlow, Integer type) {
         super(source);
-        this.nextPhrase = nextPhrase;
-        this.prevPhrase = prevPhrase;
+        this.nextFlow = nextFlow;
+        this.prevFlow = prevFlow;
         this.type = type;
     }
 
@@ -56,11 +56,11 @@ public class FlowEvent extends GameEvent {
         return type;
     }
 
-    public Phrase getNextPhrase() {
-        return nextPhrase;
+    public Flow getNextFlow() {
+        return nextFlow;
     }
 
-    public Phrase getPrevPhrase() {
-        return prevPhrase;
+    public Flow getPrevPhrase() {
+        return prevFlow;
     }
 }
