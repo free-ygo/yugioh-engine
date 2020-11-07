@@ -28,5 +28,8 @@ public enum EventType {
     GAME_OVER,
     LP_CHANGED,
     UNKNOWN,
-    FLOW, MESSAGE, CARD,
+    FLOW,
+    MESSAGE,
+    CARD,
+    EFFECT,
 }

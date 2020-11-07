@@ -17,7 +17,7 @@
 package com.github.freeygo.engine.cmd;
 
 import com.github.freeygo.engine.Card;
-import com.github.freeygo.engine.CardAreaStatus;
+import com.github.freeygo.engine.CardArea;
 import com.github.freeygo.engine.DuelContext;
 import com.github.freeygo.engine.Player;
 
@@ -28,18 +28,17 @@ public class SpecialSummonAction implements Action<Void> {
 
     private final Card card;
     private final Player player;
-    private final CardAreaStatus location;
 
-    public SpecialSummonAction(Card card, Player player, CardAreaStatus location) {
+    public SpecialSummonAction(Card card, Player player) {
         this.card = card;
         this.player = player;
-        this.location = location;
     }
 
     @Override
     public Void action(DuelContext context) {
         card.setController(player);
-        card.setLocation(location);
+        CardArea cardField = player.getDuelArena().getMonsterFields(player.getUserDirectiveReader().selectField());
+        card.setCardArea(cardField);
 
         return null;
     }

@@ -28,4 +28,10 @@ public interface UserDirectiveReader {
     int selectIdleMonsterField();
 
     <R> Action<R> selectDirectives();
+
+    int selectField();
+
+    Effect notifyActivateEffect();
+
+    int notifyMessage(String message);
 }

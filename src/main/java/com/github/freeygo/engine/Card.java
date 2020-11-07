@@ -25,9 +25,9 @@ public interface Card {
 
     void setController(Player player);
 
-    Locatable getLocation();
+    CardArea getCardArea();
 
-    void setLocation(Locatable location);
+    void setCardArea(CardArea cardArea);
 
     /**
      * Card name

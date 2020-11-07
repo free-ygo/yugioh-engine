@@ -95,4 +95,8 @@ public class Player implements Comparable<Player> {
     public UserDirectiveReader getUserDirectiveReader() {
         return userDirectiveReader;
     }
+
+    public boolean hasActiveEffects() {
+        return false;
+    }
 }

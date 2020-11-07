@@ -28,15 +28,21 @@ import java.util.stream.IntStream;
  */
 public class DuelArena {
 
-    public static final int MONSTER_FIELD = 7;
+    public static final int BANISH_AREA = 1;
+    public static final int GRAVE_AREA = 2;
+    public static final int EXTRA_DECK_AREA = 3;
+    public static final int MONSTER_AREA = 4;
+    public static final int MAGIC_TRAP_AREA = 5;
+    public static final int EXTRA_AREA = 6;
+    public static final int FIELD_MAGIC_AREA = 7;
 
     private final CardArea banish;
     private final CardArea extra;
     private final CardArea grave;
-    private final List<CardField> monsterFields;
-    private final List<CardField> magicTrapFields;
-    private final List<CardField> extraFields;
-    private final CardField fieldMagicField;
+    private final List<CardArea> monsterFields;
+    private final List<CardArea> magicTrapFields;
+    private final List<CardArea> extraFields;
+    private final CardArea fieldMagicField;
 
 
     private final Set<Player> players;
@@ -44,22 +50,22 @@ public class DuelArena {
     public DuelArena(Set<Player> players) {
         this.players = new HashSet<>(players);
         this.players.forEach(this::add);
-        this.banish = new CardArea(Locatable.BANISH_AREA);
-        this.grave = new CardArea(Locatable.GRAVE_AREA);
-        this.extra = new CardArea(Locatable.EXTRA_DECK_AREA);
-        this.monsterFields = createCardFields(5, Locatable.MONSTER_AREA);
-        this.magicTrapFields = createCardFields(5, Locatable.MAGIC_TRAP_AREA);
-        this.extraFields = createCardFields(2, Locatable.EXTRA_AREA);
-        this.fieldMagicField = new CardField(Locatable.FIELD_MAGIC_AREA);
+        this.banish = new CardArea(BANISH_AREA, 0);
+        this.grave = new CardArea(GRAVE_AREA, 1);
+        this.extra = new CardArea(EXTRA_DECK_AREA, 2);
+        this.monsterFields = createCardFields(5, MONSTER_AREA, 3);
+        this.magicTrapFields = createCardFields(5, MAGIC_TRAP_AREA, 8);
+        this.extraFields = createCardFields(2, EXTRA_AREA, 10);
+        this.fieldMagicField = new CardArea(FIELD_MAGIC_AREA, 11);
     }
 
     public DuelArena() {
         this(new HashSet<>());
     }
 
-    private List<CardField> createCardFields(int count, int area) {
+    private List<CardArea> createCardFields(int count, int area, int positionStart) {
         return Collections.unmodifiableList(
-                IntStream.range(0, count).mapToObj(i -> new CardField(area))
+                IntStream.range(0, count).mapToObj(i -> new CardArea(area, positionStart + i))
                         .collect(Collectors.toList())
         );
     }
@@ -76,40 +82,40 @@ public class DuelArena {
         return banish;
     }
 
-    public List<CardField> getMonsterFields() {
+    public List<CardArea> getMonsterFields() {
         return monsterFields;
     }
 
-    public CardField getMonsterFields(int n) {
+    public CardArea getMonsterFields(int n) {
         if (n < 1 || n > 5) {
             throw new RuntimeException("Card field index out of bound");
         }
         return monsterFields.get(n - 1);
     }
 
-    public List<CardField> getMagicTrapFields() {
+    public List<CardArea> getMagicTrapFields() {
         return magicTrapFields;
     }
 
-    public CardField getMagicTrapFields(int n) {
+    public CardArea getMagicTrapFields(int n) {
         if (n < 1 || n > 5) {
             throw new RuntimeException("Card field index out of bound");
         }
         return magicTrapFields.get(n - 1);
     }
 
-    public List<CardField> getExtraFields() {
+    public List<CardArea> getExtraFields() {
         return extraFields;
     }
 
-    public CardField getExtraFields(int n) {
+    public CardArea getExtraFields(int n) {
         if (n < 1 || n > 5) {
             throw new RuntimeException("Card field index out of bound");
         }
         return extraFields.get(n - 1);
     }
 
-    public CardField getFieldMagicField() {
+    public CardArea getFieldMagicField() {
         return fieldMagicField;
     }
 

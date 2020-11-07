@@ -24,7 +24,7 @@ import com.github.freeygo.engine.event.EventSystem;
  */
 public class DuelContext {
 
-    private GameTurn gameTurn;
+    private FlowController flowController;
     private final EventSystem eventSystem;
     private final Phrase[] phrases;
     private final ActionReader<Object> actionReader;
@@ -32,8 +32,8 @@ public class DuelContext {
     private Duel duel;
     private GameEventAction gameEventAction;
 
-    public DuelContext(GameTurn gameTurn, Duel duel, EventSystem eventSystem, Phrase[] phrases, UserDirectiveReader reader) {
-        this.gameTurn = gameTurn;
+    public DuelContext(FlowController flowController, Duel duel, EventSystem eventSystem, Phrase[] phrases, UserDirectiveReader reader) {
+        this.flowController = flowController;
         this.duel = duel;
         this.eventSystem = eventSystem;
         this.phrases = phrases;
@@ -49,12 +49,12 @@ public class DuelContext {
         this.duel = duel;
     }
 
-    public GameTurn getGameTurn() {
-        return gameTurn;
+    public FlowController getFlowController() {
+        return flowController;
     }
 
-    public void setGameTurn(GameTurn gameTurn) {
-        this.gameTurn = gameTurn;
+    public void setGameTurn(FlowController flowController) {
+        this.flowController = flowController;
     }
 
     public EventSystem getEventSystem() {

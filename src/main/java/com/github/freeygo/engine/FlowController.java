@@ -22,12 +22,14 @@ import java.util.Objects;
 /**
  * @author Zhi yong Dai
  */
-public class GameTurn {
+public class FlowController {
 
     private final Player[] players;
     private int currentTurn;
+    private Phrase phrase;
 
-    public GameTurn(Player[] players) {
+
+    public FlowController(Player[] players) {
         Objects.requireNonNull(players);
         if (players.length != 2) throw new RuntimeException("人数少于2人");
         if (players[0] == players[1]) throw new RuntimeException("同一个人作为两个玩家");
@@ -44,8 +46,11 @@ public class GameTurn {
         return players[(this.currentTurn - 1) % players.length];
     }
 
-    public Player getOpponent() {
-        return players[this.currentTurn % players.length];
+    public Player getNextPlayer(Player player) {
+        if (getTurnNum(player) < 0) {
+            return null;
+        }
+        return players[(getTurnNum(player) + 1) % players.length];
     }
 
     public int getCurrentTurn() {
@@ -54,5 +59,19 @@ public class GameTurn {
 
     public Player[] getPlayers() {
         return Arrays.copyOf(players, players.length);
+    }
+
+    public void setPhrase(Phrase phrase) {
+        if (phrase == null) return;
+        this.phrase = phrase;
+    }
+
+    private int getTurnNum(Player player) {
+        for (int i = 0; i < players.length; i++) {
+            if (players[i] == player) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

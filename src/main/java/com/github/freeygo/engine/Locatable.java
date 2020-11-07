@@ -21,15 +21,6 @@ package com.github.freeygo.engine;
  */
 public interface Locatable {
 
-    int DECK_AREA = 1;
-    int HAND_AREA = 2;
-    int MONSTER_AREA = 3;
-    int MAGIC_TRAP_AREA = 4;
-    int GRAVE_AREA = 5;
-    int BANISH_AREA = 6;
-    int EXTRA_DECK_AREA = 7;
-    int EXTRA_AREA = 8;
-    int FIELD_MAGIC_AREA = 9;
 
     int getArea();
 

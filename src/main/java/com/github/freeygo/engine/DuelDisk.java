@@ -24,12 +24,15 @@ import java.util.List;
  */
 public class DuelDisk {
 
+    public static final int HAND = 1;
+    public static final int DECK = 2;
+
     private final CardArea hand;
     private final CardArea deck;
 
     public DuelDisk(List<Card> cards) {
-        this.hand = new CardArea(Locatable.HAND_AREA);
-        this.deck = new CardArea(Locatable.DECK_AREA, cards);
+        this.hand = new CardArea(HAND, 0);
+        this.deck = new CardArea(DECK, 0, cards);
     }
 
     public boolean draw(int n) throws CardNotPresentException {

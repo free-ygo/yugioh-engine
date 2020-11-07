@@ -38,7 +38,7 @@ public class NormalSummonAction implements Action<Boolean> {
     public Boolean action(DuelContext context) {
         player.getHand().remove(card);
         int index = player.getUserDirectiveReader().selectIdleMonsterField();
-        player.getDuelArena().getMonsterFields(index).setCard(card);
+        player.getDuelArena().getMonsterFields(index).add(card);
         return null;
     }
 }

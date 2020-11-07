@@ -16,9 +16,7 @@
 
 package com.github.freeygo.engine.cmd;
 
-import com.github.freeygo.engine.Card;
-import com.github.freeygo.engine.DuelContext;
-import com.github.freeygo.engine.Player;
+import com.github.freeygo.engine.*;
 import com.github.freeygo.engine.event.CardSummonEvent;
 import com.github.freeygo.engine.event.DrawCardEvent;
 
@@ -52,7 +50,7 @@ public class GameEventAction {
      *
      * @param card 需要通常召唤的卡片
      */
-    public void normalSummon(Card card) {
+    public void summon(Player player, Card card, int summonType, int area, int position) {
         ActionController<Boolean> action =
                 new ActionController<>(new NormalSummonAction(getPlayer(),
                         card));
@@ -64,7 +62,15 @@ public class GameEventAction {
                 });
     }
 
+    public void activeEffect(Player controller, Effect effect) {
+
+    }
+
+    public void finishPhrase(Phrase phrase) {
+
+    }
+
     private Player getPlayer() {
-        return context.getGameTurn().getTurnPlayer();
+        return context.getFlowController().getTurnPlayer();
     }
 }

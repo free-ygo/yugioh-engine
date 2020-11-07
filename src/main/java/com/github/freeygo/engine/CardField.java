@@ -21,13 +21,12 @@ package com.github.freeygo.engine;
  *
  * @author Zhi yong Dai
  */
-public class CardField extends CardAreaStatus implements Locatable {
+public class CardField implements Locatable {
 
     private Card card;
     private boolean available;
 
     public CardField(int area) {
-        super(area);
     }
 
 
