@@ -17,15 +17,24 @@
 package com.github.freeygo.engine.cmd.flow;
 
 import com.github.freeygo.engine.DuelContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Zhiyong Dai
  */
 public class FightFlowAction implements FlowAction<Void> {
 
+    private static final Logger logger = LoggerFactory.getLogger(FightFlowAction.class);
 
     @Override
     public Void action(DuelContext context) {
+        logger.debug("Fight phrase start, round: {}, player: {}",
+                context.getRoundDial().getCurrentRound(),
+                context.getRoundDial().getRoundPlayer().getName());
+
+        logger.debug("Fight phrase end, round: {}",
+                context.getRoundDial().getCurrentRound());
         return null;
     }
 }
