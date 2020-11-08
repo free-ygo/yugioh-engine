@@ -14,18 +14,36 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine;
+package com.github.freeygo.engine.expr;
 
 /**
- * @author Zhi yong Dai
+ * 效果对象描述符。用于选取效果对象的。
+ *
+ * @author Zhiyong Dai
  */
-public class PlayerCommand {
+public class PropertyDescriptor {
 
-    public boolean isFinishTurn() {
-        return false;
+    private String name;
+    private Object value;
+
+    public PropertyDescriptor(String name, Object value) {
+        this.name = name;
+        this.value = value;
     }
 
-    public boolean isActiveEffect() {
-        return false;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
     }
 }

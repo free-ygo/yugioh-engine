@@ -16,8 +16,11 @@
 
 package com.github.freeygo.engine;
 
+import com.github.freeygo.engine.expr.PropertyDescriptor;
+
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author Zhi yong Dai
@@ -30,6 +33,11 @@ public class Effect {
     private Player controller;
     private int status;
     private boolean canApply;
+
+    private int targetType;
+    private int targetCount;
+    private Predicate<PropertyDescriptor> targetMatcher;
+
 
     public Effect(Card source, DuelContext duelContext) {
         this.effectActiveCondition = new EffectActiveCondition();
@@ -98,4 +106,13 @@ public class Effect {
     public void destroy() {
 
     }
+
+    public List<Object> selectTargets() {
+        return null;
+    }
+
+    public boolean isEffectTarget(PropertyDescriptor descriptor) {
+        return targetMatcher.test(descriptor);
+    }
+
 }
