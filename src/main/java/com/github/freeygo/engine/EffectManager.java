@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Zhiyong Dai
@@ -40,6 +41,24 @@ public class EffectManager {
 
     public Map<Card, List<Effect>> getEffects() {
         return new HashMap<>(effects);
+    }
+
+    public List<Effect> getCanApplyEffects() {
+        List<Effect> result = new ArrayList<>();
+        effects.forEach((card, effects) -> result.addAll(
+                effects.stream().filter(Effect::canApply)
+                        .collect(Collectors.toList())
+        ));
+        return result;
+    }
+
+    public List<Effect> getCanActivateEffects() {
+        List<Effect> result = new ArrayList<>();
+        effects.forEach((card, effects) -> result.addAll(
+                effects.stream().filter(Effect::canActivate)
+                        .collect(Collectors.toList()))
+        );
+        return result;
     }
 
     public void registry(Card card) {

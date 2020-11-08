@@ -36,7 +36,7 @@ public class HandleEffectAction implements Action<Void> {
     public Void action(DuelContext context) {
         while (!effects.isEmpty()) {
             Effect e = effects.poll();
-            if (e.isActive()) {
+            if (e.isActivated()) {
                 e.apply();
             } else {
                 throw new RuntimeException("还有未激活的效果");

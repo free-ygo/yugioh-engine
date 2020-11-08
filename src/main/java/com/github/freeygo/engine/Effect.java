@@ -79,7 +79,7 @@ public class Effect {
         return false;
     }
 
-    public boolean isActive() {
+    public boolean isActivated() {
         return false;
     }
 
