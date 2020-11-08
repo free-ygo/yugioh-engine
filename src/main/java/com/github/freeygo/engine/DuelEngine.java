@@ -84,7 +84,7 @@ public class DuelEngine {
                     break;
             }
         });
-        context.getEventSystem().register(EventType.FLOW, (e) -> {
+        context.getEventSystem().register(EventType.FLOW_CHANGE, (e) -> {
             FlowEvent fe = (FlowEvent) e;
             if (fe.getType().equals(FlowEvent.CHANGE)) {
                 context.getFlowController().setCurrentFlow(fe.getNextFlow());

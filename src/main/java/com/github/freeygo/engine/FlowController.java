@@ -16,6 +16,7 @@
 
 package com.github.freeygo.engine;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
@@ -35,30 +36,40 @@ public class FlowController {
 
 
     public FlowController(RoundDial roundDial, List<Flow> flows, DuelContext context) {
+        if (flows == null || flows.isEmpty()) {
+            throw new RuntimeException("Flows cannot be empty");
+        }
+        Objects.requireNonNull(roundDial, "roundDial cannot be null");
+        Objects.requireNonNull(context, "context cannot be null");
         this.roundDial = roundDial;
-        this.flows = flows;
+        this.flows = new ArrayList<>(flows);
         this.context = context;
         this.currentFlow = 0;
     }
 
+    @Deprecated
     public void nextRound() {
         roundDial.nextRound();
     }
 
+    @Deprecated
     public Player getRoundPlayer() {
         return roundDial.getRoundPlayer();
     }
 
+    @Deprecated
     public Player getNextPlayer(Player player) {
         return roundDial.getNextPlayer(player);
     }
 
+    @Deprecated
     public int getCurrentRound() {
         return roundDial.getCurrentRound();
     }
 
+    @Deprecated
     public Player[] getPlayers() {
-        return roundDial.getPlayers();
+        return roundDial.getPlayers().toArray(new Player[0]);
     }
 
     public void enter() {
@@ -73,7 +84,7 @@ public class FlowController {
     }
 
     public Flow getCurrentFlow() {
-        return flows.get(currentFlow % flows.size());
+        return flows.get(currentFlow);
     }
 
     public void setCurrentFlow(Flow flow) {
@@ -87,7 +98,8 @@ public class FlowController {
     }
 
     public Flow next() {
-        return flows.get((currentFlow + 1) % flows.size());
+        currentFlow = (currentFlow + 1) % flows.size();
+        return getCurrentFlow();
     }
 
 

@@ -17,19 +17,11 @@
 package com.github.freeygo.engine.event;
 
 /**
- * 事件类型
- *
  * @author Zhiyong Dai
  */
-public enum EventType {
+public class GameEventParser {
 
-    GAME_START,
-    DRAW_CARD,
-    GAME_OVER,
-    LP_CHANGED,
-    UNKNOWN,
-    FLOW_CHANGE,
-    MESSAGE,
-    CARD,
-    EFFECT,
+    public GameEvent parse(String event) {
+        return null;
+    }
 }

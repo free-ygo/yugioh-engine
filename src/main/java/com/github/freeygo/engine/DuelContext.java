@@ -16,8 +16,8 @@
 
 package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.cmd.GameEventAction;
 import com.github.freeygo.engine.event.EventSystem;
+import com.github.freeygo.engine.event.GameEventParser;
 
 import java.util.List;
 
@@ -26,17 +26,21 @@ import java.util.List;
  */
 public class DuelContext {
 
+    private final RoundDial roundDial;
     private FlowController flowController;
     private final EventSystem eventSystem;
-    private final ActionReader<Object> actionReader;
+    private final GameEventParser gameEventParser;
+    //    private final ActionReader<Object> actionReader;
     private Duel duel;
-    private GameEventAction gameEventAction;
+//    private GameEventAction gameEventAction;
 
-    public DuelContext(RoundDial roundDial, List<Flow> flows, Duel duel, EventSystem eventSystem) {
+    public DuelContext(RoundDial roundDial, List<Flow> flows, Duel duel, EventSystem eventSystem, GameEventParser gameEventParser) {
+        this.roundDial = roundDial;
         this.flowController = new FlowController(roundDial, flows, this);
         this.duel = duel;
         this.eventSystem = eventSystem;
-        this.actionReader = new ActionReader<>();
+        this.gameEventParser = gameEventParser;
+//        this.actionReader = new ActionReader<>();
     }
 
     public Duel getDuel() {
@@ -59,12 +63,21 @@ public class DuelContext {
         return eventSystem;
     }
 
-    public ActionReader<Object> getActionReader() {
-        return actionReader;
+    public RoundDial getRoundDial() {
+        return roundDial;
     }
 
-    public GameEventAction getGameAction() {
-        return gameEventAction;
+    public GameEventParser getGameEventParser() {
+        return gameEventParser;
     }
+
+    //
+//    public ActionReader<Object> getActionReader() {
+//        return actionReader;
+//    }
+//
+//    public GameEventAction getGameAction() {
+//        return gameEventAction;
+//    }
 
 }

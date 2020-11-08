@@ -49,7 +49,7 @@ public class FlowEvent extends GameEvent {
     }
 
     public EventType getEventType() {
-        return EventType.FLOW;
+        return EventType.FLOW_CHANGE;
     }
 
     public Integer getType() {

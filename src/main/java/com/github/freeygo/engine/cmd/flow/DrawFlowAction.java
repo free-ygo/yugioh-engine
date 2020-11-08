@@ -17,24 +17,52 @@
 package com.github.freeygo.engine.cmd.flow;
 
 import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.event.EventType;
+import com.github.freeygo.engine.event.GameEvent;
+import com.github.freeygo.engine.event.GameEventParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Zhiyong Dai
  */
 public class DrawFlowAction implements FlowAction<Void> {
 
+    private static final Logger logger = LoggerFactory.getLogger(DrawFlowAction.class);
 
     public DrawFlowAction() {
     }
 
     @Override
     public Void action(DuelContext context) {
-        System.out.println("抽卡");
+        logger.debug("Draw phrase start, round: {}, player: {}, ",
+                context.getRoundDial().getCurrentRound(),
+                context.getRoundDial().getRoundPlayer()
+        );
+
+        logger.debug("Apply activated effects: ");
+
+        logger.debug("Roundly inquiry players whether activate effects");
+        context.getRoundDial().getPlayers();
+
+        logger.debug("Wait player {} actions",
+                context.getRoundDial().getRoundPlayer().getName());
+
+        GameEventParser gep = context.getGameEventParser();
+        GameEvent ge;
+        do {
+            String cmd = context.getRoundDial().getRoundPlayer()
+                    .getUserDirectiveReader().readLine();
+            ge = gep.parse(cmd);
+            context.getEventSystem().send(ge);
+        } while (ge != null && ge.getEventType() != EventType.FLOW_CHANGE);
 //        ActionController<Boolean> action =
 //                new ActionController<>(new NormalDrawAction(player));
 //        context.getEventSystem()
 //                .send(new DrawCardEvent(player, NORMAL))
 //                .then(() -> action.action(context));
+        logger.debug("Draw phrase end, round: {}",
+                context.getRoundDial().getCurrentRound());
         return null;
     }
 }

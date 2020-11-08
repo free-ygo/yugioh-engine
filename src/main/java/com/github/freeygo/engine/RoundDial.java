@@ -17,6 +17,7 @@
 package com.github.freeygo.engine;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -59,8 +60,8 @@ public class RoundDial {
         return null;
     }
 
-    public Player[] getPlayers() {
-        return Arrays.copyOf(players, players.length);
+    public List<Player> getPlayers() {
+        return Arrays.asList(players);
     }
 
     /**

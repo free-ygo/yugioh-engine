@@ -18,6 +18,7 @@ package com.github.freeygo.engine;
 
 import com.github.freeygo.engine.cmd.flow.*;
 import com.github.freeygo.engine.event.EventSystem;
+import com.github.freeygo.engine.event.GameEventParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,9 @@ public final class DuelContextFactory {
 
             EventSystem es = new EventSystem();
 
-            return new DuelContext(rd, flows, new Duel(), es);
+            GameEventParser gep = new GameEventParser();
+
+            return new DuelContext(rd, flows, new Duel(), es, gep);
         }
         return null;
     }
