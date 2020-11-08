@@ -97,10 +97,7 @@ public class DuelEngine {
     }
 
     public void start() {
-        FlowController fc = context.getFlowController();
-        while (!fc.isEnd()) {
-            fc.enter();
-        }
+        context.getFlowController().enter();
     }
 
 }
