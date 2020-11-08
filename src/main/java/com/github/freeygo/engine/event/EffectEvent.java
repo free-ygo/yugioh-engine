@@ -24,8 +24,7 @@ import com.github.freeygo.engine.Player;
  */
 public class EffectEvent extends GameEvent {
 
-    public static final int ACTIVATING = 0x1;
-    public static final int ACTIVATED = 0x2;
+    public static final int ACTIVATE = 0x1;
     public static final int APPLYING = 0x3;
     public static final int APPLIED = 0x4;
     public static final int NO_EFFECT = 0x5;

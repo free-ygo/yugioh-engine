@@ -54,7 +54,7 @@ public class DuelEngine {
             Effect ef = ee.getEffect();
             Player player = ee.getPlayer();
             switch (ee.getType()) {
-                case EffectEvent.ACTIVATING:
+                case EffectEvent.ACTIVATE:
                     Player startPlayer = player;
                     Player nextPlayer = player;
                     do {
@@ -78,8 +78,6 @@ public class DuelEngine {
                         }
                     }
                     break;
-                case EffectEvent.ACTIVATED:
-                    break;
                 case EffectEvent.APPLYING:
 
                     break;
@@ -101,71 +99,8 @@ public class DuelEngine {
         });
     }
 
-    public void start() {
-        DuelContext duelContext = new DuelContext(null, null, null, null, null);
-        // 开始游戏
-//        while (!isOver) {
-//            context.getGameTurn().nextTurn();
-//            startTurn();
-//        }
+    public DuelContext start() {
+        return new DuelContext(null, null, null, null, null);
     }
 
-//    private void startTurn() {
-//        for (Flow flow : context.getPhrases()) {
-//            startPhrase(flow);
-//        }
-//    }
-
-//    private void startPhrase(Flow flow) {
-//        switch (flow) {
-//            case DRAW:
-//                startDraw();
-//                break;
-//            case PREPARE:
-//                startPrepare();
-//                break;
-//            case MAIN1:
-//                startMain1();
-//                break;
-//            case FIGHT:
-//                startFight();
-//                break;
-//            case MAIN2:
-//                startMain2();
-//                break;
-//            case END:
-//                startEnd();
-//                break;
-//            default:
-//                throw new RuntimeException("Unknown phrase " + flow);
-//        }
-//    }
-
-//    private void startDraw() {
-//        // 发送事件
-////        context.getEventSystem()
-////                .send(new FlowEvent(Phrase.DRAW, phrase, FlowEvent.START))
-////                .then(() -> {
-//////                    context.getGameTurn().getTurnPlayer().
-////                }).then(() -> null);
-//    }
-
-    private void startPrepare() {
-
-    }
-
-    private void startMain1() {
-
-    }
-
-    private void startFight() {
-    }
-
-    private void startMain2() {
-
-    }
-
-    private void startEnd() {
-
-    }
 }
