@@ -17,14 +17,27 @@
 package com.github.freeygo.engine.cmd;
 
 import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.Effect;
+import com.github.freeygo.engine.Player;
 
 /**
  * @author Zhiyong Dai
  */
 public class ApplyEffectAction implements Action<Void> {
+
+    private final Effect effect;
+    private final Player player;
+
+    public ApplyEffectAction(Effect effect, Player player) {
+        this.effect = effect;
+        this.player = player;
+    }
+
     @Override
     public Void action(DuelContext context) {
-//        context.get
+        if (effect.canApply()) {
+            effect.apply();
+        }
         return null;
     }
 }

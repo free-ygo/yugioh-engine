@@ -18,10 +18,7 @@ package com.github.freeygo.engine.cmd;
 
 import com.github.freeygo.engine.DuelContext;
 import com.github.freeygo.engine.Player;
-import com.github.freeygo.engine.event.ExceptionMessageEvent;
 import com.github.freeygo.engine.exception.CardNotEnoughException;
-
-import static com.github.freeygo.engine.event.ExceptionMessageEvent.NORMAL_DRAW_FAILED;
 
 /**
  * @author Zhiyong Dai
@@ -40,9 +37,10 @@ public class NormalDrawAction implements Action<Boolean> {
             player.getHand().add(player.getDeck().pop());
             return true;
         } catch (CardNotEnoughException e) {
-            context.getEventSystem()
-                    .send(new ExceptionMessageEvent(player, NORMAL_DRAW_FAILED));
             e.printStackTrace();
+//            context.getEventSystem()
+//                    .send(new ExceptionMessageEvent(player, NORMAL_DRAW_FAILED));
+//            e.printStackTrace();
         }
         return false;
     }

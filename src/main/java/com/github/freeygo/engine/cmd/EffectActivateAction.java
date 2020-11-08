@@ -23,7 +23,7 @@ import com.github.freeygo.engine.Player;
 /**
  * @author Zhiyong Dai
  */
-public class EffectActivateAction implements Action<Void> {
+public class EffectActivateAction implements Action<Effect> {
     private final Effect effect;
     private final Player player;
 
@@ -33,10 +33,13 @@ public class EffectActivateAction implements Action<Void> {
     }
 
     @Override
-    public Void action(DuelContext context) {
+    public Effect action(DuelContext context) {
         if (effect.canActivate()) {
             effect.activate(player);
+            return effect;
+        } else {
+            // TODO Null Object Pattern
+            return null;
         }
-        return null;
     }
 }
