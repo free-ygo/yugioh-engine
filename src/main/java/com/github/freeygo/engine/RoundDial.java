@@ -92,7 +92,7 @@ public class RoundDial {
         Player[] ps = new Player[players.length];
         System.arraycopy(players, num, ps, 0, players.length - num);
         System.arraycopy(players, 0, ps, players.length - num, num);
-        return new PlayerIterator(players);
+        return new PlayerIterator(ps);
     }
 
     public void roundUntil(Player starter, BiFunction<Player, Player, Player> starterSupplier,

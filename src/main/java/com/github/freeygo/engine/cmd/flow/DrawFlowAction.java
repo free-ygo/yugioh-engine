@@ -25,12 +25,9 @@ import com.github.freeygo.engine.event.GameEventParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static java.util.Comparator.comparingInt;
 
 /**
  * @author Zhiyong Dai
@@ -50,23 +47,20 @@ public class DrawFlowAction implements FlowAction<Void> {
         );
 
         logger.debug("Apply activated effects: ");
-        List<Map.Entry<Player, List<Effect>>> activatedEffects =
-                context.getEffectManager().getCanApplyEffects().stream()
-                        .collect(Collectors.groupingBy(Effect::getController))
-                        .entrySet().stream()
-                        .sorted(comparingInt(e -> e.getKey().getPriority()))
-                        .collect(Collectors.toList());
-        List<Map.Entry<Player, List<Effect>>> list = new ArrayList<>();
-        for (Map.Entry<Player, List<Effect>> e : activatedEffects) {
-
-        }
+        context.getEffectManager().getCanApplyEffects().forEach(Effect::apply);
 
         logger.debug("Roundly inquiry players whether activate effects");
-        context.getEffectManager().getCanActivateEffects();
+        Map<Player, List<Effect>> effects =
+                context.getEffectManager().getCanActivateEffects().stream()
+                        .collect(Collectors.groupingBy(Effect::getController));
+        context.getRoundDial().iterator(context.getRoundDial().getRoundPlayer())
+                .forEachRemaining(e -> {
+                    logger.debug("Can activate: {}", effects.get(e));
+                    e.getUserDirectiveReader().readLine();
+                });
 
         logger.debug("Wait player {} actions",
                 context.getRoundDial().getRoundPlayer().getName());
-
         GameEventParser gep = context.getGameEventParser();
         GameEvent ge;
         do {
