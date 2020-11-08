@@ -17,21 +17,33 @@
 package com.github.freeygo.engine.cmd.flow;
 
 import com.github.freeygo.engine.DuelContext;
-
-import static com.github.freeygo.engine.cmd.flow.CommonUtils.applyEffects;
-import static com.github.freeygo.engine.cmd.flow.CommonUtils.startActions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Zhiyong Dai
  */
 public class Main1FlowAction implements FlowAction<Void> {
 
+    private static final Logger logger = LoggerFactory.getLogger(Main1FlowAction.class);
 
     @Override
     public Void action(DuelContext context) {
+        logger.debug("Main1 phrase start, round: {}, player: {}",
+                context.getRoundDial().getCurrentRound(),
+                context.getRoundDial().getRoundPlayer().getName());
+        logger.debug("Apply activated effects: ");
+
+        logger.debug("Roundly inquiry players whether activate effects");
+        context.getRoundDial().getPlayers();
+
+        logger.debug("Wait player {} actions",
+                context.getRoundDial().getRoundPlayer().getName());
+        logger.debug("Main1 phrase end, round: {}",
+                context.getRoundDial().getCurrentRound());
         // 处理适用卡片的效果
-        applyEffects(context);
-        startActions(context);
+//        applyEffects(context);
+//        startActions(context);
         // 等待回合玩家优先行动
         return null;
     }

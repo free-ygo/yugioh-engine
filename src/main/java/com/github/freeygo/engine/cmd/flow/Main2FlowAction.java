@@ -17,13 +17,30 @@
 package com.github.freeygo.engine.cmd.flow;
 
 import com.github.freeygo.engine.DuelContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Zhiyong Dai
  */
 public class Main2FlowAction implements FlowAction<Void> {
+
+    private static final Logger logger = LoggerFactory.getLogger(Main2FlowAction.class);
+
     @Override
     public Void action(DuelContext context) {
+        logger.debug("Main2 phrase start, round: {}, player: {}",
+                context.getRoundDial().getCurrentRound(),
+                context.getRoundDial().getRoundPlayer().getName());
+        logger.debug("Apply activated effects: ");
+
+        logger.debug("Roundly inquiry players whether activate effects");
+        context.getRoundDial().getPlayers();
+
+        logger.debug("Wait player {} actions",
+                context.getRoundDial().getRoundPlayer().getName());
+        logger.debug("Main2 phrase end, round: {}",
+                context.getRoundDial().getCurrentRound());
         return null;
     }
 }

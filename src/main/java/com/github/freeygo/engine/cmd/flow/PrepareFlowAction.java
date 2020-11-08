@@ -17,33 +17,46 @@
 package com.github.freeygo.engine.cmd.flow;
 
 import com.github.freeygo.engine.DuelContext;
-import com.github.freeygo.engine.Effect;
-import com.github.freeygo.engine.FlowController;
-import com.github.freeygo.engine.Player;
-
-import java.util.LinkedList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Zhiyong Dai
  */
 public class PrepareFlowAction implements FlowAction<Void> {
+
+    private static final Logger logger = LoggerFactory.getLogger(PrepareFlowAction.class);
+
     @Override
     public Void action(DuelContext context) {
+        logger.debug("Prepare phrase start, round: {}, player: {}",
+                context.getRoundDial().getCurrentRound(),
+                context.getRoundDial().getRoundPlayer().getName());
+        logger.debug("Apply activated effects: ");
+
+        logger.debug("Roundly inquiry players whether activate effects");
+        context.getRoundDial().getPlayers();
+
+        logger.debug("Wait player {} actions",
+                context.getRoundDial().getRoundPlayer().getName());
+        logger.debug("Prepare phrase end, round: {}",
+                context.getRoundDial().getCurrentRound());
+
         // 检查是否需要处理适用的效果
         // 检查是否有可以发动的效果，若有从回合玩家开始发动，若
         // 放弃了发卡优先权，进入下一阶段，否则依次处理发动的卡
-        LinkedList<Effect> effects = new LinkedList<>();
-        Player turnPlayer = context.getFlowController().getRoundPlayer();
-        FlowController fc = context.getFlowController();
-        context.getFlowController()
-                .roundUntil(turnPlayer, (sp, np) -> {
-                    if (np.hasActiveEffects()) {
-                        return np;
-                    }
-                    return sp;
-                }, (np) -> true, (p) -> {
-                    p.getUserDirectiveReader().readDirective();
-                });
+//        LinkedList<Effect> effects = new LinkedList<>();
+//        Player turnPlayer = context.getFlowController().getRoundPlayer();
+//        FlowController fc = context.getFlowController();
+//        context.getFlowController()
+//                .roundUntil(turnPlayer, (sp, np) -> {
+//                    if (np.hasActiveEffects()) {
+//                        return np;
+//                    }
+//                    return sp;
+//                }, (np) -> true, (p) -> {
+//                    p.getUserDirectiveReader().readDirective();
+//                });
         return null;
     }
 }

@@ -32,7 +32,13 @@ public class FightFlowAction implements FlowAction<Void> {
         logger.debug("Fight phrase start, round: {}, player: {}",
                 context.getRoundDial().getCurrentRound(),
                 context.getRoundDial().getRoundPlayer().getName());
+        logger.debug("Apply activated effects: ");
 
+        logger.debug("Roundly inquiry players whether activate effects");
+        context.getRoundDial().getPlayers();
+
+        logger.debug("Wait player {} actions",
+                context.getRoundDial().getRoundPlayer().getName());
         logger.debug("Fight phrase end, round: {}",
                 context.getRoundDial().getCurrentRound());
         return null;
