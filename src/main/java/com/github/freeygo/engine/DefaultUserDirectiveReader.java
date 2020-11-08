@@ -14,27 +14,46 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.cmd.flow;
+package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.DuelContext;
+import com.github.freeygo.engine.cmd.Action;
 
 /**
  * @author Zhiyong Dai
  */
-public class DrawFlowAction implements FlowAction<Void> {
-
-
-    public DrawFlowAction() {
+public class DefaultUserDirectiveReader implements UserDirectiveReader {
+    @Override
+    public int selectIdleMonsterField() {
+        return 0;
     }
 
     @Override
-    public Void action(DuelContext context) {
-        System.out.println("抽卡");
-//        ActionController<Boolean> action =
-//                new ActionController<>(new NormalDrawAction(player));
-//        context.getEventSystem()
-//                .send(new DrawCardEvent(player, NORMAL))
-//                .then(() -> action.action(context));
+    public <R> Action<R> selectDirectives() {
+        return null;
+    }
+
+    @Override
+    public int selectField() {
+        return 0;
+    }
+
+    @Override
+    public Effect notifyActivateEffect() {
+        return null;
+    }
+
+    @Override
+    public int notifyMessage(String message) {
+        return 0;
+    }
+
+    @Override
+    public int readDirective() {
+        return 0;
+    }
+
+    @Override
+    public String readLine() {
         return null;
     }
 }

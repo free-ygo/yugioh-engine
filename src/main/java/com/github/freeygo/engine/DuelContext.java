@@ -19,6 +19,8 @@ package com.github.freeygo.engine;
 import com.github.freeygo.engine.cmd.GameEventAction;
 import com.github.freeygo.engine.event.EventSystem;
 
+import java.util.List;
+
 /**
  * @author Zhiyong Dai
  */
@@ -26,19 +28,15 @@ public class DuelContext {
 
     private FlowController flowController;
     private final EventSystem eventSystem;
-    private final Flow[] flows;
     private final ActionReader<Object> actionReader;
-    private final UserDirectiveReader reader;
     private Duel duel;
     private GameEventAction gameEventAction;
 
-    public DuelContext(FlowController flowController, Duel duel, EventSystem eventSystem, Flow[] flows, UserDirectiveReader reader) {
-        this.flowController = flowController;
+    public DuelContext(RoundDial roundDial, List<Flow> flows, Duel duel, EventSystem eventSystem) {
+        this.flowController = new FlowController(roundDial, flows, this);
         this.duel = duel;
         this.eventSystem = eventSystem;
-        this.flows = flows;
         this.actionReader = new ActionReader<>();
-        this.reader = reader;
     }
 
     public Duel getDuel() {
@@ -61,16 +59,8 @@ public class DuelContext {
         return eventSystem;
     }
 
-    public Flow[] getPhrases() {
-        return flows;
-    }
-
     public ActionReader<Object> getActionReader() {
         return actionReader;
-    }
-
-    public UserDirectiveReader getReader() {
-        return reader;
     }
 
     public GameEventAction getGameAction() {

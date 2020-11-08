@@ -14,27 +14,18 @@
  * limitations under the License.
  */
 
-package com.github.freeygo.engine.cmd.flow;
+package com.github.freeygo.engine;
 
-import com.github.freeygo.engine.DuelContext;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Zhiyong Dai
  */
-public class DrawFlowAction implements FlowAction<Void> {
+class DuelEngineTest {
 
-
-    public DrawFlowAction() {
-    }
-
-    @Override
-    public Void action(DuelContext context) {
-        System.out.println("抽卡");
-//        ActionController<Boolean> action =
-//                new ActionController<>(new NormalDrawAction(player));
-//        context.getEventSystem()
-//                .send(new DrawCardEvent(player, NORMAL))
-//                .then(() -> action.action(context));
-        return null;
+    @Test
+    void start() {
+        DuelEngine de = new DuelEngine(DuelContextFactory.create(null));
+        de.start();
     }
 }

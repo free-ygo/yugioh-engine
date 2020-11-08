@@ -36,4 +36,6 @@ public interface UserDirectiveReader {
     int notifyMessage(String message);
 
     int readDirective();
+
+    String readLine();
 }
