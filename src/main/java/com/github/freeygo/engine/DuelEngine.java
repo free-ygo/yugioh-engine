@@ -31,10 +31,7 @@ import java.util.LinkedList;
  */
 public class DuelEngine {
 
-
     private final DuelContext context;
-    private boolean isOver;
-
 
     public DuelEngine(DuelContext context) {
         this.context = context;
