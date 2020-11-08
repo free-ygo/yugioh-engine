@@ -18,16 +18,24 @@ package com.github.freeygo.engine;
 
 import com.github.freeygo.engine.cmd.flow.FlowAction;
 
+import java.util.Objects;
+
 /**
  * @author Zhiyong Dai
  */
-public final class Flow {
+public class Flow implements Comparable<Flow> {
 
     private int order; // 流程顺序
     private int flag; // 流程标志
     private String name; // 流程名字
     private FlowAction flowAction;
 
+    public Flow(int order, int flag, String name, FlowAction flowAction) {
+        this.order = order;
+        this.flag = flag;
+        this.name = name;
+        this.flowAction = flowAction;
+    }
 
     public int getOrder() {
         return order;
@@ -59,5 +67,24 @@ public final class Flow {
 
     public void setFlowAction(FlowAction flowAction) {
         this.flowAction = flowAction;
+    }
+
+    @Override
+    public int compareTo(Flow o) {
+        return Integer.compare(order, o.order);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Flow)) return false;
+        Flow flow = (Flow) o;
+        return order == flow.order &&
+                flag == flow.flag;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(order, flag);
     }
 }

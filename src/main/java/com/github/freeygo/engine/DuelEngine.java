@@ -91,16 +91,19 @@ public class DuelEngine {
             FlowEvent fe = (FlowEvent) e;
             if (fe.getType().equals(FlowEvent.CHANGE)) {
                 context.getFlowController().setCurrentFlow(fe.getNextFlow());
-                context.getFlowController().startFlow(fe.getNextFlow());
-                int d = context.getFlowController().getTurnPlayer()
+                context.getFlowController().enter(fe.getNextFlow());
+                int d = context.getFlowController().getRoundPlayer()
                         .getUserDirectiveReader().readDirective();
                 // TODO 处理用户指令
             }
         });
     }
 
-    public DuelContext start() {
-        return new DuelContext(null, null, null, null, null);
+    public void start() {
+        FlowController fc = context.getFlowController();
+        while (!fc.isEnd()) {
+            fc.enter();
+        }
     }
 
 }

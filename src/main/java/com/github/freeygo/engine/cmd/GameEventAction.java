@@ -71,6 +71,6 @@ public class GameEventAction {
     }
 
     private Player getPlayer() {
-        return context.getFlowController().getTurnPlayer();
+        return context.getFlowController().getRoundPlayer();
     }
 }

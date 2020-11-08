@@ -33,7 +33,7 @@ public class PrepareFlowAction implements FlowAction<Void> {
         // 检查是否有可以发动的效果，若有从回合玩家开始发动，若
         // 放弃了发卡优先权，进入下一阶段，否则依次处理发动的卡
         LinkedList<Effect> effects = new LinkedList<>();
-        Player turnPlayer = context.getFlowController().getTurnPlayer();
+        Player turnPlayer = context.getFlowController().getRoundPlayer();
         FlowController fc = context.getFlowController();
         context.getFlowController()
                 .roundUntil(turnPlayer, (sp, np) -> {
