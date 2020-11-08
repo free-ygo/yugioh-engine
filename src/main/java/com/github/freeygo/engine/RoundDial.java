@@ -17,6 +17,7 @@
 package com.github.freeygo.engine;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
@@ -83,6 +84,17 @@ public class RoundDial {
         }
     }
 
+    public Iterator<Player> iterator(Player player) {
+        int num = getTurnNum(player);
+        if (num < 0) {
+            throw new RuntimeException("Player does not exists");
+        }
+        Player[] ps = new Player[players.length];
+        System.arraycopy(players, num, ps, 0, players.length - num);
+        System.arraycopy(players, 0, ps, players.length - num, num);
+        return new PlayerIterator(players);
+    }
+
     public void roundUntil(Player starter, BiFunction<Player, Player, Player> starterSupplier,
                            Predicate<Player> stopCondition, Consumer<Player> action) {
         int turnNum = getTurnNum(starter);
@@ -110,5 +122,26 @@ public class RoundDial {
             }
         }
         return -1;
+    }
+
+    private class PlayerIterator implements Iterator<Player> {
+
+        private final Player[] players;
+        private int current;
+
+        public PlayerIterator(Player[] players) {
+            this.players = players;
+            this.current = -1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current + 1 < players.length;
+        }
+
+        @Override
+        public Player next() {
+            return players[++current];
+        }
     }
 }
