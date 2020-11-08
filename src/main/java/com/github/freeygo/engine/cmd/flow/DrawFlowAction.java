@@ -37,7 +37,7 @@ public class DrawFlowAction implements FlowAction<Void> {
     public Void action(DuelContext context) {
         logger.debug("Draw phrase start, round: {}, player: {}, ",
                 context.getRoundDial().getCurrentRound(),
-                context.getRoundDial().getRoundPlayer()
+                context.getRoundDial().getRoundPlayer().getName()
         );
 
         logger.debug("Apply activated effects: ");
