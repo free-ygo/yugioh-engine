@@ -17,29 +17,33 @@
 package com.github.freeygo.engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zhiyong Dai
  */
 public class EffectManager {
-    private final DuelContext duelContext;
-    private final List<Effect> appliedEffects;
+    private final Map<Card, List<Effect>> effects;
 
-    public EffectManager(DuelContext duelContext) {
-        this.duelContext = duelContext;
-        this.appliedEffects = new ArrayList<>();
+    public EffectManager() {
+        this.effects = new HashMap<>();
     }
 
     public void active(Player player, Effect effect) {
-        if (effect.canActivate()) {
-            effect.activate(player);
-            appliedEffects.add(effect);
-        }
+//        if (effect.canActivate()) {
+//            effect.activate(player);
+//
+//        }
     }
 
-    public List<Effect> getAppliedEffects() {
-        return null;
+    public Map<Card, List<Effect>> getEffects() {
+        return new HashMap<>(effects);
+    }
+
+    public void registry(Card card) {
+        effects.put(card, new ArrayList<>(card.getEffects()));
     }
 
 

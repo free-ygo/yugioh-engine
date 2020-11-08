@@ -30,17 +30,20 @@ public class DuelContext {
     private FlowController flowController;
     private final EventSystem eventSystem;
     private final GameEventParser gameEventParser;
-    //    private final ActionReader<Object> actionReader;
     private Duel duel;
-//    private GameEventAction gameEventAction;
+    private final EffectManager effectManager;
 
-    public DuelContext(RoundDial roundDial, List<Flow> flows, Duel duel, EventSystem eventSystem, GameEventParser gameEventParser) {
+    public DuelContext(RoundDial roundDial, List<Flow> flows, Duel duel, EventSystem eventSystem, GameEventParser gameEventParser, EffectManager effectManager) {
         this.roundDial = roundDial;
         this.flowController = new FlowController(roundDial, flows, this);
         this.duel = duel;
         this.eventSystem = eventSystem;
         this.gameEventParser = gameEventParser;
-//        this.actionReader = new ActionReader<>();
+        this.effectManager = effectManager;
+    }
+
+    public EffectManager getEffectManager() {
+        return effectManager;
     }
 
     public Duel getDuel() {
@@ -70,14 +73,4 @@ public class DuelContext {
     public GameEventParser getGameEventParser() {
         return gameEventParser;
     }
-
-    //
-//    public ActionReader<Object> getActionReader() {
-//        return actionReader;
-//    }
-//
-//    public GameEventAction getGameAction() {
-//        return gameEventAction;
-//    }
-
 }

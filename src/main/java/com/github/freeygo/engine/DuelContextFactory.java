@@ -48,8 +48,9 @@ public final class DuelContextFactory {
             EventSystem es = new EventSystem();
 
             GameEventParser gep = new GameEventParser();
+            EffectManager em = new EffectManager();
 
-            return new DuelContext(rd, flows, new Duel(), es, gep);
+            return new DuelContext(rd, flows, new Duel(), es, gep, em);
         }
         return null;
     }
